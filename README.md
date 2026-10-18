@@ -1,7 +1,10 @@
 # Marquee Manager
 
-Event and wedding hall management: bookings (Barat, Walima, Mehndi), guests, advance and balance, day or night,
-staff and waiters, salaries, expenses, assets, a dashboard and a printable monthly profit report.
+Event and wedding hall management: bookings across Hall 1 to 4 (Barat, Walima, Mehndi), guests, advance and balance, day or night,
+payments received after the advance, extra guests on the event day, staff and waiters, salaries, expenses,
+assets with repair tracking, a dashboard and a printable monthly profit report.
+
+A hall can hold only one booking per date and time (Day or Night). The app refuses a second one and lists the free halls.
 
 The app works in two ways and picks the right one by itself.
 
@@ -40,5 +43,6 @@ and serve it over HTTPS. If the database address contains `sslmode=require`, SSL
 
 ## Add a field
 
-Add one line to the module's `fields` list in `index.html` and a matching column in `schema.sql`.
-For an existing database, also run `ALTER TABLE <table> ADD COLUMN <name> TEXT;`.
+Add one line to the module's `fields` list in `index.html` and an
+`ALTER TABLE <table> ADD COLUMN IF NOT EXISTS <name> TEXT;` line in `schema.sql`.
+The server runs `schema.sql` on every start, so existing databases are upgraded on the next deploy.

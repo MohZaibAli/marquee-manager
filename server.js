@@ -24,7 +24,7 @@ const setCookie = (req, res, value, maxAge) => res.append('Set-Cookie',
   `${COOKIE}=${value}; Path=/; HttpOnly; SameSite=Strict; Max-Age=${maxAge}${req.secure ? '; Secure' : ''}`);
 
 const pool = new Pool({ connectionString: DATABASE_URL, ssl: /sslmode=require/.test(DATABASE_URL) ? { rejectUnauthorized: false } : undefined });
-const TABLES = ['bookings', 'staff', 'salaries', 'expenses', 'assets'];
+const TABLES = ['bookings', 'payments', 'staff', 'salaries', 'expenses', 'assets'];
 const app = express();
 app.set('trust proxy', 1); // so req.secure is right behind a hosting provider's HTTPS proxy
 app.use(express.json({ limit: '5mb' }));
@@ -63,18 +63,38 @@ const clean = (t, body) => Object.entries(body || {}).filter(([k]) => columns[t]
 const table = (req, res, next) => TABLES.includes(req.params.t) ? cols(req.params.t).then(() => next(), next) : res.status(404).json({ error: 'Unknown table' });
 const wrap = fn => (req, res, next) => fn(req, res).catch(next);
 
+// One hall can hold one event per date and time (Day / Night). Returns the clashing booking, if any.
+async function clash(b, id) {
+  if (!b.hall || !b.date) return null;
+  const r = await pool.query(
+    'SELECT title FROM bookings WHERE hall=$1 AND date=$2 AND shift IS NOT DISTINCT FROM $3 AND id<>$4 LIMIT 1',
+    [b.hall, b.date, b.shift || null, id || 0]);
+  return r.rows[0] || null;
+}
+const clashError = (b, c) => `${b.hall} is already booked on ${b.date}${b.shift ? ' (' + b.shift + ')' : ''} for "${c.title}".`;
+
 app.get('/api/:t', table, wrap(async (req, res) => {
   res.json((await pool.query(`SELECT * FROM ${req.params.t} ORDER BY id`)).rows.map(out));
 }));
 app.post('/api/:t', table, wrap(async (req, res) => {
   const kv = clean(req.params.t, req.body);
   if (!kv.length) return res.status(400).json({ error: 'Nothing to save' });
+  if (req.params.t === 'bookings') {
+    const b = Object.fromEntries(kv), c = await clash(b);
+    if (c) return res.status(409).json({ error: clashError(b, c) });
+  }
   const sql = `INSERT INTO ${req.params.t} (${kv.map(x => x[0]).join(',')}) VALUES (${kv.map((_, i) => '$' + (i + 1)).join(',')}) RETURNING *`;
   res.json(out((await pool.query(sql, kv.map(x => x[1]))).rows[0]));
 }));
 app.put('/api/:t/:id', table, wrap(async (req, res) => {
   const kv = clean(req.params.t, req.body);
   if (!kv.length) return res.status(400).json({ error: 'Nothing to save' });
+  if (req.params.t === 'bookings') {
+    const old = (await pool.query('SELECT * FROM bookings WHERE id=$1', [req.params.id])).rows[0];
+    if (!old) return res.status(404).json({ error: 'Not found' });
+    const b = { ...out(old), ...Object.fromEntries(kv) }, c = await clash(b, req.params.id);
+    if (c) return res.status(409).json({ error: clashError(b, c) });
+  }
   const sql = `UPDATE ${req.params.t} SET ${kv.map((x, i) => `${x[0]}=$${i + 1}`).join(',')} WHERE id=$${kv.length + 1} RETURNING *`;
   const r = await pool.query(sql, [...kv.map(x => x[1]), req.params.id]);
   r.rows[0] ? res.json(out(r.rows[0])) : res.status(404).json({ error: 'Not found' });
