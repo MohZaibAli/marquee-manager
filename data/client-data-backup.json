@@ -1,0 +1,3895 @@
+{
+ "bookings": [
+  {
+   "title": "Waseem - Walima",
+   "customer": "Waseem",
+   "phone": "03030044732",
+   "type": "Walima",
+   "date": "2026-05-31",
+   "shift": "Night",
+   "guests": "150",
+   "per_head": "300",
+   "total": "50000",
+   "advance": "50000",
+   "notes": "Time: 06 PM TO 9:30. Extra charges: 5000"
+  },
+  {
+   "title": "Zahid Hameed A/C - Barat",
+   "customer": "Zahid Hameed A/C",
+   "phone": "03314817707",
+   "type": "Barat",
+   "date": "2026-06-05",
+   "shift": "Night",
+   "guests": "60",
+   "per_head": "450",
+   "total": "27000",
+   "advance": "27000",
+   "notes": "Booked on 2026-05-25. Time: 06 pm to 09 pm"
+  },
+  {
+   "title": "Shoukat Shab - Barat",
+   "customer": "Shoukat Shab",
+   "phone": "03334247490",
+   "type": "Barat",
+   "date": "2026-06-07",
+   "shift": "Night",
+   "guests": "200",
+   "per_head": "250",
+   "total": "50000",
+   "advance": "50000",
+   "notes": "Booked on 2026-05-18. Time: 06 pm to 9;30 pm"
+  },
+  {
+   "title": "Javeed Ahmed - Walima",
+   "customer": "Javeed Ahmed",
+   "phone": "03074918431",
+   "type": "Walima",
+   "date": "2026-06-08",
+   "shift": "Day",
+   "guests": "150",
+   "per_head": "200",
+   "total": "30000",
+   "advance": "25000",
+   "notes": "Booked on 2026-05-28. Time: 01 pm to 04 pm"
+  },
+  {
+   "title": "Mushtaq Ahmed - Barat",
+   "customer": "Mushtaq Ahmed",
+   "phone": "03052364276",
+   "type": "Barat",
+   "date": "2026-06-09",
+   "shift": "Night",
+   "guests": "150",
+   "per_head": "293.4",
+   "total": "44000",
+   "advance": "44010",
+   "notes": "Booked on 2026-05-22. Time: 06pm to 09pm"
+  },
+  {
+   "title": "Abdul Rehman - Walima",
+   "customer": "Abdul Rehman",
+   "phone": "03164007254",
+   "type": "Walima",
+   "date": "2026-06-10",
+   "shift": "Night",
+   "guests": "300",
+   "per_head": "220",
+   "total": "70000",
+   "advance": "70000",
+   "notes": "Booked on 2026-05-22. Time: 06pm to 09pm. Extra charges: 4000"
+  },
+  {
+   "title": "Ajmal - Barat",
+   "customer": "Ajmal",
+   "phone": "03054556511",
+   "type": "Barat",
+   "date": "2026-06-11",
+   "shift": "Day",
+   "guests": "400",
+   "per_head": "225",
+   "total": "90000",
+   "advance": "90000",
+   "notes": "Booked on 2026-05-22. Time: 01pm to 04pm"
+  },
+  {
+   "title": "Rana Tehmoor - Event",
+   "customer": "Rana Tehmoor",
+   "phone": "03064370773",
+   "type": "Other",
+   "date": "2026-06-28",
+   "shift": "Day",
+   "guests": "200",
+   "per_head": "220",
+   "total": "55000",
+   "advance": "55000",
+   "notes": "Booked on 2026-06-07. Time: 01pm to 04pm. Extra charges: 10000"
+  },
+  {
+   "title": "Mubeen - Barat",
+   "customer": "Mubeen",
+   "phone": "03289965927",
+   "type": "Barat",
+   "date": "2026-06-14",
+   "shift": "Night",
+   "guests": "100",
+   "per_head": "300",
+   "total": "30000",
+   "advance": "25000",
+   "notes": "Booked on 2026-06-10. Time: 06PM TO 09PM"
+  },
+  {
+   "title": "Master M Shareef - Engagement",
+   "customer": "Master M Shareef",
+   "phone": "03041479626",
+   "type": "Engagement",
+   "date": "2026-06-12",
+   "shift": "Night",
+   "guests": "200",
+   "per_head": "250",
+   "total": "55000",
+   "advance": "55000",
+   "notes": "Booked on 2026-06-11. Time: 07pm to 10pm. Extra charges: 5000"
+  },
+  {
+   "title": "Islam Din - Nikah",
+   "customer": "Islam Din",
+   "phone": "03063166325",
+   "type": "Other",
+   "date": "2026-06-15",
+   "shift": "Day",
+   "guests": "60",
+   "per_head": "535",
+   "total": "32000",
+   "advance": "30000",
+   "notes": "Booked on 2026-06-06. Time: 01Pm to 04Pm. Event in sheet: nikah"
+  },
+  {
+   "title": "M Abid - Barat",
+   "customer": "M Abid",
+   "phone": "03088774664",
+   "type": "Barat",
+   "date": "2026-07-04",
+   "shift": "Day",
+   "guests": "152",
+   "per_head": "290",
+   "total": "54080",
+   "advance": "54080",
+   "notes": "Booked on 2026-06-29. Time: 01pm to 04pm"
+  },
+  {
+   "title": "Rana Idrees - Barat",
+   "customer": "Rana Idrees",
+   "phone": "03004970550",
+   "type": "Barat",
+   "date": "2026-07-05",
+   "shift": "Day",
+   "guests": "120",
+   "per_head": "208.4",
+   "total": "35008",
+   "advance": "35008",
+   "notes": "Booked on 2026-07-01. Time: 01pm to 04pm"
+  },
+  {
+   "title": "Naeen Sultan - Mehfil",
+   "customer": "Naeen Sultan",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-07-12",
+   "shift": "Day",
+   "guests": "",
+   "per_head": "",
+   "total": "30000",
+   "advance": "30000",
+   "notes": "Time: 03 pm to 06 pm. Event in sheet: mehfil"
+  },
+  {
+   "title": "Ali Raza - Day",
+   "customer": "Ali Raza",
+   "phone": "03023346315",
+   "type": "Other",
+   "date": "2026-08-08",
+   "shift": "Day",
+   "guests": "200",
+   "per_head": "",
+   "total": "5000",
+   "advance": "5000",
+   "notes": "Booked on 2026-07-12. Time: 01pm to 04pm. Event in sheet: day. Total price was not in the Excel sheet. Please edit."
+  },
+  {
+   "title": "Habib Shah - Event",
+   "customer": "Habib Shah",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-11-21",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "10000",
+   "advance": "10000",
+   "notes": "Booked on 2026-07-15. Time: 07 pm to 10 pm. Total price was not in the Excel sheet. Please edit."
+  },
+  {
+   "title": "Zeshan - Event",
+   "customer": "Zeshan",
+   "phone": "03123333044",
+   "type": "Other",
+   "date": "2026-09-07",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "10000",
+   "advance": "10000",
+   "notes": "Booked on 2026-07-19. Time: 07 pm to 10 pm. Total price was not in the Excel sheet. Please edit."
+  },
+  {
+   "title": "Nawaz Baig - Event",
+   "customer": "Nawaz Baig",
+   "phone": "03364511100",
+   "type": "Other",
+   "date": "2026-11-21",
+   "shift": "Day",
+   "guests": "500",
+   "per_head": "",
+   "total": "5000",
+   "advance": "5000",
+   "notes": "Booked on 2026-07-21. Time: 01pm to 04pm. Total price was not in the Excel sheet. Please edit."
+  },
+  {
+   "title": "Event on 02 Jan 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-01-02",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "10000",
+   "advance": "10000",
+   "notes": "Advance 2000 paid on 2025-12-25 Final payment 8000 on 2026-01-02 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 10 Jan 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-01-10",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "15000",
+   "advance": "15000",
+   "notes": "Advance 5000 paid on 2025-12-25 Final payment 10000 on 2026-01-12 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 24 Jan 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-01-24",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "135000",
+   "advance": "135000",
+   "notes": "Advance 5000 paid on 2025-12-26 Final payment 130000 on 2026-01-24 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 25 Jan 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-01-25",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "122000",
+   "advance": "122000",
+   "notes": "Advance 0 paid on 2025-12-26 Final payment 122000 on 2026-01-25 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 30 Jan 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-01-30",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "155000",
+   "advance": "155000",
+   "notes": "Advance 20000 paid on 2026-01-01 Final payment 135000 on 2026-01-31 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 31 Jan 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-01-31",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "90000",
+   "advance": "90000",
+   "notes": "Advance 20000 paid on 2026-01-01 Final payment 70000 on 2026-01-31 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 04 Feb 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-02-04",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "110000",
+   "advance": "110000",
+   "notes": "Advance 20000 paid on 2026-01-05 Final payment 90000 on 2026-02-04 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 07 Feb 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-02-07",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "90000",
+   "advance": "90000",
+   "notes": "Advance 20000 paid on 2026-01-08 Final payment 70000 on 2026-02-07 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 08 Feb 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-02-08",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "165000",
+   "advance": "165000",
+   "notes": "Advance 20000 paid on 2026-01-08 Final payment 145000 on 2026-02-08 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 05 Apr 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-04-05",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "120000",
+   "advance": "120000",
+   "notes": "Advance 10000 paid on 2026-01-27 Final payment 110000 on 2026-04-13 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 29 Mar 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-03-29",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "80000",
+   "advance": "80000",
+   "notes": "Advance 20000 paid on 2026-01-27 Final payment 60000 on 2026-03-31 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 02 Feb 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-02-02",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "15000",
+   "advance": "15000",
+   "notes": "Advance 5000 paid on 2026-01-27 Final payment 10000 on 2026-02-02 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 14 Feb 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-02-14",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "58000",
+   "advance": "58000",
+   "notes": "Advance 10000 paid on 2026-01-28 Final payment 48000 on 2026-02-15 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 03 Feb 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-02-03",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "40000",
+   "advance": "40000",
+   "notes": "Advance 10000 paid on 2026-02-01 Final payment 30000 on 2026-02-03 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 04 Apr 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-04-04",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "10000",
+   "advance": "10000",
+   "notes": "Advance 10000 paid on 2026-02-01 Customer name was not in the Excel sheet. No final payment in the sheet. Check if this event happened."
+  },
+  {
+   "title": "Event on 22 Mar 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-03-22",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "37000",
+   "advance": "37000",
+   "notes": "Advance 10000 paid on 2026-02-02 Final payment 27000 on 2026-03-25 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 10 Feb 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-02-10",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "50000",
+   "advance": "50000",
+   "notes": "Advance 25000 paid on 2026-02-07 Final payment 25000 on 2026-02-11 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 23 Apr 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-04-23",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "93000",
+   "advance": "93000",
+   "notes": "Advance 20000 paid on 2026-04-18 Final payment 73000 on 2026-04-26 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 31 Mar 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-03-31",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "100000",
+   "advance": "100000",
+   "notes": "Advance 50000 paid on 2026-02-07 Final payment 50000 on 2026-04-03 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 02 Apr 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-04-02",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "55000",
+   "advance": "55000",
+   "notes": "Advance 0 paid on 2026-02-07 Final payment 55000 on 2026-04-03 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 26 Mar 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-03-26",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "45000",
+   "advance": "45000",
+   "notes": "Advance 10000 paid on 2026-02-11 Final payment 35000 on 2026-03-27 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 06 Apr 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-04-06",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "90000",
+   "advance": "90000",
+   "notes": "Advance 15000 paid on 2026-02-14 Final payment 75000 on 2026-04-06 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 01 Apr 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-04-01",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "89000",
+   "advance": "89000",
+   "notes": "Advance 10000 paid on 2026-02-16 Final payment 79000 on 2026-04-02 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 06 Apr 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-04-06",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "85000",
+   "advance": "85000",
+   "notes": "Advance 9000 paid on 2026-02-16 Final payment 76000 on 2026-04-07 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 01 Apr 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-04-01",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "126000",
+   "advance": "126000",
+   "notes": "Advance 20000 paid on 2026-02-20 Final payment 106000 on 2026-04-02 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 06 Apr 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-04-06",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "60000",
+   "advance": "60000",
+   "notes": "Advance 10000 paid on 2026-02-20 Final payment 50000 on 2026-04-07 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 22 Feb 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-02-22",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "15000",
+   "advance": "15000",
+   "notes": "Advance 5000 paid on 2026-02-21 Final payment 10000 on 2026-02-24 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 29 Mar 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-03-29",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "42000",
+   "advance": "42000",
+   "notes": "Advance 5000 paid on 2026-03-08 Final payment 37000 on 2026-03-31 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 29 Mar 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-03-29",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "150000",
+   "advance": "150000",
+   "notes": "Advance 10000 paid on 2026-03-08 Final payment 140000 on 2026-03-31 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 30 Mar 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-03-30",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "67000",
+   "advance": "67000",
+   "notes": "Advance 15000 paid on 2026-03-08 Final payment 52000 on 2026-03-31 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 13 Apr 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-04-13",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "5000",
+   "advance": "5000",
+   "notes": "Advance 5000 paid on 2026-03-08 Customer name was not in the Excel sheet. No final payment in the sheet. Check if this event happened."
+  },
+  {
+   "title": "Event on 13 Apr 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-04-13",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "60000",
+   "advance": "60000",
+   "notes": "Advance 20000 paid on 2026-03-08 Final payment 40000 on 2026-04-13 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 30 Mar 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-03-30",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "75000",
+   "advance": "75000",
+   "notes": "Advance 20000 paid on 2026-03-15 Final payment 55000 on 2026-03-31 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 26 Mar 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-03-26",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "90000",
+   "advance": "90000",
+   "notes": "Advance 10000 paid on 2026-03-15 Final payment 80000 on 2026-03-27 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 06 Mar 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-03-06",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "20000",
+   "advance": "20000",
+   "notes": "Customer name was not in the Excel sheet. Marked NOT CONFIRMED in the sheet."
+  },
+  {
+   "title": "Event on 19 Mar 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-03-19",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "130000",
+   "advance": "130000",
+   "notes": "Advance 0 paid on 2026-03-20 Final payment 130000 on 2026-03-20 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 24 Mar 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-03-24",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "22000",
+   "advance": "22000",
+   "notes": "Advance 5000 paid on 2026-03-20 Final payment 17000 on 2026-04-06 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 11 Apr 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-04-11",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "46000",
+   "advance": "46000",
+   "notes": "Advance 10000 paid on 2026-03-20 Final payment 36000 on 2026-04-11 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 19 Apr 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-04-19",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "100000",
+   "advance": "100000",
+   "notes": "Advance 25000 paid on 2026-03-25 Final payment 75000 on 2026-04-19 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 12 Apr 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-04-12",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "110000",
+   "advance": "110000",
+   "notes": "Advance 50000 paid on 2026-03-25 Final payment 60000 on 2026-04-13 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 11 Apr 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-04-11",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "72000",
+   "advance": "72000",
+   "notes": "Advance 10000 paid on 2026-03-25 Final payment 62000 on 2026-04-11 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 11 Apr 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-04-11",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "60000",
+   "advance": "60000",
+   "notes": "Advance 10000 paid on 2026-03-25 Final payment 50000 on 2026-04-13 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 31 Mar 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-03-31",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "27000",
+   "advance": "27000",
+   "notes": "Advance 5000 paid on 2026-03-25 Final payment 22000 on 2026-04-02 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 22 Mar 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-03-22",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "0",
+   "advance": "0",
+   "notes": "Advance 0 paid on 2026-03-22 Customer name was not in the Excel sheet. No final payment in the sheet. Check if this event happened."
+  },
+  {
+   "title": "Event on 23 Mar 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-03-23",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "60000",
+   "advance": "60000",
+   "notes": "Advance 0 paid on 2026-03-23 Final payment 60000 on 2026-04-01 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 25 Mar 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-03-25",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "30000",
+   "advance": "30000",
+   "notes": "Advance 0 paid on 2026-03-25 Final payment 30000 on 2026-03-25 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 19 Apr 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-04-19",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "62500",
+   "advance": "62500",
+   "notes": "Advance 5000 paid on 2026-03-27 Final payment 57500 on 2026-04-19 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 18 Apr 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-04-18",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "112000",
+   "advance": "112000",
+   "notes": "Advance 20000 paid on 2026-03-31 Final payment 92000 on 2026-04-18 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 03 Jun 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-06-03",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "15000",
+   "advance": "15000",
+   "notes": "Advance 15000 paid on 2026-04-02 Customer name was not in the Excel sheet. No final payment in the sheet. Check if this event happened."
+  },
+  {
+   "title": "Event on 22 May 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-05-22",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "10000",
+   "advance": "10000",
+   "notes": "Advance 10000 paid on 2026-04-02 Customer name was not in the Excel sheet. No final payment in the sheet. Check if this event happened."
+  },
+  {
+   "title": "Event on 28 Apr 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-04-28",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "95000",
+   "advance": "95000",
+   "notes": "Advance 20000 paid on 2026-04-02 Final payment 75000 on 2026-04-28 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 01 Apr 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-04-01",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "30000",
+   "advance": "30000",
+   "notes": "Advance 0 paid on 2026-04-01 Final payment 30000 on 2026-04-02 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 20 Apr 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-04-20",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "113000",
+   "advance": "113000",
+   "notes": "Advance 10000 paid on 2026-04-13 Final payment 103000 on 2026-04-20 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 28 Apr 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-04-28",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "36000",
+   "advance": "36000",
+   "notes": "Advance 5000 paid on 2026-04-18 Final payment 31000 on 2026-04-28 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 20 Apr 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-04-20",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "45000",
+   "advance": "45000",
+   "notes": "Advance 10000 paid on 2026-04-01 Final payment 35000 on 2026-04-20 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 26 Apr 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-04-26",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "12000",
+   "advance": "12000",
+   "notes": "Advance 12000 paid on 2026-04-19 Final payment 0 on 2026-04-26 Customer name was not in the Excel sheet. No final payment in the sheet. Check if this event happened."
+  },
+  {
+   "title": "Event on 10 May 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-05-10",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "10000",
+   "advance": "10000",
+   "notes": "Advance 10000 paid on 2026-04-19 Customer name was not in the Excel sheet. No final payment in the sheet. Check if this event happened."
+  },
+  {
+   "title": "Event on 07 May 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-05-07",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "30000",
+   "advance": "30000",
+   "notes": "Advance 5000 paid on 2026-04-20 Final payment 25000 on 2026-05-09 Customer name was not in the Excel sheet."
+  },
+  {
+   "title": "Event on 30 Apr 2026",
+   "customer": "",
+   "phone": "",
+   "type": "Other",
+   "date": "2026-04-30",
+   "shift": "Night",
+   "guests": "",
+   "per_head": "",
+   "total": "50500",
+   "advance": "50500",
+   "notes": "Advance 5000 paid on 2026-04-20 Final payment 45500 on 2026-05-09 Customer name was not in the Excel sheet."
+  }
+ ],
+ "staff": [],
+ "salaries": [
+  {
+   "staff_name": "Rehana",
+   "date": "2026-01-04",
+   "amount": "10000",
+   "for_month": "2026-01",
+   "method": "Cash",
+   "notes": "Imported from EXP sheet: REHANA SALERY"
+  },
+  {
+   "staff_name": "Maid Rehana",
+   "date": "2026-02-01",
+   "amount": "8000",
+   "for_month": "2026-02",
+   "method": "Cash",
+   "notes": "Imported from EXP sheet: MAID REHANA SALERY"
+  },
+  {
+   "staff_name": "Rameesh",
+   "date": "2026-04-02",
+   "amount": "37000",
+   "for_month": "2026-04",
+   "method": "Cash",
+   "notes": "Imported from EXP sheet: RAMEESH SALERY"
+  },
+  {
+   "staff_name": "Javeed Guard",
+   "date": "2026-04-02",
+   "amount": "25000",
+   "for_month": "2026-04",
+   "method": "Cash",
+   "notes": "Imported from EXP sheet: JAVEED GUARD SALERY"
+  },
+  {
+   "staff_name": "Khuram",
+   "date": "2026-05-11",
+   "amount": "9000",
+   "for_month": "2026-05",
+   "method": "Cash",
+   "notes": "Imported from Expense detail 2026: KHURAM SALRY"
+  },
+  {
+   "staff_name": "Javed",
+   "date": "2026-05-11",
+   "amount": "18000",
+   "for_month": "2026-05",
+   "method": "Cash",
+   "notes": "Imported from Expense detail 2026: JAVED SALRY"
+  }
+ ],
+ "expenses": [
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-01-24",
+   "amount": "15500",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Gas & Water",
+   "description": "Event extras: Lpg Gass",
+   "date": "2026-01-24",
+   "amount": "12000",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-01-25",
+   "amount": "13500",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Food & Supplies",
+   "description": "Event extras: 50Kg Surf",
+   "date": "2026-01-25",
+   "amount": "3500",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-01-30",
+   "amount": "17500",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Food & Supplies",
+   "description": "Event extras: Mask",
+   "date": "2026-01-30",
+   "amount": "2000",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-01-31",
+   "amount": "12500",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Event extras: Rameesh",
+   "date": "2026-01-31",
+   "amount": "5000",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-02-04",
+   "amount": "13000",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-02-07",
+   "amount": "9500",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-02-08",
+   "amount": "17000",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Event extras: Rameesh",
+   "date": "2026-02-08",
+   "amount": "8000",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-04-05",
+   "amount": "13000",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Event extras (written in diary)",
+   "date": "2026-04-05",
+   "amount": "94500",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-03-29",
+   "amount": "9600",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Food & Supplies",
+   "description": "Event extras: Diesel(2000)Kapra Selai(1000)Kabab(350)",
+   "date": "2026-03-29",
+   "amount": "3350",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-02-02",
+   "amount": "2000",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-02-14",
+   "amount": "8000",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-02-03",
+   "amount": "5000",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Food & Supplies",
+   "description": "Event extras: Phynile & Cleaning",
+   "date": "2026-02-03",
+   "amount": "5000",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-03-22",
+   "amount": "4000",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Event extras",
+   "date": "2026-03-22",
+   "amount": "1000",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-02-10",
+   "amount": "6500",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Event extras: Cleaning Cloth",
+   "date": "2026-02-10",
+   "amount": "6500",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-04-23",
+   "amount": "10500",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Event extras (written in diary)",
+   "date": "2026-04-23",
+   "amount": "62500",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-03-31",
+   "amount": "2000",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-04-02",
+   "amount": "3000",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-04-06",
+   "amount": "10000",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-04-01",
+   "amount": "10400",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-04-06",
+   "amount": "9600",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Event extras: Diesel",
+   "date": "2026-04-06",
+   "amount": "4000",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-04-01",
+   "amount": "16000",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-04-06",
+   "amount": "6400",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-02-22",
+   "amount": "1000",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-03-29",
+   "amount": "3200",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-03-29",
+   "amount": "19200",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Decoration",
+   "description": "Event extras: Kaleen Patti(8000)+ Diesel(2000)",
+   "date": "2026-03-29",
+   "amount": "10000",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-03-30",
+   "amount": "7200",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Food & Supplies",
+   "description": "Event extras: Jharu(800)+Nimko(100)",
+   "date": "2026-03-30",
+   "amount": "900",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-04-13",
+   "amount": "7000",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Event extras: Shatar Repair",
+   "date": "2026-04-13",
+   "amount": "2000",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-03-30",
+   "amount": "9600",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Food & Supplies",
+   "description": "Event extras: Soap+Mask(4750)Rent(250)",
+   "date": "2026-03-30",
+   "amount": "5000",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-03-26",
+   "amount": "12000",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Event extras: Diesel",
+   "date": "2026-03-26",
+   "amount": "1000",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-03-06",
+   "amount": "3000",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-03-19",
+   "amount": "33000",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Food & Supplies",
+   "description": "Event extras: Crokery + Rent",
+   "date": "2026-03-19",
+   "amount": "13000",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-03-24",
+   "amount": "2400",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-04-11",
+   "amount": "5000",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-04-19",
+   "amount": "14000",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Event extras: Vipers(1000)",
+   "date": "2026-04-19",
+   "amount": "1000",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-04-12",
+   "amount": "12800",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Food & Supplies",
+   "description": "Event extras: Diesel(5000)Surf(3800)Lock(600)Gen Rep(14000)Ac Ser(1000)",
+   "date": "2026-04-12",
+   "amount": "24400",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-04-11",
+   "amount": "11200",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Event extras: Extra Office Use",
+   "date": "2026-04-11",
+   "amount": "800",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-04-11",
+   "amount": "7000",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-03-31",
+   "amount": "3200",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Food & Supplies",
+   "description": "Event extras: Nimko(100)Khana(300)",
+   "date": "2026-03-31",
+   "amount": "400",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-03-22",
+   "amount": "3200",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-03-23",
+   "amount": "8000",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-03-25",
+   "amount": "4000",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Food & Supplies",
+   "description": "Event extras: Phynile,Diesel,Parda Selai,Safai",
+   "date": "2026-03-25",
+   "amount": "5350",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-04-19",
+   "amount": "8000",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Food & Supplies",
+   "description": "Event extras: Tarbooz(2250),Nimko(250)Phynile(2000)",
+   "date": "2026-04-19",
+   "amount": "4500",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-04-18",
+   "amount": "13000",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Electricity",
+   "description": "Event extras: Hafiz Umair Meter(2000),Trolly Baring(4000),Washal+Selai(500)500(Extra)",
+   "date": "2026-04-18",
+   "amount": "7000",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-04-28",
+   "amount": "10800",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Food & Supplies",
+   "description": "Event extras: Phynile(4300)Yaseen Paint&Fan(900)",
+   "date": "2026-04-28",
+   "amount": "5200",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-04-01",
+   "amount": "4000",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-04-20",
+   "amount": "17600",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Event extras: Extra Office Use",
+   "date": "2026-04-20",
+   "amount": "400",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-04-28",
+   "amount": "3500",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-04-20",
+   "amount": "5000",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Event extras",
+   "date": "2026-04-20",
+   "amount": "8500",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-04-26",
+   "amount": "1000",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Food & Supplies",
+   "description": "Event extras: Yaseen(4200)Patrol(2000)Tarbooz(200)Exp-30-04-26(4500)",
+   "date": "2026-05-07",
+   "amount": "10900",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Other",
+   "description": "Table men (waiters) for event",
+   "date": "2026-04-30",
+   "amount": "6400",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Building",
+   "description": "Event extras: Ac Items(4200+3000+12500)Pointer(1000)Paint & Brush(2050)Mistri Shahzad(5500)Khuram(10000)Yaseen(5000)Extra(350)",
+   "date": "2026-04-30",
+   "amount": "43600",
+   "notes": "Imported from WEDDING HALL DETAILS"
+  },
+  {
+   "category": "Building",
+   "description": "Office Paint Mazdori",
+   "date": "2026-01-05",
+   "amount": "12100",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Mazdori",
+   "date": "2026-01-01",
+   "amount": "4600",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Mazdori",
+   "date": "2026-01-02",
+   "amount": "4600",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Building",
+   "description": "Glass Payment",
+   "date": "2026-01-03",
+   "amount": "4000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Sofa Polish",
+   "date": "2026-01-04",
+   "amount": "5000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Mazdori",
+   "date": "2026-01-04",
+   "amount": "1200",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Building",
+   "description": "Glass Rent",
+   "date": "2026-01-05",
+   "amount": "1200",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Mazdori",
+   "date": "2026-01-05",
+   "amount": "5800",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Decoration",
+   "description": "Ali Flower Dacorator",
+   "date": "2026-01-06",
+   "amount": "15000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Building",
+   "description": "Saleem Ceiling",
+   "date": "2026-01-07",
+   "amount": "8000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Mazdori",
+   "date": "2026-01-07",
+   "amount": "4600",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Mazdori",
+   "date": "2026-01-08",
+   "amount": "4600",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Diesel",
+   "date": "2026-01-09",
+   "amount": "1000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Sofa Rent",
+   "date": "2026-01-10",
+   "amount": "500",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Diesel",
+   "date": "2026-01-12",
+   "amount": "1000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Sofa Rent",
+   "date": "2026-01-12",
+   "amount": "500",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Krokery Rent Gujrawala",
+   "date": "2026-01-13",
+   "amount": "1700",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Diesel",
+   "date": "2026-01-13",
+   "amount": "1000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Mazdori",
+   "date": "2026-01-13",
+   "amount": "4600",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Yaseen Day Off Mazdori",
+   "date": "2026-01-13",
+   "amount": "1000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Mazdori",
+   "date": "2026-01-15",
+   "amount": "3400",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Mazdori",
+   "date": "2026-01-17",
+   "amount": "3400",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Sofa Rent",
+   "date": "2026-01-17",
+   "amount": "500",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Printing",
+   "description": "Wedding Card",
+   "date": "2026-01-17",
+   "amount": "200",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Diesel",
+   "date": "2026-01-16",
+   "amount": "1000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Yaseen Day Off Mazdori",
+   "date": "2026-01-16",
+   "amount": "1000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Petty Cash",
+   "date": "2026-01-22",
+   "amount": "10000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Sanetory Bill",
+   "date": "2026-01-25",
+   "amount": "16500",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Mazdori",
+   "date": "2026-01-27",
+   "amount": "10000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Electricity",
+   "description": "Ele Bill",
+   "date": "2026-01-28",
+   "amount": "11600",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Diesel",
+   "date": "2026-01-28",
+   "amount": "2000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Petty Cash",
+   "date": "2026-01-28",
+   "amount": "2500",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Food & Supplies",
+   "description": "Ch Akhtar For Sabzi",
+   "date": "2026-01-29",
+   "amount": "10000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Diesel",
+   "date": "2026-01-30",
+   "amount": "3000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Ele Wire(M.Younas)",
+   "date": "2026-01-31",
+   "amount": "104000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Petty Cash",
+   "date": "2026-01-31",
+   "amount": "2000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "M.Ashraf",
+   "date": "2026-02-01",
+   "amount": "20000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Mazdori",
+   "date": "2026-02-01",
+   "amount": "4600",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Petty Cash",
+   "date": "2026-02-01",
+   "amount": "2000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Mazdori",
+   "date": "2026-02-02",
+   "amount": "3400",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Rent Bricks",
+   "date": "2026-02-02",
+   "amount": "5400",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Rent Half Bricks",
+   "date": "2026-02-02",
+   "amount": "1500",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Lt Rod Rent",
+   "date": "2026-02-02",
+   "amount": "1500",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Rent Half Bricks",
+   "date": "2026-02-03",
+   "amount": "1500",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Ele Pipe & Thimble",
+   "date": "2026-02-03",
+   "amount": "1000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Mazdori",
+   "date": "2026-02-03",
+   "amount": "4600",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Petty Cash",
+   "date": "2026-02-03",
+   "amount": "1500",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "M.Ashraf",
+   "date": "2026-02-03",
+   "amount": "20000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Trolly Mitti",
+   "date": "2026-02-05",
+   "amount": "3500",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Kitchen Chips(Back)",
+   "date": "2026-02-05",
+   "amount": "4160",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Diesel",
+   "date": "2026-02-05",
+   "amount": "1000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Mazdori",
+   "date": "2026-02-05",
+   "amount": "4600",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Drill Warma + Tambiya",
+   "date": "2026-02-05",
+   "amount": "1000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Mitti Tail + Bair",
+   "date": "2026-02-05",
+   "amount": "300",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Doodh",
+   "date": "2026-02-05",
+   "amount": "200",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Building",
+   "description": "Cement Bill (Rasheed)",
+   "date": "2026-02-07",
+   "amount": "50000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Tahir Auto(Horn)",
+   "date": "2026-02-07",
+   "amount": "2000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Baskits & Shoppers",
+   "date": "2026-02-07",
+   "amount": "3800",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Stage Wood Racks Payment",
+   "date": "2026-02-07",
+   "amount": "34000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Shehzad Furniture",
+   "date": "2026-02-08",
+   "amount": "10000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Rasheed Shb",
+   "date": "2026-02-09",
+   "amount": "1240",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Stage Arch",
+   "date": "2026-02-11",
+   "amount": "10500",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Ref Repair Haier Manga",
+   "date": "2026-02-17",
+   "amount": "2000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Petty Cash",
+   "date": "2026-02-17",
+   "amount": "2000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Stage Arch",
+   "date": "2026-02-21",
+   "amount": "13500",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Printing",
+   "description": "Hall Visiting Cards",
+   "date": "2026-02-21",
+   "amount": "2800",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Mazdori Arch(Maqsood)",
+   "date": "2026-02-24",
+   "amount": "1000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Ali Asghar (Chair Maker)",
+   "date": "2026-03-08",
+   "amount": "55000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Ali Asghar (Chair Maker)",
+   "date": "2026-03-15",
+   "amount": "20000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Stage Cloth",
+   "date": "2026-03-15",
+   "amount": "5500",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Patrol",
+   "date": "2026-03-15",
+   "amount": "1500",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Food & Supplies",
+   "description": "Phynile",
+   "date": "2026-03-15",
+   "amount": "1020",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Khaad",
+   "date": "2026-03-15",
+   "amount": "250",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Bill",
+   "date": "2026-03-15",
+   "amount": "600",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Food & Supplies",
+   "description": "Food",
+   "date": "2026-03-15",
+   "amount": "250",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Building",
+   "description": "Paint Patrol",
+   "date": "2026-03-15",
+   "amount": "1600",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Mazdori Arch",
+   "date": "2026-03-15",
+   "amount": "400",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Food & Supplies",
+   "description": "Namak(Salt)",
+   "date": "2026-03-15",
+   "amount": "250",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Warnish",
+   "date": "2026-03-15",
+   "amount": "500",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Patrol",
+   "date": "2026-03-15",
+   "amount": "2270",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Arch Bolt",
+   "date": "2026-03-15",
+   "amount": "400",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Rent Partation",
+   "date": "2026-03-15",
+   "amount": "200",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Mazdori Arch(Maqsood)",
+   "date": "2026-03-15",
+   "amount": "2000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Bill",
+   "date": "2026-03-15",
+   "amount": "870",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Ch Younas Payment Sheds",
+   "date": "2026-03-20",
+   "amount": "70000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Ali Asghar (Chair Maker)",
+   "date": "2026-03-20",
+   "amount": "14000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Ali Asghar (Chair Maker)",
+   "date": "2026-03-20",
+   "amount": "10000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Ali Asghar (Chair Maker)",
+   "date": "2026-03-20",
+   "amount": "5000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Ali Asghar (Chair Maker)",
+   "date": "2026-03-25",
+   "amount": "50000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Bracket Fans(Cash)",
+   "date": "2026-03-25",
+   "amount": "44000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Locks",
+   "date": "2026-03-25",
+   "amount": "1000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Ali Asghar (Chair Maker)",
+   "date": "2026-03-27",
+   "amount": "5000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Ali Asghar (Chair Maker)",
+   "date": "2026-03-25",
+   "amount": "20650",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Saqib Sofa Poshish(Partation)",
+   "date": "2026-03-27",
+   "amount": "29400",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Rawal Bolt & Ele Coil(2)",
+   "date": "2026-03-27",
+   "amount": "13500",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Maintenance",
+   "description": "3 Days Safai Rehana",
+   "date": "2026-03-27",
+   "amount": "2700",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Stage Kapra Etc",
+   "date": "2026-03-27",
+   "amount": "6400",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Ali Asghar (Chair Maker)",
+   "date": "2026-03-27",
+   "amount": "5000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Ali Asghar (Chair Maker)",
+   "date": "2026-03-25",
+   "amount": "8400",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Ali Asghar (Chair Maker)",
+   "date": "2026-03-31",
+   "amount": "256950",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Ganerator Rent",
+   "date": "2026-04-01",
+   "amount": "30000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Diesel",
+   "date": "2026-04-01",
+   "amount": "2000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Diesel",
+   "date": "2026-04-04",
+   "amount": "4000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "M.Ashraf",
+   "date": "2026-04-06",
+   "amount": "52000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Rao Shafeeq(Sir Mumtaz)",
+   "date": "2026-04-11",
+   "amount": "8500",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Ganerator Kit & Mazdori",
+   "date": "2026-04-11",
+   "amount": "13000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Diesel",
+   "date": "2026-04-11",
+   "amount": "2000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Food & Supplies",
+   "description": "Tarbooz Sir Mumtaz",
+   "date": "2026-04-13",
+   "amount": "2150",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Petty Cash",
+   "date": "2026-04-13",
+   "amount": "1000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Charging Fan Battery Repair",
+   "date": "2026-04-16",
+   "amount": "6700",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Safai",
+   "date": "2026-04-19",
+   "amount": "1500",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Food & Supplies",
+   "description": "Tarbooz Sir Mumtaz",
+   "date": "2026-04-19",
+   "amount": "2000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Other",
+   "description": "Petty Cash",
+   "date": "2026-04-20",
+   "amount": "5000",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Building",
+   "description": "Compound For Bridal Room",
+   "date": "2026-06-30",
+   "amount": "11500",
+   "notes": "Imported from EXP sheet"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Mazdori",
+   "date": "2026-01-09",
+   "amount": "4600",
+   "notes": "Imported from Sir Mumtaz cash"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Ganerator Repair",
+   "date": "2026-01-10",
+   "amount": "2800",
+   "notes": "Imported from Sir Mumtaz cash"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Mazdori",
+   "date": "2026-01-10",
+   "amount": "4600",
+   "notes": "Imported from Sir Mumtaz cash"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Mazdori",
+   "date": "2026-01-11",
+   "amount": "4600",
+   "notes": "Imported from Sir Mumtaz cash"
+  },
+  {
+   "category": "Other",
+   "description": "Petty Cash",
+   "date": "2026-01-11",
+   "amount": "3000",
+   "notes": "Imported from Sir Mumtaz cash"
+  },
+  {
+   "category": "Building",
+   "description": "Saleem Ceiling",
+   "date": "2026-01-13",
+   "amount": "20000",
+   "notes": "Imported from Sir Mumtaz cash"
+  },
+  {
+   "category": "Printing",
+   "description": "3D Sign Board Rent",
+   "date": "2026-01-13",
+   "amount": "10000",
+   "notes": "Imported from Sir Mumtaz cash"
+  },
+  {
+   "category": "Printing",
+   "description": "Welding For Board",
+   "date": "2026-01-13",
+   "amount": "2500",
+   "notes": "Imported from Sir Mumtaz cash"
+  },
+  {
+   "category": "Printing",
+   "description": "Engal For Board",
+   "date": "2026-01-13",
+   "amount": "2800",
+   "notes": "Imported from Sir Mumtaz cash"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Diesel",
+   "date": "2026-01-13",
+   "amount": "1000",
+   "notes": "Imported from Sir Mumtaz cash"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Diesel",
+   "date": "2026-01-15",
+   "amount": "2000",
+   "notes": "Imported from Sir Mumtaz cash"
+  },
+  {
+   "category": "Other",
+   "description": "Petty Cash",
+   "date": "2026-01-17",
+   "amount": "1700",
+   "notes": "Imported from Sir Mumtaz cash"
+  },
+  {
+   "category": "Printing",
+   "description": "Bill Book",
+   "date": "2026-05-10",
+   "amount": "350",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Food & Supplies",
+   "description": "Hand Wash",
+   "date": "2026-05-10",
+   "amount": "400",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Building",
+   "description": "Master Colour Black",
+   "date": "2026-05-10",
+   "amount": "1100",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Building",
+   "description": "Master Colour 19 Ltr With Regmall",
+   "date": "2026-05-10",
+   "amount": "6300",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Mati Ka Tel, Tape, Fulet Buten , Plastic Tape",
+   "date": "2026-05-10",
+   "amount": "1080",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Food & Supplies",
+   "description": "Tea For Clr Labour",
+   "date": "2026-05-11",
+   "amount": "200",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Food & Supplies",
+   "description": "Tea For Clr Labour",
+   "date": "2026-05-11",
+   "amount": "150",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Amjad Shab Golden Pati",
+   "date": "2026-05-11",
+   "amount": "1000",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Building",
+   "description": "Clr Advance Pyement",
+   "date": "2026-05-11",
+   "amount": "500",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Building",
+   "description": "Clr Advance Pyement",
+   "date": "2026-05-11",
+   "amount": "2000",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Green Sofa Advance",
+   "date": "2026-05-11",
+   "amount": "20000",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Jurnator Electrion Labour",
+   "date": "2026-05-11",
+   "amount": "1500",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Food & Supplies",
+   "description": "Tea For Clr Labour",
+   "date": "2026-05-11",
+   "amount": "200",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Food & Supplies",
+   "description": "Tea For Clr Labour",
+   "date": "2026-05-12",
+   "amount": "300",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Building",
+   "description": "Clr Advance Payment",
+   "date": "2026-05-12",
+   "amount": "6000",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Building",
+   "description": "Clr Payment",
+   "date": "2026-05-13",
+   "amount": "2000",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Building",
+   "description": "Cloth For Tile Wash",
+   "date": "2026-05-13",
+   "amount": "1000",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Sofa Advance Payment Ali Hassan",
+   "date": "2026-05-14",
+   "amount": "30000",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Food & Supplies",
+   "description": "Roti",
+   "date": "2026-05-15",
+   "amount": "400",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Tarboza",
+   "date": "2026-05-15",
+   "amount": "900",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Yaseen Ac Labour",
+   "date": "2026-05-15",
+   "amount": "5000",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Jurce Cloth",
+   "date": "2026-05-15",
+   "amount": "400",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Javeed Safai",
+   "date": "2026-05-15",
+   "amount": "400",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Food & Supplies",
+   "description": "Khuram Tea And Milk",
+   "date": "2026-05-17",
+   "amount": "500",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Mobile Packge",
+   "date": "2026-05-17",
+   "amount": "700",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Ali Hassan, Green Sofa ( Qty 24)",
+   "date": "2026-05-18",
+   "amount": "550000",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Food & Supplies",
+   "description": "Sabzi Sir Khalid Shab Home",
+   "date": "2026-05-20",
+   "amount": "1520",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Petroll For Bike Akhtar Shab",
+   "date": "2026-05-23",
+   "amount": "2000",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Ashraf Lado Jurnator Stand",
+   "date": "2026-05-23",
+   "amount": "7000",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Pump Color",
+   "date": "2026-05-23",
+   "amount": "2150",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Yaseen Bil",
+   "date": "2026-05-23",
+   "amount": "5890",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Sofa Rent",
+   "date": "2026-05-23",
+   "amount": "20000",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Afsar Khan Rent",
+   "date": "2026-05-23",
+   "amount": "5000",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Indus Fane For Hall",
+   "date": "2026-05-24",
+   "amount": "13500",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Rawal Bolt",
+   "date": "2026-05-24",
+   "amount": "250",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Rent Air Color Auto",
+   "date": "2026-05-30",
+   "amount": "5500",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Wayter Charges",
+   "date": "2026-05-31",
+   "amount": "5000",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Food & Supplies",
+   "description": "Surf 20Kg",
+   "date": "2026-05-31",
+   "amount": "4800",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Jharo For Hall",
+   "date": "2026-05-31",
+   "amount": "4000",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Yaseen Bill For Dera 10000 & Remaing 5680",
+   "date": "2026-05-31",
+   "amount": "1200",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Venail Teblit",
+   "date": "2026-05-31",
+   "amount": "10000",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Phol Jharo & Bursh",
+   "date": "2026-05-31",
+   "amount": "1000",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Sami Ur Rehman Color Fitting Charges",
+   "date": "2026-05-31",
+   "amount": "1300",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Ele Let Bill Charges",
+   "date": "2026-05-31",
+   "amount": "2000",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Bursh Size Labour Charges",
+   "date": "2026-06-02",
+   "amount": "600",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Show",
+   "date": "2026-06-02",
+   "amount": "40",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Warshal",
+   "date": "2026-06-02",
+   "amount": "50",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Nut Pache",
+   "date": "2026-06-02",
+   "amount": "50",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Tape",
+   "date": "2026-06-02",
+   "amount": "50",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Pache",
+   "date": "2026-06-02",
+   "amount": "30",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Capstor",
+   "date": "2026-06-02",
+   "amount": "150",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Buten",
+   "date": "2026-06-02",
+   "amount": "100",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Bike Petrol For Akhtar Shab",
+   "date": "2026-06-04",
+   "amount": "1160",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Rawal Bolet & Lath Amchine",
+   "date": "2026-06-04",
+   "amount": "450",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Food & Supplies",
+   "description": "Tea Ashraf Lado",
+   "date": "2026-06-04",
+   "amount": "100",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Kharboza",
+   "date": "2026-06-05",
+   "amount": "600",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Milk ( Dodh )",
+   "date": "2026-06-05",
+   "amount": "330",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Wayter Charges",
+   "date": "2026-06-05",
+   "amount": "2000",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Food & Supplies",
+   "description": "Gulab Marka ( Rice ) 20Kg &B Green Tea Masla",
+   "date": "2026-06-06",
+   "amount": "10000",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Wayter Charges",
+   "date": "2026-06-07",
+   "amount": "6400",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Gest",
+   "date": "2026-06-07",
+   "amount": "600",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Wayter Charges",
+   "date": "2026-06-08",
+   "amount": "4800",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Wayter Rent",
+   "date": "2026-06-08",
+   "amount": "200",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Advance Adcance Already Include",
+   "date": "2026-06-08",
+   "amount": "5000",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Yaseen Expance Of Dera",
+   "date": "2026-06-09",
+   "amount": "11500",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Building",
+   "description": "Quarter Master Colour",
+   "date": "2026-06-09",
+   "amount": "1100",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Building",
+   "description": "Master Black Colour Of Quarter",
+   "date": "2026-06-09",
+   "amount": "400",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Building",
+   "description": "Bursh For Colour",
+   "date": "2026-06-09",
+   "amount": "150",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Finaeil For Hal Wash",
+   "date": "2026-06-09",
+   "amount": "180",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Kerosene ( Mati Ka Tel )",
+   "date": "2026-06-09",
+   "amount": "500",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Office Expence",
+   "date": "2026-06-09",
+   "amount": "670",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Wayter Charges",
+   "date": "2026-06-09",
+   "amount": "5600",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Food & Supplies",
+   "description": "Office Expance, Tea Cold Drink Etc",
+   "date": "2026-06-09",
+   "amount": "400",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Finel 5 Cotton",
+   "date": "2026-06-10",
+   "amount": "4300",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Wayter Charges",
+   "date": "2026-06-10",
+   "amount": "9700",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Auto Rent For Chiler",
+   "date": "2026-06-10",
+   "amount": "5000",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Ramesh Cleaner",
+   "date": "2026-06-10",
+   "amount": "11000",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Wayter Charges",
+   "date": "2026-06-11",
+   "amount": "13000",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Petrol For Akhtar Shab Bike",
+   "date": "2026-06-11",
+   "amount": "1100",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Yaseen Dera Bill",
+   "date": "2026-06-11",
+   "amount": "5000",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Office Expance",
+   "date": "2026-06-11",
+   "amount": "400",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Disk For Wal Cuting",
+   "date": "2026-06-11",
+   "amount": "500",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Wayter Charges",
+   "date": "2026-06-12",
+   "amount": "6500",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Pizza Deal For Sir",
+   "date": "2026-06-12",
+   "amount": "3000",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Food & Supplies",
+   "description": "Lunch & Tea For Sami Air Color",
+   "date": "2026-06-12",
+   "amount": "600",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Ice- Creame For Sir",
+   "date": "2026-06-12",
+   "amount": "300",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Labour Charges For Air Color Wal Whole",
+   "date": "2026-06-12",
+   "amount": "2000",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Food & Supplies",
+   "description": "Vegetable ( Sabzi) Sir Home",
+   "date": "2026-06-12",
+   "amount": "3000",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Air Color Wending Toyo",
+   "date": "2026-06-12",
+   "amount": "1500",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Yaseen Dera Bil",
+   "date": "2026-06-12",
+   "amount": "650",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Yaeen Bil For Chiler",
+   "date": "2026-06-12",
+   "amount": "1550",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Khuram Advance",
+   "date": "2026-06-12",
+   "amount": "5000",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Air Color ( Chiler) Sami Okara",
+   "date": "2026-06-12",
+   "amount": "210000",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Labour Charges For Door",
+   "date": "2026-06-14",
+   "amount": "300",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Wayter Charges",
+   "date": "2026-06-14",
+   "amount": "3500",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Food & Supplies",
+   "description": "Office Expence For Lunch",
+   "date": "2026-06-14",
+   "amount": "500",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Yaseen Bill",
+   "date": "2026-06-14",
+   "amount": "1400",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Wayter Charges",
+   "date": "2026-06-15",
+   "amount": "2400",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Office Expance",
+   "date": "2026-06-15",
+   "amount": "600",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Sami Air Color",
+   "date": "2026-06-15",
+   "amount": "80000",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Food & Supplies",
+   "description": "Lunch & Botel",
+   "date": "2026-06-19",
+   "amount": "750",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Building",
+   "description": "Kerosene ( Mati Ka Tel ) Colour",
+   "date": "2026-06-22",
+   "amount": "550",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Food & Supplies",
+   "description": "Chicken For Sir Lunch",
+   "date": "2026-06-28",
+   "amount": "850",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Wayter Charges",
+   "date": "2026-06-28",
+   "amount": "6500",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Botel & Biscite For Gest Office Expance",
+   "date": "2026-06-28",
+   "amount": "1000",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Dahi Bhaly",
+   "date": "2026-06-28",
+   "amount": "500",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Desil For Jurnator",
+   "date": "2026-06-28",
+   "amount": "1000",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Food & Supplies",
+   "description": "Vegetable (Sabzi ) For Sir Home",
+   "date": "2026-06-28",
+   "amount": "4000",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Karai, Lado, Salad, For Dera",
+   "date": "2026-06-28",
+   "amount": "3050",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Sami Air Color (Lado)",
+   "date": "2026-06-28",
+   "amount": "30000",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Wayter Charges",
+   "date": "2026-07-04",
+   "amount": "6500",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Yaseen Bil For Dera",
+   "date": "2026-07-04",
+   "amount": "800",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Trolly Weels",
+   "date": "2026-07-04",
+   "amount": "3000",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Petrol For (Akhtar Shab) Bike",
+   "date": "2026-07-04",
+   "amount": "1000",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Yaseen Dera Expance Bill Amount",
+   "date": "2026-07-04",
+   "amount": "12400",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Building",
+   "description": "Karma Walla Bil 2 Coil Wire Rawal Bult Tape R",
+   "date": "2026-07-04",
+   "amount": "13400",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Wayter Charges",
+   "date": "2026-07-05",
+   "amount": "4000",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Yaseen Bill For Dera Expance",
+   "date": "2026-07-05",
+   "amount": "1000",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Food & Supplies",
+   "description": "Checkin",
+   "date": "2026-07-08",
+   "amount": "1550",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Lemon",
+   "date": "2026-07-08",
+   "amount": "100",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Food & Supplies",
+   "description": "Checkin Fry & Roti",
+   "date": "2026-07-08",
+   "amount": "1000",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Food & Supplies",
+   "description": "Checkin Fry",
+   "date": "2026-07-12",
+   "amount": "1900",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Filter Oil For Jurnator",
+   "date": "2026-07-12",
+   "amount": "7000",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Food & Supplies",
+   "description": "Checkin & Checkin Fry",
+   "date": "2026-07-15",
+   "amount": "2100",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Food & Supplies",
+   "description": "Breat (Roti) Wheat Harvesting (Gundum Pisai)",
+   "date": "2026-07-15",
+   "amount": "2000",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Petrol For (Akhtar Shab) Bike",
+   "date": "2026-07-15",
+   "amount": "2350",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Building",
+   "description": "20Ltr Distumber Bursh Ecrylic Regmal",
+   "date": "2026-07-16",
+   "amount": "2700",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Food & Supplies",
+   "description": "Chekin & Water Botle & Cold Drink ( 10 P)",
+   "date": "2026-07-19",
+   "amount": "5700",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Food & Supplies",
+   "description": "Vegetable (Sabzi ) For Sir Home",
+   "date": "2026-07-21",
+   "amount": "4500",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Yaseen Dera Expance Bill",
+   "date": "2026-07-21",
+   "amount": "10000",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Electricity",
+   "description": "Bill No 27117420634702U Due Date Echual 11686",
+   "date": "2026-07-24",
+   "amount": "11700",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Tezab Botel Acid",
+   "date": "2026-07-24",
+   "amount": "300",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Other",
+   "description": "Office Expance",
+   "date": "2026-07-24",
+   "amount": "100",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Electricity",
+   "description": "Wabda Bil Payment",
+   "date": "2026-07-24",
+   "amount": "41746",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Desil For Jurnator",
+   "date": "2026-07-24",
+   "amount": "550",
+   "notes": "Imported from Expense detail 2026"
+  },
+  {
+   "category": "Maintenance",
+   "description": "Desil For Jurnator 3N Ltr",
+   "date": "2026-07-24",
+   "amount": "1100",
+   "notes": "Imported from Expense detail 2026"
+  }
+ ],
+ "assets": [
+  {
+   "name": "Items Name",
+   "category": "Kitchen",
+   "qty": "0",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used USED QTY, new NEW QTY, bought BUY QTY, difference DIFF"
+  },
+  {
+   "name": "Dining Plates Large Size",
+   "category": "Kitchen",
+   "qty": "998",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 723, new 275, bought 1000, difference -2"
+  },
+  {
+   "name": "Dining Plates Small Size",
+   "category": "Kitchen",
+   "qty": "991",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 859, new 132, bought 1000, difference -9"
+  },
+  {
+   "name": "Rice Dish",
+   "category": "Kitchen",
+   "qty": "290",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 236, new 54, bought 300, difference -10"
+  },
+  {
+   "name": "Salad Tray",
+   "category": "Kitchen",
+   "qty": "100",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 82, new 18, bought 100, difference 0"
+  },
+  {
+   "name": "Bowls(Round)",
+   "category": "Kitchen",
+   "qty": "192",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 90, new 102, bought 150, difference 42"
+  },
+  {
+   "name": "Bowls(Square)",
+   "category": "Kitchen",
+   "qty": "304",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 11, new 293, bought 300, difference 4"
+  },
+  {
+   "name": "Soup Bowls Small",
+   "category": "Kitchen",
+   "qty": "499",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 499, bought 500, difference -1"
+  },
+  {
+   "name": "Spoons",
+   "category": "Kitchen",
+   "qty": "1019",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 1007, new 12"
+  },
+  {
+   "name": "Dish Spoons Square",
+   "category": "Kitchen",
+   "qty": "75",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 31, new 44"
+  },
+  {
+   "name": "Dish Spoons Round",
+   "category": "Kitchen",
+   "qty": "95",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 6, new 89"
+  },
+  {
+   "name": "Dish Spoons Round Large",
+   "category": "Kitchen",
+   "qty": "54",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 3, new 51"
+  },
+  {
+   "name": "Stainless Steel Parat Small",
+   "category": "Kitchen",
+   "qty": "505",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 130, new 375"
+  },
+  {
+   "name": "Stainless Steel Parat Large",
+   "category": "Kitchen",
+   "qty": "97",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 25, new 72"
+  },
+  {
+   "name": "Stainless Steel Water Jugs",
+   "category": "Kitchen",
+   "qty": "50",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 24, new 26"
+  },
+  {
+   "name": "Water Glass",
+   "category": "Kitchen",
+   "qty": "1097",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 377, new 720, bought 1080"
+  },
+  {
+   "name": "Green Tea Tanks",
+   "category": "Kitchen",
+   "qty": "4",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 4"
+  },
+  {
+   "name": "Stainless Steel Tubs",
+   "category": "Kitchen",
+   "qty": "14",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 14"
+  },
+  {
+   "name": "Rice Dry Tubs",
+   "category": "Kitchen",
+   "qty": "5",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 5"
+  },
+  {
+   "name": "Food Trolly(3*5)",
+   "category": "Kitchen",
+   "qty": "4",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 4"
+  },
+  {
+   "name": "Water Trolly(3*4)",
+   "category": "Kitchen",
+   "qty": "2",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 2"
+  },
+  {
+   "name": "Total",
+   "category": "Kitchen",
+   "qty": "6395",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 4134, new 2067"
+  },
+  {
+   "name": "Items Name",
+   "category": "Kitchen",
+   "qty": "0",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used PER QTY, new AVA QTY"
+  },
+  {
+   "name": "Washing Machine (15Kg)",
+   "category": "Kitchen",
+   "qty": "2",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 1, new 1"
+  },
+  {
+   "name": "Spinner Machine(7Kg S.S)",
+   "category": "Kitchen",
+   "qty": "2",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 1, new 1"
+  },
+  {
+   "name": "Iron(Nd National)",
+   "category": "Kitchen",
+   "qty": "2",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 1, new 1"
+  },
+  {
+   "name": "Simple Chairs",
+   "category": "Kitchen",
+   "qty": "594",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 297, new 297"
+  },
+  {
+   "name": "Cnc Chairs",
+   "category": "Kitchen",
+   "qty": "398",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 199, new 199"
+  },
+  {
+   "name": "Cnc Sofa",
+   "category": "Kitchen",
+   "qty": "56",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 28, new 28"
+  },
+  {
+   "name": "Dining Table(8*4)",
+   "category": "Kitchen",
+   "qty": "40",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 20, new 20"
+  },
+  {
+   "name": "Dining Table(4*4)",
+   "category": "Kitchen",
+   "qty": "20",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 10, new 10"
+  },
+  {
+   "name": "Sofa Table(4*4)",
+   "category": "Kitchen",
+   "qty": "56",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 28, new 28"
+  },
+  {
+   "name": "Stage Wooden Racks",
+   "category": "Kitchen",
+   "qty": "24",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 12, new 12"
+  },
+  {
+   "name": "Partations",
+   "category": "Kitchen",
+   "qty": "40",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 20, new 20"
+  },
+  {
+   "name": "Flower Vase Stands(Big)",
+   "category": "Kitchen",
+   "qty": "24",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 12, new 12"
+  },
+  {
+   "name": "Table Vase",
+   "category": "Kitchen",
+   "qty": "-1",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 50, new 49"
+  },
+  {
+   "name": "Gass Burner",
+   "category": "Kitchen",
+   "qty": "20",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 10, new 10"
+  },
+  {
+   "name": "Burner(Wooden)",
+   "category": "Kitchen",
+   "qty": "20",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 10, new 10"
+  },
+  {
+   "name": "At Tharmose",
+   "category": "Kitchen",
+   "qty": "2",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 1, new 1"
+  },
+  {
+   "name": "Eco Star Ac 1.5",
+   "category": "Kitchen",
+   "qty": "2",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 1, new 1"
+  },
+  {
+   "name": "Fast Money Detector",
+   "category": "Kitchen",
+   "qty": "2",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 1, new 1"
+  },
+  {
+   "name": "Bracket Fans Office(3)Pak Fan Super King",
+   "category": "Kitchen",
+   "qty": "6",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 3, new 3"
+  },
+  {
+   "name": "Exauhst Fan Metal 24''",
+   "category": "Kitchen",
+   "qty": "2",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 1, new 1"
+  },
+  {
+   "name": "Double Acction 10'' Exauhst Fans(6)",
+   "category": "Kitchen",
+   "qty": "12",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 6, new 6"
+  },
+  {
+   "name": "Pak Fan Mega Bracket Fans 24''(2)",
+   "category": "Kitchen",
+   "qty": "4",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 2, new 2"
+  },
+  {
+   "name": "Pak Royal Ceiling Fans(3)",
+   "category": "Kitchen",
+   "qty": "6",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 3, new 3"
+  },
+  {
+   "name": "Phillips Kettle",
+   "category": "Kitchen",
+   "qty": "2",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 1, new 1"
+  },
+  {
+   "name": "S.S Vacum Pump Tharmose",
+   "category": "Kitchen",
+   "qty": "2",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 1, new 1"
+  },
+  {
+   "name": "3 In 1 Juicer Blender",
+   "category": "Kitchen",
+   "qty": "2",
+   "unit_value": "",
+   "condition": "Good",
+   "purchased": "",
+   "notes": "Used 1, new 1"
+  }
+ ]
+}

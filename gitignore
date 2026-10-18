@@ -1,0 +1,6 @@
+node_modules/
+.env
+*.json.bak
+client-data-backup.json
+optional-setup-costs-2025.json
+import-review.xlsx

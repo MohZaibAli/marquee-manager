@@ -1,0 +1,633 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Marquee Manager</title>
+<style>
+:root{
+  --bg:#f5f5f4; --panel:#ffffff; --ink:#1c1917; --muted:#6b7280; --line:#e5e7eb;
+  --brand:#7a2e3a; --brand-soft:#f8eef0; --ok:#15803d; --ok-soft:#dcfce7;
+  --warn:#a16207; --warn-soft:#fef9c3; --bad:#b91c1c; --bad-soft:#fee2e2;
+  --radius:8px; --shadow:0 1px 2px rgba(0,0,0,.05);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+button,input,select,textarea{font:inherit;color:inherit}
+.app{display:grid;grid-template-columns:240px minmax(0,1fr);min-height:100vh}
+aside{background:var(--brand);color:#fff;padding:16px 12px;position:sticky;top:0;height:100vh;overflow:auto}
+.logo{display:flex;align-items:center;gap:10px;padding:4px 8px 20px}
+.logo .mark{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.15);display:grid;place-items:center}
+.logo b{display:block;font-size:15px}
+.logo small{display:block;opacity:.7;font-size:12px}
+nav button{display:flex;align-items:center;gap:10px;width:100%;height:40px;background:none;border:0;color:#fff;
+  padding:0 12px;border-radius:6px;cursor:pointer;font-size:14px;text-align:left;opacity:.8;margin-bottom:2px}
+nav button:hover{background:rgba(255,255,255,.1);opacity:1}
+nav button.active{background:#fff;color:var(--brand);opacity:1;font-weight:600}
+nav svg{width:18px;height:18px;flex:none}
+nav hr{border:0;border-top:1px solid rgba(255,255,255,.2);margin:10px 4px}
+main{padding:24px 32px;width:100%;min-width:0}
+.app>div:last-child{min-width:0}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+.top>div:last-child{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+h1{font-size:22px;font-weight:600;margin:0}
+.sub{color:var(--muted);margin:2px 0 0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:36px;padding:0 14px;
+  background:var(--brand);color:#fff;border:1px solid var(--brand);border-radius:6px;font-weight:500;font-size:14px;cursor:pointer;white-space:nowrap}
+.btn:hover{filter:brightness(1.1)}
+.btn.light{background:var(--panel);color:var(--ink);border-color:var(--line)}
+.btn.light:hover{background:#fafafa;filter:none}
+.btn.danger{background:var(--bad);border-color:var(--bad)}
+.btn.sm{height:30px;padding:0 10px;font-size:13px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:20px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+.card .lbl{color:var(--muted);font-size:13px}
+.card .val{font-size:22px;font-weight:600;margin-top:4px}
+.card.ok .val{color:var(--ok)} .card.bad .val{color:var(--bad)} .card.brand .val{color:var(--brand)}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:20px;overflow:hidden}
+.panel h2{font-size:15px;font-weight:600;margin:0;padding:14px 16px;border-bottom:1px solid var(--line)}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line)}
+.toolbar input,.toolbar select,.top input{height:36px;padding:0 10px;border:1px solid var(--line);border-radius:6px;background:#fff;min-width:180px}
+.tablewrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+th,td{padding:10px 16px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+th{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.03em;color:var(--muted);background:#fafafa}
+tr:last-child td{border-bottom:0}
+tbody tr:hover{background:#fafafa}
+td.num,th.num{text-align:right}
+td small{color:var(--muted)}
+.empty{padding:40px 16px;text-align:center;color:var(--muted)}
+.empty .btn{margin-top:12px}
+.tag{display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;font-weight:500}
+.tag.ok{background:var(--ok-soft);color:var(--ok)} .tag.warn{background:var(--warn-soft);color:var(--warn)}
+.tag.bad{background:var(--bad-soft);color:var(--bad)} .tag.brand{background:var(--brand-soft);color:var(--brand)}
+.actions{display:flex;gap:6px;justify-content:flex-end}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;align-items:flex-start;justify-content:center;padding:48px 16px;overflow:auto;z-index:50}
+.overlay.open{display:flex}
+.modal{background:var(--panel);border-radius:10px;width:100%;max-width:600px;box-shadow:0 20px 50px rgba(0,0,0,.2)}
+.modal header{padding:14px 20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+.modal header h3{margin:0;font-size:16px;font-weight:600}
+.modal .body{padding:20px;display:grid;grid-template-columns:1fr 1fr;gap:14px 16px}
+.modal footer{padding:12px 20px;border-top:1px solid var(--line);display:flex;justify-content:flex-end;gap:8px}
+.close{background:none;border:0;font-size:22px;line-height:1;color:var(--muted);cursor:pointer;padding:0 4px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field.full{grid-column:1/-1}
+.field label{font-weight:500;font-size:13px}
+.field .hint{color:var(--muted);font-size:12px}
+.field input,.field select{height:38px;padding:0 10px;border:1px solid var(--line);border-radius:6px;background:#fff}
+.field textarea{padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:#fff;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus,.toolbar input:focus,.toolbar select:focus{outline:2px solid var(--brand-soft);border-color:var(--brand)}
+.choice{display:flex;gap:6px;flex-wrap:wrap}
+.choice label{display:inline-flex;align-items:center;height:34px;padding:0 12px;border:1px solid var(--line);border-radius:6px;cursor:pointer;font-weight:400;font-size:13px}
+.choice input{display:none}
+.choice label:has(input:checked){border-color:var(--brand);background:var(--brand-soft);color:var(--brand);font-weight:500}
+.calc{grid-column:1/-1;background:var(--bg);border-radius:6px;padding:10px 14px;display:flex;justify-content:space-between;font-weight:500}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:6px;opacity:0;transition:.2s;pointer-events:none;z-index:60}
+.toast.show{opacity:1}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.bar{display:flex;align-items:center;gap:10px;padding:8px 16px}
+.bar .name{width:70px;color:var(--muted);font-size:13px}
+.bar .track{flex:1;background:var(--bg);border-radius:4px;height:10px;overflow:hidden}
+.bar .fill{height:100%;border-radius:4px}
+.bar .amt{width:120px;text-align:right;font-weight:500;font-size:13px}
+.mobilebar{display:none}
+.backdrop{display:none}
+.icon-only{width:40px;height:40px;display:inline-grid;place-items:center;border:1px solid var(--line);background:var(--panel);border-radius:6px;cursor:pointer;color:var(--ink)}
+.icon-only svg{width:20px;height:20px}
+.choice.seg{flex-wrap:nowrap;gap:0}
+.choice.seg label{flex:1 1 0;justify-content:center;border-radius:0;margin-left:-1px;white-space:nowrap;padding:0 8px}
+.choice.seg label:first-child{border-radius:6px 0 0 6px;margin-left:0}
+.choice.seg label:last-child{border-radius:0 6px 6px 0}
+.choice.seg label:has(input:checked){position:relative;z-index:1}
+.btnrow{display:flex;gap:8px;flex-wrap:wrap}
+.confirm{max-width:420px}
+.confirm .msg{padding:20px;color:var(--muted)}
+.confirm .msg b{display:block;color:var(--ink);font-size:16px;margin-bottom:6px}
+body.locked{overflow:hidden}
+.login{position:fixed;inset:0;z-index:70;background:var(--bg);display:none;align-items:center;justify-content:center;padding:16px}
+.login.open{display:flex}
+.login form{background:var(--panel);border:1px solid var(--line);border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.08);width:100%;max-width:380px;padding:28px;display:grid;gap:16px}
+.login .mark{width:44px;height:44px;border-radius:10px;background:var(--brand);color:#fff;display:grid;place-items:center}
+.login h1{font-size:20px}
+.login .err{color:var(--bad);font-size:13px;min-height:18px;margin:-6px 0}
+.login .btn{width:100%;height:40px}
+.settings .body{padding:16px;display:grid;gap:14px;max-width:640px}
+.settings .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.status{display:inline-flex;align-items:center;gap:6px;font-size:13px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--ok)}
+@media (max-width:860px){
+  .app{grid-template-columns:1fr}
+  aside{position:fixed;left:-260px;width:240px;z-index:40;transition:.2s}
+  aside.open{left:0}
+  .mobilebar{display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:30;
+    height:56px;padding:0 16px;background:var(--panel);border-bottom:1px solid var(--line)}
+  .mobilebar b{font-size:15px}
+  .backdrop{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:35}
+  aside.open+.backdrop{display:block}
+  main{padding:16px}
+  .top>div:last-child{width:100%}
+  .top>div:last-child .btn{flex:1}
+  .btnrow .btn{flex:1 1 calc(50% - 8px)}
+  .grid2,.modal .body{grid-template-columns:1fr}
+}
+@media print{aside,.btn,.toolbar,.actions,.mobilebar,.top input{display:none!important}.app{display:block}main{padding:0}}
+</style>
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+<div class="app">
+  <aside id="side">
+    <div class="logo"><span class="mark"><i data-lucide="landmark"></i></span><div><b>Marquee Manager</b><small>Event &amp; Hall Management</small></div></div>
+    <nav id="nav"></nav>
+  </aside>
+  <div class="backdrop" onclick="toggleMenu(false)"></div>
+  <div>
+    <div class="mobilebar"><b>Marquee Manager</b>
+      <button class="icon-only" aria-label="Open menu" onclick="toggleMenu(true)"><i data-lucide="menu"></i></button></div>
+    <main id="main"></main>
+  </div>
+</div>
+
+<div class="overlay" id="overlay"><div class="modal" id="modal"></div></div>
+<div class="overlay" id="confirmBox"><div class="modal confirm">
+  <div class="msg"><b id="cTitle"></b><span id="cText"></span></div>
+  <footer><button type="button" class="btn light" id="cNo">Cancel</button><button type="button" class="btn danger" id="cYes">Delete</button></footer>
+</div></div>
+<div class="toast" id="toast"></div>
+<div class="login" id="login"><form id="loginForm" autocomplete="on">
+  <input type="text" name="username" autocomplete="username" value="marquee" hidden>
+  <span class="mark"><i data-lucide="landmark"></i></span>
+  <div><h1>Marquee Manager</h1><p class="sub">Enter your password to continue</p></div>
+  <div class="field"><label for="pw">Password</label><input id="pw" name="password" type="password" autocomplete="current-password" required></div>
+  <div class="err" id="loginErr"></div>
+  <button class="btn" id="loginBtn">Sign in</button>
+</form></div>
+
+<script>
+/* =====================================================================
+   1. DATA LAYER  —  swap storage without touching the UI.
+   - "local": saves in this browser (works with no setup).
+   - "api":   talks to server.js which saves in PostgreSQL.
+   Any backend works if it exposes:  GET/POST /api/:table, PUT/DELETE /api/:table/:id
+   ===================================================================== */
+const TABLES = ['bookings','staff','salaries','expenses','assets'];
+
+const LocalAdapter = {
+  key: t => 'mm_' + t,
+  async list(t){ return JSON.parse(localStorage.getItem(this.key(t)) || '[]'); },
+  async save(t, rows){ localStorage.setItem(this.key(t), JSON.stringify(rows)); },
+  async create(t, row){ const rows = await this.list(t); row.id = Date.now().toString(36)+Math.random().toString(36).slice(2,6); rows.push(row); await this.save(t, rows); return row; },
+  async update(t, id, row){ const rows = await this.list(t); const i = rows.findIndex(r => r.id === id); rows[i] = {...rows[i], ...row, id}; await this.save(t, rows); return rows[i]; },
+  async remove(t, id){ await this.save(t, (await this.list(t)).filter(r => r.id !== id)); }
+};
+
+/* The server adapter talks to server.js on the same address the page was opened from. */
+async function api(method, path, body){
+  const res = await fetch('/api/' + path, { method, credentials:'same-origin',
+    headers:{'Content-Type':'application/json'}, body: body ? JSON.stringify(body) : undefined });
+  if (res.status === 401 && path !== 'login') { showLogin(); throw new Error('Please sign in again.'); }
+  if (!res.ok) { let m = res.statusText; try { m = (await res.json()).error || m; } catch {} throw new Error(m); }
+  return res.status === 204 ? null : res.json();
+}
+const ApiAdapter = () => {
+  const call = api;
+  return {
+    list: t => call('GET', t),
+    create: (t, row) => call('POST', t, row),
+    update: (t, id, row) => call('PUT', `${t}/${id}`, row),
+    remove: (t, id) => call('DELETE', `${t}/${id}`)
+  };
+};
+
+const Settings = {
+  get(){ return {hall:'My Marquee', currency:'Rs', ...JSON.parse(localStorage.getItem('mm_settings') || '{}')}; },
+  set(s){ localStorage.setItem('mm_settings', JSON.stringify(s)); }
+};
+let SERVER = false;   // true when the page is served by server.js (data in PostgreSQL)
+let DB = LocalAdapter;  // switched to the server adapter at start-up when a server is found
+
+function showLogin(){
+  $('#login').classList.add('open'); $('#loginErr').textContent = '';
+  setTimeout(() => $('#pw').focus(), 50);
+}
+async function submitLogin(e){
+  e.preventDefault();
+  const btn = $('#loginBtn'); btn.disabled = true; btn.textContent = 'Signing in...';
+  try {
+    await api('POST', 'login', {password: $('#pw').value});
+    $('#pw').value = ''; $('#login').classList.remove('open'); renderNav(); render();
+  } catch(err){ $('#loginErr').textContent = err.message; }
+  btn.disabled = false; btn.textContent = 'Sign in';
+}
+async function signOut(){
+  if (!await confirmBox({title:'Sign out?', text:'You will need the password to sign in again.', ok:'Sign out', danger:false})) return;
+  try { await api('POST', 'logout'); } catch {}
+  showLogin();
+}
+
+/* Start-up: if this page came from server.js use the database, otherwise save in this browser. */
+async function boot(){
+  $('#loginForm').onsubmit = submitLogin;
+  if (location.protocol.startsWith('http')) {
+    try {
+      const res = await fetch('/api/session', {credentials:'same-origin'});
+      if (res.status === 200 || res.status === 401) {
+        SERVER = true; DB = ApiAdapter();
+        if (res.status === 401) { renderNav(); showLogin(); return; }
+      }
+    } catch {}
+  }
+  renderNav(); render();
+}
+
+/* =====================================================================
+   2. HELPERS
+   ===================================================================== */
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const num = v => Number(v) || 0;
+const money = v => Settings.get().currency + ' ' + num(v).toLocaleString('en-PK');
+const today = () => new Date().toISOString().slice(0,10);
+const monthOf = d => (d || '').slice(0,7);
+const fmtDate = d => d ? new Date(d + 'T00:00').toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}) : '';
+const monthName = m => new Date(m + '-01T00:00').toLocaleDateString('en-GB',{month:'long',year:'numeric'});
+function toast(msg){ const t = $('#toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2200); }
+
+/* =====================================================================
+   3. MODULE DEFINITIONS  —  add a field here and the form + table update.
+   ===================================================================== */
+const MODULES = {
+  bookings: {
+    title:'Bookings', icon:'calendar-days', single:'Booking', sub:'All events: Barat, Walima, Mehndi and more',
+    fields:[
+      {k:'title', label:'Event title', full:true, req:true, ph:'e.g. Ahmed & Sara Wedding'},
+      {k:'customer', label:'Customer name', ph:'Who booked?'},
+      {k:'phone', label:'Phone', type:'tel', ph:'03xx-xxxxxxx'},
+      {k:'type', label:'Event type', type:'choice', opts:['Barat','Walima','Mehndi','Engagement','Birthday','Other'], def:'Barat', full:true},
+      {k:'date', label:'Event date', type:'date', req:true, def:today},
+      {k:'shift', label:'Time', type:'choice', opts:['Day','Night'], def:'Night'},
+      {k:'guests', label:'Total guests', type:'number', ph:'e.g. 400'},
+      {k:'per_head', label:'Rate per guest', type:'number', hint:'Leave empty if fixed price'},
+      {k:'total', label:'Total amount', type:'number', req:true, hint:'Auto-filled from guests × rate'},
+      {k:'advance', label:'Advance paid', type:'number'},
+      {k:'notes', label:'Notes', type:'textarea', full:true, ph:'Menu, decoration, special requests…'}
+    ],
+    cols:[
+      {k:'date', label:'Date', f:r => fmtDate(r.date)},
+      {k:'title', label:'Event', f:r => `<b>${esc(r.title)}</b><br><small style="color:var(--muted)">${esc(r.customer||'')} ${esc(r.phone||'')}</small>`},
+      {k:'type', label:'Type', f:r => `<span class="tag brand">${esc(r.type)}</span>`},
+      {k:'shift', label:'Time', f:r => r.shift},
+      {k:'guests', label:'Guests', num:true},
+      {k:'total', label:'Total', num:true, f:r => money(r.total)},
+      {k:'advance', label:'Advance', num:true, f:r => money(r.advance)},
+      {k:'balance', label:'Balance', num:true, f:r => { const b = num(r.total)-num(r.advance); return b <= 0 ? '<span class="tag ok">Paid</span>' : `<span class="tag warn">${money(b)}</span>`; }}
+    ],
+    filters:[{k:'type', opts:['Barat','Walima','Mehndi','Engagement','Birthday','Other']},{k:'shift', opts:['Day','Night']}],
+    sort:(a,b) => (b.date||'').localeCompare(a.date||'')
+  },
+  staff: {
+    title:'Staff & Labor', icon:'users', single:'Staff member', sub:'Waiters, cooks, cleaners, guards and managers',
+    fields:[
+      {k:'name', label:'Full name', req:true, full:true},
+      {k:'role', label:'Role', type:'choice', opts:['Waiter','Labor','Cook','Cleaner','Guard','Manager','Other'], def:'Waiter', full:true},
+      {k:'phone', label:'Phone', type:'tel'},
+      {k:'pay_type', label:'Paid', type:'choice', opts:['Monthly','Per event'], def:'Monthly'},
+      {k:'salary', label:'Salary / rate', type:'number', req:true},
+      {k:'joined', label:'Joining date', type:'date', def:today},
+      {k:'active', label:'Status', type:'choice', opts:['Active','Left'], def:'Active', full:true}
+    ],
+    cols:[
+      {k:'name', label:'Name', f:r => `<b>${esc(r.name)}</b>`},
+      {k:'role', label:'Role', f:r => `<span class="tag brand">${esc(r.role)}</span>`},
+      {k:'phone', label:'Phone'},
+      {k:'pay_type', label:'Paid'},
+      {k:'salary', label:'Salary / rate', num:true, f:r => money(r.salary)},
+      {k:'active', label:'Status', f:r => `<span class="tag ${r.active==='Left'?'bad':'ok'}">${esc(r.active)}</span>`}
+    ],
+    filters:[{k:'role', opts:['Waiter','Labor','Cook','Cleaner','Guard','Manager','Other']},{k:'active', opts:['Active','Left']}],
+    sort:(a,b) => (a.name||'').localeCompare(b.name||'')
+  },
+  salaries: {
+    title:'Salaries', icon:'wallet', single:'Salary payment', sub:'Record every payment made to staff',
+    fields:[
+      {k:'staff_name', label:'Staff member', type:'staff', req:true, full:true},
+      {k:'date', label:'Payment date', type:'date', def:today, req:true},
+      {k:'amount', label:'Amount paid', type:'number', req:true},
+      {k:'for_month', label:'For month', type:'month', def:() => today().slice(0,7)},
+      {k:'method', label:'Paid by', type:'choice', opts:['Cash','Bank','JazzCash'], def:'Cash'},
+      {k:'notes', label:'Notes', type:'textarea', full:true}
+    ],
+    cols:[
+      {k:'date', label:'Date', f:r => fmtDate(r.date)},
+      {k:'staff_name', label:'Staff', f:r => `<b>${esc(r.staff_name)}</b>`},
+      {k:'for_month', label:'For month', f:r => r.for_month ? monthName(r.for_month) : ''},
+      {k:'method', label:'Paid by'},
+      {k:'amount', label:'Amount', num:true, f:r => money(r.amount)}
+    ],
+    filters:[{k:'method', opts:['Cash','Bank','JazzCash']}],
+    sort:(a,b) => (b.date||'').localeCompare(a.date||'')
+  },
+  expenses: {
+    title:'Expenses', icon:'receipt', single:'Expense', sub:'Maintenance, printing, building, bills and more',
+    fields:[
+      {k:'category', label:'Category', type:'choice', opts:['Maintenance','Printing','Building','Electricity','Gas & Water','Food & Supplies','Decoration','Other'], def:'Maintenance', full:true},
+      {k:'description', label:'What was it for?', req:true, full:true, ph:'e.g. AC repair, wedding cards'},
+      {k:'date', label:'Date', type:'date', def:today, req:true},
+      {k:'amount', label:'Amount', type:'number', req:true},
+      {k:'notes', label:'Notes', type:'textarea', full:true}
+    ],
+    cols:[
+      {k:'date', label:'Date', f:r => fmtDate(r.date)},
+      {k:'category', label:'Category', f:r => `<span class="tag brand">${esc(r.category)}</span>`},
+      {k:'description', label:'Description'},
+      {k:'amount', label:'Amount', num:true, f:r => money(r.amount)}
+    ],
+    filters:[{k:'category', opts:['Maintenance','Printing','Building','Electricity','Gas & Water','Food & Supplies','Decoration','Other']}],
+    sort:(a,b) => (b.date||'').localeCompare(a.date||'')
+  },
+  assets: {
+    title:'Assets', icon:'armchair', single:'Asset', sub:'Sofas, chairs, tables, lights, generators, property',
+    fields:[
+      {k:'name', label:'Item name', req:true, full:true, ph:'e.g. Golden chairs'},
+      {k:'category', label:'Category', type:'choice', opts:['Furniture','Sofas','Chairs','Tables','Lighting','Kitchen','Generator','Building','Other'], def:'Furniture', full:true},
+      {k:'qty', label:'Quantity', type:'number', def:'1'},
+      {k:'unit_value', label:'Value per item', type:'number'},
+      {k:'condition', label:'Condition', type:'choice', opts:['Good','Needs repair','Broken'], def:'Good', full:true},
+      {k:'purchased', label:'Purchase date', type:'date'},
+      {k:'notes', label:'Notes', type:'textarea', full:true}
+    ],
+    cols:[
+      {k:'name', label:'Item', f:r => `<b>${esc(r.name)}</b>`},
+      {k:'category', label:'Category'},
+      {k:'qty', label:'Qty', num:true},
+      {k:'unit_value', label:'Per item', num:true, f:r => money(r.unit_value)},
+      {k:'total', label:'Total value', num:true, f:r => money(num(r.qty)*num(r.unit_value))},
+      {k:'condition', label:'Condition', f:r => `<span class="tag ${r.condition==='Good'?'ok':r.condition==='Broken'?'bad':'warn'}">${esc(r.condition)}</span>`}
+    ],
+    filters:[{k:'category', opts:['Furniture','Sofas','Chairs','Tables','Lighting','Kitchen','Generator','Building','Other']},{k:'condition', opts:['Good','Needs repair','Broken']}],
+    sort:(a,b) => (a.name||'').localeCompare(b.name||'')
+  }
+};
+
+const PAGES = [
+  {id:'dashboard', title:'Dashboard', icon:'layout-dashboard'},
+  ...Object.entries(MODULES).map(([id,m]) => ({id, title:m.title, icon:m.icon})),
+  {id:'reports', title:'Monthly Report', icon:'bar-chart-3'},
+  {sep:true},
+  {id:'settings', title:'Settings', icon:'settings'},
+  {id:'signout', title:'Sign out', icon:'log-out', server:true}
+];
+
+let current = 'dashboard';
+const state = {}; // search/filter per module
+
+function renderNav(){
+  $('#nav').innerHTML = PAGES.filter(p => !p.server || SERVER).map(p => p.sep ? '<hr>' :
+    `<button class="${p.id===current?'active':''}" onclick="go('${p.id}')"><i data-lucide="${p.icon}"></i>${p.title}</button>`).join('');
+  window.lucide && lucide.createIcons();
+}
+function toggleMenu(open){ $('#side').classList.toggle('open', open); document.body.classList.toggle('locked', open); }
+function go(id){ if (id === 'signout') { toggleMenu(false); return signOut(); } current = id; renderNav(); toggleMenu(false); render(); window.scrollTo(0,0); }
+
+async function render(){
+  try {
+    if (current === 'dashboard') return renderDashboard();
+    if (current === 'reports') return renderReports();
+    if (current === 'settings') return renderSettings();
+    return renderModule(current);
+  } catch(e){
+    $('#main').innerHTML = `<div class="panel"><div class="empty">Could not load data.<br><small>${esc(e.message)}</small><br><br><button class="btn" onclick="go('settings')">Check settings</button></div></div>`;
+  }
+}
+
+const header = (title, sub, extra='') => `<div class="top"><div><h1>${title}</h1><p class="sub">${sub}</p></div><div>${extra}</div></div>`;
+
+/* ---------- Generic module page ---------- */
+async function renderModule(id){
+  const m = MODULES[id];
+  const st = state[id] ||= {q:'', f:{}};
+  let rows = (await DB.list(id)).sort(m.sort);
+  const all = rows;
+  if (st.q) rows = rows.filter(r => Object.values(r).join(' ').toLowerCase().includes(st.q.toLowerCase()));
+  for (const [k,v] of Object.entries(st.f)) if (v) rows = rows.filter(r => r[k] === v);
+
+  $('#main').innerHTML = header(m.title, m.sub, `<button class="btn" onclick="openForm('${id}')">+ Add ${m.single}</button>`) +
+  `<div class="panel">
+    <div class="toolbar">
+      <input placeholder="Search…" value="${esc(st.q)}" oninput="state['${id}'].q=this.value;renderModuleDebounced('${id}')">
+      ${m.filters.map(f => `<select onchange="state['${id}'].f['${f.k}']=this.value;render()">
+        <option value="">All ${f.k.replace('_',' ')}</option>${f.opts.map(o => `<option ${st.f[f.k]===o?'selected':''}>${o}</option>`).join('')}</select>`).join('')}
+      <span style="margin-left:auto;align-self:center;color:var(--muted)">${rows.length} of ${all.length}</span>
+    </div>
+    ${rows.length ? `<div class="tablewrap"><table><thead><tr>${m.cols.map(c => `<th class="${c.num?'num':''}">${c.label}</th>`).join('')}<th></th></tr></thead>
+    <tbody>${rows.map(r => `<tr>${m.cols.map(c => `<td class="${c.num?'num':''}">${c.f ? c.f(r) : esc(r[c.k])}</td>`).join('')}
+      <td><div class="actions"><button class="btn light sm" onclick="openForm('${id}','${r.id}')">Edit</button><button class="btn light sm" style="color:var(--bad)" onclick="removeRow('${id}','${r.id}')">Delete</button></div></td></tr>`).join('')}</tbody></table></div>`
+    : `<div class="empty">${all.length ? 'Nothing matches your search.' : `No ${m.title.toLowerCase()} yet.<br><br><button class="btn" onclick="openForm('${id}')">+ Add your first ${m.single.toLowerCase()}</button>`}</div>`}
+  </div>`;
+  const inp = $('.toolbar input'); if (st.q && inp){ inp.focus(); inp.setSelectionRange(st.q.length, st.q.length); }
+}
+let _deb; function renderModuleDebounced(id){ clearTimeout(_deb); _deb = setTimeout(() => renderModule(id), 200); }
+
+/* ---------- Form modal ---------- */
+async function openForm(id, rowId){
+  const m = MODULES[id];
+  const row = rowId ? (await DB.list(id)).find(r => r.id === rowId) : {};
+  const staff = m.fields.some(f => f.type === 'staff') ? (await DB.list('staff')).filter(s => s.active !== 'Left') : [];
+  const val = f => row[f.k] ?? (typeof f.def === 'function' ? f.def() : f.def ?? '');
+  const input = f => {
+    const v = esc(val(f)), req = f.req ? 'required' : '';
+    if (f.type === 'choice') return `<div class="choice${f.opts.length <= 3 ? ' seg' : ''}">${f.opts.map(o => `<label><input type="radio" name="${f.k}" value="${o}" ${val(f)===o?'checked':''}><span>${o}</span></label>`).join('')}</div>`;
+    if (f.type === 'textarea') return `<textarea name="${f.k}" rows="3" placeholder="${f.ph||''}">${v}</textarea>`;
+    if (f.type === 'staff') return `<select name="${f.k}" ${req}><option value="">— Choose staff —</option>${staff.map(s => `<option ${s.name===val(f)?'selected':''}>${esc(s.name)}</option>`).join('')}</select>${staff.length?'':'<span class="hint">Add staff first in Staff &amp; Labor.</span>'}`;
+    return `<input name="${f.k}" type="${f.type||'text'}" value="${v}" placeholder="${f.ph||''}" ${req} ${f.type==='number'?'min="0" inputmode="numeric"':''}>`;
+  };
+  $('#modal').innerHTML = `<form id="frm">
+    <header><h3>${rowId?'Edit':'New'} ${m.single}</h3><button type="button" class="close" aria-label="Close" onclick="closeForm()">&times;</button></header>
+    <div class="body">${m.fields.map(f => `<div class="field ${f.full||f.type==='textarea'?'full':''}"><label>${f.label}${f.req?' <span style="color:var(--bad)">*</span>':''}</label>${input(f)}${f.hint&&f.type!=='staff'?`<span class="hint">${f.hint}</span>`:''}</div>`).join('')}
+    ${id==='bookings'?'<div class="calc"><span>Balance remaining</span><span id="bal"></span></div>':''}</div>
+    <footer><button type="button" class="btn light" onclick="closeForm()">Cancel</button><button class="btn">Save</button></footer></form>`;
+  $('#overlay').classList.add('open');
+  const frm = $('#frm');
+  if (id === 'bookings'){
+    const upd = e => {
+      if (e && ['guests','per_head'].includes(e.target.name) && num(frm.per_head.value)) frm.total.value = num(frm.guests.value) * num(frm.per_head.value);
+      $('#bal').textContent = money(num(frm.total.value) - num(frm.advance.value));
+    };
+    frm.addEventListener('input', upd); upd();
+  }
+  frm.querySelector('input:not([type=radio]),select')?.focus();
+  frm.onsubmit = async e => {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(frm));
+    try { rowId ? await DB.update(id, rowId, data) : await DB.create(id, data); closeForm(); toast('Saved'); render(); }
+    catch(err){ toast('Could not save: ' + err.message); }
+  };
+}
+function closeForm(){ $('#overlay').classList.remove('open'); }
+$('#overlay').addEventListener('click', e => { if (e.target.id === 'overlay') closeForm(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeForm(); toggleMenu(false); } });
+/* Reusable confirm dialog: await confirmBox({title, text, ok, danger}) -> true/false */
+function confirmBox({title='Are you sure?', text='', ok='Delete', danger=true} = {}){
+  const box = $('#confirmBox'), yes = $('#cYes'), no = $('#cNo');
+  $('#cTitle').textContent = title; $('#cText').textContent = text;
+  yes.textContent = ok; yes.className = 'btn' + (danger ? ' danger' : '');
+  box.classList.add('open'); yes.focus();
+  return new Promise(resolve => {
+    const done = v => { box.classList.remove('open'); yes.onclick = no.onclick = box.onclick = document.onkeydown = null; resolve(v); };
+    yes.onclick = () => done(true);
+    no.onclick = () => done(false);
+    box.onclick = e => { if (e.target === box) done(false); };
+    document.onkeydown = e => { if (e.key === 'Escape') done(false); };
+  });
+}
+async function removeRow(id, rowId){
+  const one = MODULES[id].single.toLowerCase();
+  if (!await confirmBox({title:`Delete this ${one}?`, text:'This cannot be undone.'})) return;
+  await DB.remove(id, rowId); toast('Deleted'); render();
+}
+
+/* ---------- Finance calculations ---------- */
+async function loadAll(){ const o = {}; for (const t of TABLES) o[t] = await DB.list(t); return o; }
+function monthTotals(d, m){
+  const inM = r => monthOf(r.date) === m;
+  const b = d.bookings.filter(inM);
+  const income = b.reduce((s,r) => s + num(r.total), 0);
+  const received = b.reduce((s,r) => s + num(r.advance), 0);
+  const salaries = d.salaries.filter(inM).reduce((s,r) => s + num(r.amount), 0);
+  const byCat = {}; d.expenses.filter(inM).forEach(r => byCat[r.category] = (byCat[r.category]||0) + num(r.amount));
+  const expenses = Object.values(byCat).reduce((a,b) => a+b, 0);
+  return {bookings:b, events:b.length, guests:b.reduce((s,r) => s+num(r.guests),0), income, received, pending: income-received, salaries, byCat, expenses, net: income - salaries - expenses};
+}
+
+/* ---------- Dashboard ---------- */
+async function renderDashboard(){
+  const d = await loadAll(), m = today().slice(0,7), t = monthTotals(d, m);
+  const upcoming = d.bookings.filter(b => b.date >= today()).sort((a,b) => a.date.localeCompare(b.date)).slice(0,6);
+  const pending = d.bookings.filter(b => num(b.total) > num(b.advance)).reduce((s,b) => s + num(b.total)-num(b.advance), 0);
+  const assetsVal = d.assets.reduce((s,a) => s + num(a.qty)*num(a.unit_value), 0);
+  const repair = d.assets.filter(a => a.condition !== 'Good').length;
+  const months = [...Array(6)].map((_,i) => { const x = new Date(); x.setDate(1); x.setMonth(x.getMonth()-5+i); return x.toISOString().slice(0,7); });
+  const series = months.map(mm => ({m:mm, ...monthTotals(d, mm)}));
+  const max = Math.max(1, ...series.map(s => Math.max(s.income, s.salaries+s.expenses)));
+
+  $('#main').innerHTML = header(`Welcome, ${esc(Settings.get().hall)} `, `Here is ${monthName(m)} at a glance`,
+    `<button class="btn" onclick="go('bookings');openForm('bookings')">+ New Booking</button>`) +
+  `<div class="cards">
+    <div class="card brand"><div class="lbl">Events this month</div><div class="val">${t.events}</div></div>
+    <div class="card"><div class="lbl">Guests this month</div><div class="val">${t.guests.toLocaleString()}</div></div>
+    <div class="card"><div class="lbl">Income this month</div><div class="val">${money(t.income)}</div></div>
+    <div class="card bad"><div class="lbl">Spent this month</div><div class="val">${money(t.salaries+t.expenses)}</div></div>
+    <div class="card ${t.net>=0?'ok':'bad'}"><div class="lbl">Net profit this month</div><div class="val">${money(t.net)}</div></div>
+    <div class="card"><div class="lbl">Payments to collect</div><div class="val">${money(pending)}</div></div>
+  </div>
+  <div class="grid2">
+    <div class="panel"><h2>Upcoming events</h2>
+      ${upcoming.length ? `<div class="tablewrap"><table><tbody>${upcoming.map(b => `<tr><td>${fmtDate(b.date)}</td><td><b>${esc(b.title)}</b></td><td><span class="tag brand">${esc(b.type)}</span></td><td>${esc(b.shift)}</td></tr>`).join('')}</tbody></table></div>`
+      : '<div class="empty">No upcoming events.</div>'}
+    </div>
+    <div class="panel"><h2>Last 6 months — profit</h2>
+      ${series.map(s => `<div class="bar"><span class="name">${monthName(s.m).split(' ')[0].slice(0,3)} ${s.m.slice(2,4)}</span>
+        <div class="track"><div class="fill" style="width:${Math.max(0,s.net)/max*100}%;background:${s.net>=0?'var(--ok)':'var(--bad)'}"></div></div>
+        <span class="amt" style="color:${s.net>=0?'var(--ok)':'var(--bad)'}">${money(s.net)}</span></div>`).join('')}
+      <div style="height:10px"></div>
+    </div>
+  </div>
+  <div class="cards">
+    <div class="card"><div class="lbl">Active staff</div><div class="val">${d.staff.filter(s => s.active!=='Left').length}</div></div>
+    <div class="card"><div class="lbl">Assets value</div><div class="val">${money(assetsVal)}</div></div>
+    <div class="card ${repair?'bad':'ok'}"><div class="lbl">Items needing repair</div><div class="val">${repair}</div></div>
+  </div>`;
+}
+
+/* ---------- Monthly report ---------- */
+let reportMonth = today().slice(0,7);
+async function renderReports(){
+  const d = await loadAll(), t = monthTotals(d, reportMonth);
+  const row = (l, v, cls='') => `<tr><td>${l}</td><td class="num ${cls}">${money(v)}</td></tr>`;
+  $('#main').innerHTML = header('Monthly Report', monthName(reportMonth),
+    `<input type="month" value="${reportMonth}" onchange="reportMonth=this.value;render()" style="padding:10px;border:1px solid var(--line);border-radius:10px;margin-right:8px">
+     <button class="btn light" onclick="window.print()">Print</button> <button class="btn light" onclick="exportCSV()">Excel</button>`) +
+  `<div class="cards">
+    <div class="card"><div class="lbl">Total income</div><div class="val">${money(t.income)}</div></div>
+    <div class="card bad"><div class="lbl">Total spent</div><div class="val">${money(t.salaries+t.expenses)}</div></div>
+    <div class="card ${t.net>=0?'ok':'bad'}"><div class="lbl">Net profit</div><div class="val">${money(t.net)}</div></div>
+  </div>
+  <div class="grid2">
+    <div class="panel"><h2>Profit &amp; loss</h2><table><tbody>
+      ${row(`Bookings income (${t.events} events, ${t.guests} guests)`, t.income)}
+      ${row('&nbsp;&nbsp;Advance received', t.received)}
+      ${row('&nbsp;&nbsp;Still to collect', t.pending)}
+      ${row('Staff salaries', -t.salaries, 'bad')}
+      ${Object.entries(t.byCat).map(([k,v]) => row(esc(k), -v)).join('')}
+      <tr><td><b>Net income / Net profit</b></td><td class="num"><b style="color:${t.net>=0?'var(--ok)':'var(--bad)'}">${money(t.net)}</b></td></tr>
+    </tbody></table></div>
+    <div class="panel"><h2>Events this month</h2>
+      ${t.bookings.length ? `<table><tbody>${t.bookings.sort((a,b)=>a.date.localeCompare(b.date)).map(b => `<tr><td>${fmtDate(b.date)}</td><td>${esc(b.title)}</td><td>${esc(b.type)} · ${b.shift}</td><td class="num">${money(b.total)}</td></tr>`).join('')}</tbody></table>` : '<div class="empty">No events this month.</div>'}
+    </div>
+  </div>`;
+}
+async function exportCSV(){
+  const d = await loadAll(), t = monthTotals(d, reportMonth);
+  const lines = [['Date','Event','Type','Time','Guests','Total','Advance','Balance'],
+    ...t.bookings.map(b => [b.date,b.title,b.type,b.shift,b.guests,b.total,b.advance,num(b.total)-num(b.advance)]),
+    [], ['Income',t.income], ['Salaries',t.salaries], ...Object.entries(t.byCat), ['Net profit',t.net]];
+  const csv = lines.map(r => r.map(c => `"${String(c??'').replace(/"/g,'""')}"`).join(',')).join('\n');
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv],{type:'text/csv'}));
+  a.download = `report-${reportMonth}.csv`; a.click();
+}
+
+/* ---------- Settings ---------- */
+function renderSettings(){
+  const s = Settings.get();
+  $('#main').innerHTML = header('Settings', 'Hall name, currency and where your data is saved') +
+  `<form class="panel settings" id="sf"><h2>General</h2><div class="body">
+    <div class="field"><label>Hall / Marquee name</label><input name="hall" value="${esc(s.hall)}"></div>
+    <div class="field"><label>Currency</label><input name="currency" value="${esc(s.currency)}"></div>
+  </div><h2>Where is data saved?</h2><div class="body">
+    ${SERVER
+      ? '<div class="status"><span class="dot"></span> Saved online in your database. Every device that signs in sees the same data.</div>'
+      : '<div class="status"><span class="dot" style="background:var(--warn)"></span> Saved in this browser only. Download a backup often.</div>'}
+  </div><div class="body" style="border-top:1px solid var(--line)"><div class="btnrow">
+    <button class="btn">Save settings</button>
+    <button type="button" class="btn light" onclick="backup()">Download backup</button>
+    <label class="btn light">Restore backup<input type="file" accept=".json" hidden onchange="restore(this.files[0])"></label>
+    <button type="button" class="btn light" onclick="sampleData()">Load sample data</button>
+  </div></div></form>`;
+  $('#sf').onsubmit = e => {
+    e.preventDefault(); const f = Object.fromEntries(new FormData(e.target));
+    Settings.set(f); toast('Settings saved'); render();
+  };
+}
+async function backup(){
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(await loadAll(), null, 2)],{type:'application/json'}));
+  a.download = `marquee-backup-${today()}.json`; a.click();
+}
+async function restore(file){
+  if (!file || !await confirmBox({title:'Restore this backup?', text:'All records in the file will be added to your current data.', ok:'Restore', danger:false})) return;
+  const data = JSON.parse(await file.text());
+  for (const t of TABLES) for (const r of data[t] || []) { const {id, ...rest} = r; await DB.create(t, rest); }
+  toast('Backup restored'); render();
+}
+async function sampleData(){
+  const d = n => { const x = new Date(); x.setDate(x.getDate()+n); return x.toISOString().slice(0,10); };
+  const S = {
+    bookings:[
+      {title:'Ahmed & Sara',customer:'Mr. Khan',phone:'0300-1234567',type:'Barat',date:d(3),shift:'Night',guests:'450',per_head:'1800',total:'810000',advance:'300000'},
+      {title:'Ahmed & Sara',customer:'Mr. Khan',phone:'0300-1234567',type:'Walima',date:d(4),shift:'Day',guests:'500',per_head:'1600',total:'800000',advance:'200000'},
+      {title:'Bilal Mehndi',customer:'Bilal',phone:'0321-7654321',type:'Mehndi',date:d(-5),shift:'Night',guests:'250',per_head:'1500',total:'375000',advance:'375000'}],
+    staff:[
+      {name:'Imran',role:'Manager',phone:'0333-1111111',pay_type:'Monthly',salary:'60000',joined:d(-400),active:'Active'},
+      {name:'Asif',role:'Waiter',phone:'0333-2222222',pay_type:'Per event',salary:'2000',joined:d(-200),active:'Active'},
+      {name:'Rashid',role:'Labor',phone:'0333-3333333',pay_type:'Monthly',salary:'30000',joined:d(-100),active:'Active'}],
+    salaries:[{staff_name:'Imran',date:d(-2),amount:'60000',for_month:today().slice(0,7),method:'Bank'},{staff_name:'Rashid',date:d(-2),amount:'30000',for_month:today().slice(0,7),method:'Cash'}],
+    expenses:[{category:'Maintenance',description:'AC servicing',date:d(-6),amount:'25000'},{category:'Printing',description:'Banners & cards',date:d(-1),amount:'8000'},{category:'Electricity',description:'Monthly bill',date:d(-3),amount:'95000'}],
+    assets:[{name:'Golden chairs',category:'Chairs',qty:'600',unit_value:'3500',condition:'Good'},{name:'Stage sofa set',category:'Sofas',qty:'4',unit_value:'85000',condition:'Needs repair'},{name:'Round tables',category:'Tables',qty:'70',unit_value:'9000',condition:'Good'}]
+  };
+  for (const [t, rows] of Object.entries(S)) for (const r of rows) await DB.create(t, r);
+  toast('Sample data added'); go('dashboard');
+}
+
+boot();
+</script>
+</body>
+</html>

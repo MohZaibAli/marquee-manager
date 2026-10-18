@@ -1,0 +1,1096 @@
+{
+ "expenses": [
+  {
+   "category": "Building",
+   "description": "Saleem Ceilling",
+   "date": "2025-09-01",
+   "amount": "55000",
+   "notes": "Hall setup cost, imported from EXP FROM SALE"
+  },
+  {
+   "category": "Building",
+   "description": "Saleem Ceilling",
+   "date": "2025-10-01",
+   "amount": "295000",
+   "notes": "Hall setup cost, imported from EXP FROM SALE"
+  },
+  {
+   "category": "Building",
+   "description": "Khalid Welding",
+   "date": "2025-10-01",
+   "amount": "12000",
+   "notes": "Hall setup cost, imported from EXP FROM SALE"
+  },
+  {
+   "category": "Building",
+   "description": "Wall Celling",
+   "date": "2025-10-01",
+   "amount": "29000",
+   "notes": "Hall setup cost, imported from EXP FROM SALE"
+  },
+  {
+   "category": "Building",
+   "description": "Saleem Ceilling",
+   "date": "2025-11-01",
+   "amount": "130000",
+   "notes": "Hall setup cost, imported from EXP FROM SALE"
+  },
+  {
+   "category": "Building",
+   "description": "Wall Ceilling",
+   "date": "2025-11-01",
+   "amount": "41500",
+   "notes": "Hall setup cost, imported from EXP FROM SALE"
+  },
+  {
+   "category": "Building",
+   "description": "Wall Painting",
+   "date": "2025-11-01",
+   "amount": "209000",
+   "notes": "Hall setup cost, imported from EXP FROM SALE"
+  },
+  {
+   "category": "Building",
+   "description": "Mazdori In Out",
+   "date": "2025-11-01",
+   "amount": "71500",
+   "notes": "Hall setup cost, imported from EXP FROM SALE"
+  },
+  {
+   "category": "Building",
+   "description": "Cement Bill",
+   "date": "2025-11-01",
+   "amount": "28200",
+   "notes": "Hall setup cost, imported from EXP FROM SALE"
+  },
+  {
+   "category": "Building",
+   "description": "Hall Chair Rent And Unload",
+   "date": "2025-11-01",
+   "amount": "19500",
+   "notes": "Hall setup cost, imported from EXP FROM SALE"
+  },
+  {
+   "category": "Building",
+   "description": "Ijaz Fanoos",
+   "date": "2025-11-01",
+   "amount": "10000",
+   "notes": "Hall setup cost, imported from EXP FROM SALE"
+  },
+  {
+   "category": "Building",
+   "description": "Marbel For Stairs",
+   "date": "2025-11-01",
+   "amount": "34400",
+   "notes": "Hall setup cost, imported from EXP FROM SALE"
+  },
+  {
+   "category": "Building",
+   "description": "Flex",
+   "date": "2025-11-01",
+   "amount": "72000",
+   "notes": "Hall setup cost, imported from EXP FROM SALE"
+  },
+  {
+   "category": "Building",
+   "description": "Dairy(Ch Akhtar)",
+   "date": "2025-11-01",
+   "amount": "1000",
+   "notes": "Hall setup cost, imported from EXP FROM SALE"
+  },
+  {
+   "category": "Building",
+   "description": "Ghori And Stage Phatta Rent",
+   "date": "2025-11-01",
+   "amount": "1800",
+   "notes": "Hall setup cost, imported from EXP FROM SALE"
+  },
+  {
+   "category": "Building",
+   "description": "Sand Trolly(Raiet)",
+   "date": "2025-11-01",
+   "amount": "20000",
+   "notes": "Hall setup cost, imported from EXP FROM SALE"
+  },
+  {
+   "category": "Building",
+   "description": "Washroom And Hall All Items",
+   "date": "2025-11-01",
+   "amount": "57150",
+   "notes": "Hall setup cost, imported from EXP FROM SALE"
+  },
+  {
+   "category": "Building",
+   "description": "Tiels Mazdori",
+   "date": "2026-12-25",
+   "amount": "24000",
+   "notes": "Hall setup cost, imported from EXP FROM SALE"
+  },
+  {
+   "category": "Building",
+   "description": "Mazdori",
+   "date": "2026-12-25",
+   "amount": "124800",
+   "notes": "Hall setup cost, imported from EXP FROM SALE"
+  },
+  {
+   "category": "Building",
+   "description": "Rents",
+   "date": "2026-12-25",
+   "amount": "105700",
+   "notes": "Hall setup cost, imported from EXP FROM SALE"
+  },
+  {
+   "category": "Building",
+   "description": "Washroom & Roof Items",
+   "date": "2026-12-25",
+   "amount": "121480",
+   "notes": "Hall setup cost, imported from EXP FROM SALE"
+  },
+  {
+   "category": "Building",
+   "description": "Saleem Ceilling",
+   "date": "2026-12-25",
+   "amount": "26000",
+   "notes": "Hall setup cost, imported from EXP FROM SALE"
+  },
+  {
+   "category": "Building",
+   "description": "Asif Wall Paint",
+   "date": "2026-12-25",
+   "amount": "95000",
+   "notes": "Hall setup cost, imported from EXP FROM SALE"
+  },
+  {
+   "category": "Building",
+   "description": "Cement Bill",
+   "date": "2026-12-25",
+   "amount": "88000",
+   "notes": "Hall setup cost, imported from EXP FROM SALE"
+  },
+  {
+   "category": "Building",
+   "description": "Hall Extra Exp",
+   "date": "2026-12-25",
+   "amount": "66710",
+   "notes": "Hall setup cost, imported from EXP FROM SALE"
+  },
+  {
+   "category": "Building",
+   "description": "Flex",
+   "date": "2026-12-25",
+   "amount": "20000",
+   "notes": "Hall setup cost, imported from EXP FROM SALE"
+  },
+  {
+   "category": "Building",
+   "description": "Mazdori",
+   "date": "2026-12-25",
+   "amount": "61200",
+   "notes": "Hall setup cost, imported from EXP FROM SALE"
+  },
+  {
+   "category": "Building",
+   "description": "Hall Office",
+   "date": "2026-12-25",
+   "amount": "3950",
+   "notes": "Hall setup cost, imported from EXP FROM SALE"
+  },
+  {
+   "category": "Building",
+   "description": "Hall Stock Rent & Extra",
+   "date": "2026-12-25",
+   "amount": "14600",
+   "notes": "Hall setup cost, imported from EXP FROM SALE"
+  },
+  {
+   "category": "Building",
+   "description": "Saleem Ceiling",
+   "date": "2026-12-25",
+   "amount": "21500",
+   "notes": "Hall setup cost, imported from EXP FROM SALE"
+  },
+  {
+   "category": "Building",
+   "description": "Flowers Setting Exp",
+   "date": "2026-12-25",
+   "amount": "4050",
+   "notes": "Hall setup cost, imported from EXP FROM SALE"
+  },
+  {
+   "category": "Building",
+   "description": "Roof Slaps Shifting Mazdori",
+   "date": "2026-12-25",
+   "amount": "2000",
+   "notes": "Hall setup cost, imported from EXP FROM SALE"
+  },
+  {
+   "category": "Building",
+   "description": "Ch Akhtar(Egg+Cleaning Material+Gass Nipple+Mazdori)",
+   "date": "2026-12-25",
+   "amount": "8450",
+   "notes": "Hall setup cost, imported from EXP FROM SALE"
+  },
+  {
+   "category": "Building",
+   "description": "Ganerator Repair",
+   "date": "2026-12-25",
+   "amount": "15670",
+   "notes": "Hall setup cost, imported from EXP FROM SALE"
+  },
+  {
+   "category": "Building",
+   "description": "Tahir Sanitery Bill",
+   "date": "2026-12-25",
+   "amount": "34000",
+   "notes": "Hall setup cost, imported from EXP FROM SALE"
+  },
+  {
+   "category": "Building",
+   "description": "Roof Washroom Doors Bill",
+   "date": "2026-12-25",
+   "amount": "13300",
+   "notes": "Hall setup cost, imported from EXP FROM SALE"
+  },
+  {
+   "category": "Building",
+   "description": "Cement Bill",
+   "date": "2026-12-25",
+   "amount": "30000",
+   "notes": "Hall setup cost, imported from EXP FROM SALE"
+  },
+  {
+   "category": "Building",
+   "description": "Waste Drum Bill",
+   "date": "2026-12-25",
+   "amount": "3000",
+   "notes": "Hall setup cost, imported from EXP FROM SALE"
+  },
+  {
+   "category": "Building",
+   "description": "M.Ashraf Payment",
+   "date": "2026-12-25",
+   "amount": "50000",
+   "notes": "Hall setup cost, imported from EXP FROM SALE"
+  },
+  {
+   "category": "Building",
+   "description": "Flex Payment",
+   "date": "2026-12-25",
+   "amount": "1500",
+   "notes": "Hall setup cost, imported from EXP FROM SALE"
+  },
+  {
+   "category": "Building",
+   "description": "Cloth For Stage Back(Ch Akhtar)",
+   "date": "2026-12-25",
+   "amount": "5000",
+   "notes": "Hall setup cost, imported from EXP FROM SALE"
+  },
+  {
+   "category": "Building",
+   "description": "Gujrawala Builti (Stove)",
+   "date": "2026-12-25",
+   "amount": "5000",
+   "notes": "Hall setup cost, imported from EXP FROM SALE"
+  },
+  {
+   "category": "Building",
+   "description": "Sanitary & Gass Pipe",
+   "date": "2026-12-25",
+   "amount": "25890",
+   "notes": "Hall setup cost, imported from EXP FROM SALE"
+  },
+  {
+   "category": "Building",
+   "description": "Sign Board Material",
+   "date": "2026-12-25",
+   "amount": "5650",
+   "notes": "Hall setup cost, imported from EXP FROM SALE"
+  },
+  {
+   "category": "Building",
+   "description": "Extra Exp For Hall",
+   "date": "2026-12-25",
+   "amount": "26550",
+   "notes": "Hall setup cost, imported from EXP FROM SALE"
+  },
+  {
+   "category": "Building",
+   "description": "Extras",
+   "date": "2026-12-25",
+   "amount": "5450",
+   "notes": "Hall setup cost, imported from EXP FROM SALE"
+  },
+  {
+   "category": "Building",
+   "description": "Faisal Hafeez For Wire",
+   "date": "2025-10-14",
+   "amount": "100000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Ahmed Shoail Saqib",
+   "date": "2025-10-15",
+   "amount": "500000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Ptcl Bill",
+   "date": "2025-10-16",
+   "amount": "2960",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Ahmed Shoail Saqib",
+   "date": "2025-10-20",
+   "amount": "1000000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Crystal Solutions",
+   "date": "2025-10-20",
+   "amount": "2000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Sain Lala Pak Timber Store",
+   "date": "2025-10-26",
+   "amount": "50000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Ceilling Exp (Sheraz Raza Khan)",
+   "date": "2025-10-30",
+   "amount": "50000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Mubarak Shahbaz (Crokery)",
+   "date": "2025-10-30",
+   "amount": "200000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "M.Umair Khadim(Car Manta)",
+   "date": "2025-11-01",
+   "amount": "70000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Sheraz Raza(Ceilling)",
+   "date": "2025-11-06",
+   "amount": "50000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Suleman Mansha(Kuttlery)",
+   "date": "2025-11-06",
+   "amount": "59500",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Ahmed Sohail",
+   "date": "2025-11-08",
+   "amount": "500000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Mubarrah Shabaiz(Crokery)",
+   "date": "2025-11-13",
+   "amount": "100000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "M.Ijaz(Adv For Fanoos)",
+   "date": "2025-11-15",
+   "amount": "50000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Hassan Mujtaba(Tials)",
+   "date": "2025-11-14",
+   "amount": "35940",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Hassan Mujtaba(Tials)",
+   "date": "2025-11-18",
+   "amount": "3000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "M.Ijaz(Adv For Fanoos)",
+   "date": "2025-11-18",
+   "amount": "50000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Sheraz Raza(Ceilling)",
+   "date": "2025-11-19",
+   "amount": "100000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "M.Ijaz(Adv For Fanoos)",
+   "date": "2025-11-21",
+   "amount": "100000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Ahmed Sohail",
+   "date": "2025-11-24",
+   "amount": "1000000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Mubarrah Shabaiz(Crokery)",
+   "date": "2025-11-18",
+   "amount": "100000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Fanoos Stock Rent",
+   "date": "2025-11-25",
+   "amount": "25000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Sofa Rent",
+   "date": "2025-11-25",
+   "amount": "19000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "M.Ijaz(Adv For Fanoos)",
+   "date": "2025-11-29",
+   "amount": "341000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Sheraz Raza Khan(Ceilling)",
+   "date": "2025-11-29",
+   "amount": "25000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Mubarrah Shabaiz(Crokery)",
+   "date": "2025-12-01",
+   "amount": "300000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "M.Ahmad(For Lobby )",
+   "date": "2025-12-01",
+   "amount": "18000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Dawarki Brothers(For Cunsoule)",
+   "date": "2025-12-01",
+   "amount": "25000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "M.Shahbaz Munawar(For Hall Trolly)",
+   "date": "2025-12-02",
+   "amount": "100000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Ijaz(For Next Fanoos Adv)",
+   "date": "2025-12-02",
+   "amount": "50000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Zeeshan Ali(Washroom Tials)",
+   "date": "2025-12-03",
+   "amount": "138500",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Faisal Hafeez(For Wire)",
+   "date": "2025-12-03",
+   "amount": "50000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "M.Adil(For Washroom Doors)",
+   "date": "2025-12-04",
+   "amount": "10000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "M.Shahbaz Munawar(For Hall Trolly)",
+   "date": "2025-12-06",
+   "amount": "100000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Lobby Frames",
+   "date": "2025-12-06",
+   "amount": "10000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Awais Akram (?)",
+   "date": "2025-12-05",
+   "amount": "15295",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Bilal Hussain(?)",
+   "date": "2025-12-05",
+   "amount": "14000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Abdul Rehman(?)",
+   "date": "2025-12-05",
+   "amount": "8350",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Okaf Bill For Seo To Dec",
+   "date": "2025-12-05",
+   "amount": "78804",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Asharab Ali(For Staff Salery)",
+   "date": "2025-12-07",
+   "amount": "100000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Babar Hussain(?)In November 30-2025",
+   "date": "2025-11-30",
+   "amount": "42000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Sain Lala Pak Timber Store",
+   "date": "2025-12-09",
+   "amount": "50000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Sheraz Raza Khan (Ceilling)",
+   "date": "2025-12-10",
+   "amount": "50000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Ahmad Sohail(Furniyure)",
+   "date": "2025-12-10",
+   "amount": "1000000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "M.Ijaz(Fanoos)",
+   "date": "2025-12-11",
+   "amount": "155000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "M.Shahbaz Munawar(For Hall Trolly)",
+   "date": "2025-12-11",
+   "amount": "105000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "M.Irfan Saeed(Gwj Burner & Etc)",
+   "date": "2025-12-11",
+   "amount": "140000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Hassan Azam (Gwj Burner & Etc)",
+   "date": "2025-12-11",
+   "amount": "81000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Hassan Azam (Gwj Burner & Etc)",
+   "date": "2025-12-11",
+   "amount": "63000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Sheraz Raza Khan(Ceilling)(Cash)",
+   "date": "2025-12-13",
+   "amount": "20000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Zeeshan Ali(Washroom Tials)",
+   "date": "2025-12-17",
+   "amount": "21800",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Crystal Solutions",
+   "date": "2025-12-22",
+   "amount": "2000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Ali Raza(Stage Arches)",
+   "date": "2025-12-22",
+   "amount": "100000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Asif Wall Paint",
+   "date": "2025-12-25",
+   "amount": "10000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Sheraz Raza Khan (Ceilling)",
+   "date": "2025-12-25",
+   "amount": "25000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "M.Ashraf For Partiation",
+   "date": "2025-12-26",
+   "amount": "20000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "New Al-Malik(3D Board)",
+   "date": "2025-12-26",
+   "amount": "40000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Mubarrah Shabaiz(For Krokery)",
+   "date": "2025-12-26",
+   "amount": "50000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Shahzad Ahmed For Gas Machine",
+   "date": "2025-12-27",
+   "amount": "80000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Mustafa Sofa(Cloth For Partitions Frame)",
+   "date": "2025-12-27",
+   "amount": "30000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Sheraz Raza Khan (Ceilling)",
+   "date": "2025-12-27",
+   "amount": "50000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Mubarrah Shabaiz(For Krokery)",
+   "date": "2025-12-29",
+   "amount": "128700",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "M.Asif Ali Bhatti",
+   "date": "2026-01-02",
+   "amount": "20000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Fanoos For Lobby",
+   "date": "2026-01-03",
+   "amount": "56000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "10 Led Lights(Sk Ele And Light)",
+   "date": "2026-01-03",
+   "amount": "18000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "10 Led Lights(Light Station)",
+   "date": "2026-01-03",
+   "amount": "25500",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Imran Steel Works(Arches)",
+   "date": "2026-01-03",
+   "amount": "100000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "M.Ashraf(For Partation)",
+   "date": "2026-01-04",
+   "amount": "30000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Saqib Sofa Poshish",
+   "date": "2026-01-04",
+   "amount": "50000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Kamran(Adv For Guldan)",
+   "date": "2026-01-05",
+   "amount": "10000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Junaid Flower House",
+   "date": "2026-01-06",
+   "amount": "221450",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Sheikh Danial Crockery Store",
+   "date": "2026-01-06",
+   "amount": "81000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Ele Bill",
+   "date": "2026-01-06",
+   "amount": "13777",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Ele Bill",
+   "date": "2026-01-06",
+   "amount": "18088",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Console Payment",
+   "date": "2026-01-06",
+   "amount": "43000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Frame Polish For Lobby",
+   "date": "2026-01-06",
+   "amount": "21000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Mirrors For Lobby Frames",
+   "date": "2026-01-06",
+   "amount": "75000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Naveed Ele Store(5800*6)",
+   "date": "2026-01-05",
+   "amount": "34800",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Led Grid Plate",
+   "date": "2026-01-05",
+   "amount": "4000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Breakers Inn(Led 2900*10)",
+   "date": "2026-01-05",
+   "amount": "29000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Ali Hassan(For Flower Setting)",
+   "date": "2026-01-06",
+   "amount": "13000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "M.Irfan Saeed",
+   "date": "2026-01-06",
+   "amount": "76500",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "M.Yousaf Fayyaz",
+   "date": "2026-01-07",
+   "amount": "56440",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Junaid Flower House",
+   "date": "2026-01-08",
+   "amount": "90250",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Imran Steel Works(Arches)",
+   "date": "2026-01-08",
+   "amount": "130000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "For Flower Holders",
+   "date": "2026-01-08",
+   "amount": "15000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "For Flower Holders",
+   "date": "2026-01-08",
+   "amount": "10000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Ahmad Carpets",
+   "date": "2026-01-09",
+   "amount": "60000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Ahmad Carpets",
+   "date": "2026-01-09",
+   "amount": "9500",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Sir Mumtaz Cash For Exp",
+   "date": "2026-01-09",
+   "amount": "10000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Sir Mumtaz Online For Exp",
+   "date": "2026-01-10",
+   "amount": "10000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Sheraz Raza Khan (Ceilling)Cash",
+   "date": "2026-01-13",
+   "amount": "20000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Rent Sign Board 3D",
+   "date": "2026-01-13",
+   "amount": "10000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Welding An Engal For Sign Board",
+   "date": "2026-01-13",
+   "amount": "5300",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Sir Mumtaz Cash For Exp",
+   "date": "2026-01-13",
+   "amount": "4700",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "New Al-Malik",
+   "date": "2026-01-13",
+   "amount": "43000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Ali Hassan For Banquet Furniture",
+   "date": "2026-01-14",
+   "amount": "20000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Hafiz Umair (Wapda)",
+   "date": "2026-01-14",
+   "amount": "6000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Landline Bill",
+   "date": "2026-01-15",
+   "amount": "3300",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "M.Ashraf(For Partation)",
+   "date": "2026-01-15",
+   "amount": "25000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Sheeraz Raza Khan(Ceiling)",
+   "date": "2026-01-18",
+   "amount": "30000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Syed Mohsin Ali Shah(For Uniform)",
+   "date": "2026-01-19",
+   "amount": "30000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Sheikh Akhtar Pervaiz(Furniture Bund Road)",
+   "date": "2026-01-20",
+   "amount": "100000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Ali Hassan(Furniture Bund Road)",
+   "date": "2026-01-20",
+   "amount": "300000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "M.Ashraf",
+   "date": "2026-01-21",
+   "amount": "50000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Sheeraz Raza Khan(Ceiling)",
+   "date": "2026-01-23",
+   "amount": "25000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Sufyan(Flex Payment)",
+   "date": "2026-01-23",
+   "amount": "25000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Hassan Azam(Steel Tandoor Gujrawala)",
+   "date": "2026-01-24",
+   "amount": "40000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Sufyan(Flex Payment)",
+   "date": "2026-01-26",
+   "amount": "15000",
+   "notes": "Hall setup cost, imported from MISS"
+  },
+  {
+   "category": "Building",
+   "description": "Ghos-E-Pak Glass(Mirror Blainder)",
+   "date": "2026-01-27",
+   "amount": "9000",
+   "notes": "Hall setup cost, imported from MISS"
+  }
+ ]
+}
