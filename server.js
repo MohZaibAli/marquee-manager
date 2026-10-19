@@ -24,7 +24,7 @@ const setCookie = (req, res, value, maxAge) => res.append('Set-Cookie',
   `${COOKIE}=${value}; Path=/; HttpOnly; SameSite=Strict; Max-Age=${maxAge}${req.secure ? '; Secure' : ''}`);
 
 const pool = new Pool({ connectionString: DATABASE_URL, ssl: /sslmode=require/.test(DATABASE_URL) ? { rejectUnauthorized: false } : undefined });
-const TABLES = ['bookings', 'payments', 'staff', 'salaries', 'expenses', 'assets'];
+const TABLES = ['categories', 'bookings', 'payments', 'staff', 'salaries', 'expenses', 'assets'];
 const app = express();
 app.set('trust proxy', 1); // so req.secure is right behind a hosting provider's HTTPS proxy
 app.use(express.json({ limit: '5mb' }));

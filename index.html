@@ -194,7 +194,7 @@ body.locked{overflow:hidden}
    - "api":   talks to server.js which saves in PostgreSQL.
    Any backend works if it exposes:  GET/POST /api/:table, PUT/DELETE /api/:table/:id
    ===================================================================== */
-const TABLES = ['bookings','payments','staff','salaries','assets','expenses']; // bookings before payments, assets before expenses (restore remaps ids)
+const TABLES = ['categories','bookings','payments','staff','salaries','assets','expenses']; // bookings before payments, assets before expenses (restore remaps ids)
 
 const LocalAdapter = {
   key: t => 'mm_' + t,
@@ -284,6 +284,12 @@ const ASSET_CATS = ['Furniture','Sofas','Chairs','Tables','Stage & Decor','Light
   'Crockery','Cutlery & Spoons','Glassware','Linen & Cloth','Carpets','Tents & Canopy','Electronics','Vehicles','Building','Tools','Other'];
 const EXP_CATS = ['Maintenance','Printing','Building','Electricity','Gas & Water','Food & Supplies','Decoration','Asset purchase','Other'];
 const ASSET_EXP = 'Asset purchase'; // expense category written automatically when an asset is bought
+/* Asset categories = the built-in list plus the ones the user adds (categories table, kind 'asset'). */
+async function assetCats(){ const own = (await DB.list('categories')).filter(c => c.kind === 'asset').map(c => c.name);
+  return [...ASSET_CATS.filter(c => c !== 'Other'), ...own.filter(c => !ASSET_CATS.includes(c)).sort(), 'Other']; }
+async function addCategory(kind, name){ name = (name || '').trim(); if (!name) return '';
+  const all = await DB.list('categories'); if (!all.some(c => c.kind === kind && c.name.toLowerCase() === name.toLowerCase()) && !ASSET_CATS.some(c => c.toLowerCase() === name.toLowerCase())) await DB.create('categories', {kind, name});
+  return name; }
 /* Extra charges on a booking: extra guests × rate, AC / chillers × rate, anything else. */
 function extras(b){ const guests = num(b.extra_guests) * num(b.per_head), ac = num(b.ac_units) * num(b.ac_rate), other = num(b.other_charges);
   return {guests, ac, other, total: guests + ac + other}; }
@@ -367,7 +373,7 @@ const MODULES = {
     sort:(a,b) => (b.date||'').localeCompare(a.date||'')
   },
   payments: {
-    title:'Payments', icon:'banknote', single:'Payment', sub:'Money received after the advance, such as the balance paid on the event day',
+    title:'Payments', icon:'banknote', single:'Payment', hidden:true, sub:'Money received after the advance, such as the balance paid on the event day',
     fields:[
       {k:'booking_id', label:'Booking', type:'booking', req:true, full:true},
       {k:'date', label:'Date received', type:'date', def:today, req:true},
@@ -457,7 +463,8 @@ const MODULES = {
     fields:[
       {section:'Item'},
       {k:'name', label:'Item name', req:true, full:true, ph:'e.g. Golden chairs'},
-      {k:'category', label:'Category', type:'select', opts:ASSET_CATS, def:'Furniture'},
+      {k:'category', label:'Category', type:'select', opts:assetCats, def:'Furniture', addNew:true},
+      {k:'new_category', label:'New category name', ph:'e.g. Spoons', hidden:true, full:true},
       {k:'purchased', label:'Purchase date', type:'date', def:today, req:true},
       {k:'qty', label:'Quantity', type:'number', count:true, def:'1', req:true},
       {k:'unit_value', label:'Price per item', type:'number'},
@@ -476,15 +483,18 @@ const MODULES = {
       {k:'total', label:'Total value', num:true, f:r => money(num(r.qty)*num(r.unit_value))},
       {k:'condition', label:'Condition', f:r => r._rep ? `<span class="tag warn">${r._rep} of ${num(r.qty)} need repair</span><br><small>${money(r._rep*num(r.unit_value))}</small>` : '<span class="tag ok">Good</span>'}
     ],
-    filters:[{k:'category', label:'categories', opts:ASSET_CATS},{k:'condition', label:'conditions', opts:['Good','Needs repair']}],
+    filters:[{k:'category', label:'categories', opts:assetCats},{k:'condition', label:'conditions', opts:['Good','Needs repair']}],
     dateFilter:'Purchase date', dateKey:'purchased',
     enrich(rows){ rows.forEach(r => { r._rep = repairCount(r); r.condition = r._rep ? 'Needs repair' : 'Good'; }); },
     async prep(row){
       if (row.id && (row.repair_qty === undefined || row.repair_qty === null || row.repair_qty === '')) row.repair_qty = String(repairCount(row));
       if (row.id) row.add_expense = (await DB.list('expenses')).some(e => e.asset_id === row.id) ? '1' : '';
     },
-    beforeSave(data){ data.condition = num(data.repair_qty) > 0 ? 'Needs repair' : 'Good'; delete data.add_expense; },
-    validate: data => num(data.repair_qty) > num(data.qty) ? `Only ${num(data.qty)} in total, so no more than ${num(data.qty)} can need repair.` : '',
+    beforeSave(data){ data.condition = num(data.repair_qty) > 0 ? 'Needs repair' : 'Good'; delete data.add_expense;
+      if (data.category === '__new') data.category = (data.new_category || '').trim(); delete data.new_category; },
+    async validate(data){ if (!data.category) return 'Type a name for the new category.';
+      if (num(data.repair_qty) > num(data.qty)) return `Only ${num(data.qty)} in total, so no more than ${num(data.qty)} can need repair.`;
+      await addCategory('asset', data.category); return ''; },
     /* Keep one "Asset purchase" expense in step with the asset, or remove it when the box is unticked. */
     async afterSave(raw, saved){
       const amount = num(saved.qty) * num(saved.unit_value), linked = (await DB.list('expenses')).find(e => e.asset_id === saved.id);
@@ -508,7 +518,7 @@ const MODULES = {
 
 const PAGES = [
   {id:'dashboard', title:'Dashboard', icon:'layout-dashboard'},
-  ...Object.entries(MODULES).map(([id,m]) => ({id, title:m.title, icon:m.icon})),
+  ...Object.entries(MODULES).filter(([,m]) => !m.hidden).map(([id,m]) => ({id, title:m.title, icon:m.icon})),
   {id:'reports', title:'Reports', icon:'bar-chart-3'},
   {sep:true},
   {id:'settings', title:'Settings', icon:'settings'},
@@ -557,8 +567,9 @@ async function renderModule(id){
   `<div class="panel">
     <div class="toolbar">
       <input placeholder="Search…" value="${esc(st.q)}" oninput="state['${id}'].q=this.value;renderModuleDebounced('${id}')">
-      ${m.filters.map(f => `<select onchange="state['${id}'].f['${f.k}']=this.value;render()">
-        <option value="">All ${f.label || f.k.replace('_',' ')}</option>${f.opts.map(o => `<option ${st.f[f.k]===o?'selected':''}>${o}</option>`).join('')}</select>`).join('')}
+      ${(await Promise.all(m.filters.map(async f => { const opts = typeof f.opts === 'function' ? await f.opts() : f.opts;
+        return `<select onchange="state['${id}'].f['${f.k}']=this.value;render()">
+        <option value="">All ${f.label || f.k.replace('_',' ')}</option>${opts.map(o => `<option ${st.f[f.k]===o?'selected':''}>${esc(o)}</option>`).join('')}</select>`; }))).join('')}
       ${m.dateFilter ? `<span class="dates">${m.dateFilter}
         <input type="date" aria-label="From date" value="${st.from}" onchange="setDates('${id}','from',this.value)"> to
         <input type="date" aria-label="To date" value="${st.to}" onchange="setDates('${id}','to',this.value)">
@@ -588,11 +599,13 @@ async function openForm(id, rowId){
   const bookings = has('booking') || id === 'bookings' ? await DB.list('bookings') : [];
   const paid = id === 'bookings' && rowId ? sum((await DB.list('payments')).filter(p => p.booking_id === rowId), p => p.amount) : 0;
   const val = f => row[f.k] ?? (typeof f.def === 'function' ? f.def() : f.def ?? '');
+  const optsOf = {}; for (const f of m.fields) if (typeof f.opts === 'function') optsOf[f.k] = await f.opts();
   const input = f => {
     const v = esc(val(f)), req = f.req ? 'required' : '';
     if (f.type === 'choice') return `<div class="choice${f.opts.length <= 3 ? ' seg' : ''}">${f.opts.map(o => `<label><input type="radio" name="${f.k}" value="${o}" ${val(f)===o?'checked':''} ${req}><span>${o}</span></label>`).join('')}</div>`;
     if (f.type === 'textarea') return `<textarea name="${f.k}" rows="3" placeholder="${f.ph||''}">${v}</textarea>`;
-    if (f.type === 'select') return `<select name="${f.k}" ${req}>${f.opts.map(o => `<option ${val(f)===o?'selected':''}>${o}</option>`).join('')}</select>`;
+    if (f.type === 'select') { const opts = optsOf[f.k] || f.opts, cur = val(f), extra = cur && !opts.includes(cur) ? [cur] : [];
+      return `<select name="${f.k}" ${req}>${[...extra, ...opts].map(o => `<option ${cur===o?'selected':''}>${esc(o)}</option>`).join('')}${f.addNew ? '<option value="__new">+ Add new category…</option>' : ''}</select>`; }
     if (f.type === 'check') return `<label class="checkline"><input type="checkbox" name="${f.k}" value="1" ${val(f)?'checked':''}> ${f.label}</label>`;
     if (f.type === 'staff') return `<select name="${f.k}" ${req}><option value="">— Choose staff —</option>${staff.map(s => `<option ${s.name===val(f)?'selected':''}>${esc(s.name)}</option>`).join('')}</select>${staff.length?'':'<span class="hint">Add staff first in Staff &amp; Labor.</span>'}`;
     if (f.type === 'booking') return `<select name="${f.k}" ${req}><option value="">— Choose booking —</option>${[...bookings].sort((a,b) => (b.date||'').localeCompare(a.date||'')).map(b => `<option value="${b.id}" ${b.id===String(val(f))?'selected':''}>${fmtDate(b.date)} · ${esc(b.title)}${b.hall?' · '+esc(b.hall):''}</option>`).join('')}</select>${bookings.length?'':'<span class="hint">Add a booking first.</span>'}`;
@@ -600,10 +613,10 @@ async function openForm(id, rowId){
   };
   $('#modal').innerHTML = `<form id="frm">
     <header><h3>${rowId?'Edit':'New'} ${m.single}</h3><button type="button" class="close" aria-label="Close" onclick="closeForm()">&times;</button></header>
-    <div class="body">${m.fields.map(f => f.section ? `<div class="sect">${f.section}</div>` : f.html ? f.html : fieldBox(f, input(f))).join('')}
+    <div class="body">${m.fields.map(f => f.section ? `<div class="sect">${f.section}</div>` : f.html ? f.html : (f.hidden ? `<div hidden data-for="${f.k}">` : '') + fieldBox(f, input(f)) + (f.hidden ? '</div>' : '')).join('')}
     ${id==='bookings'?'<div class="calc"><span>Balance remaining<small id="balx"></small></span><span id="bal"></span></div>':''}</div>
     <footer><span class="ferr" id="ferr"></span><button type="button" class="btn light" onclick="closeForm()">Cancel</button><button class="btn" id="saveBtn">Save</button></footer></form>`;
-  $('#overlay').classList.add('open');
+  showModal();
   const frm = $('#frm'), F = n => frm.elements[n];
   if (id === 'bookings'){
     const extra = num(row.extra_charges);
@@ -620,6 +633,10 @@ async function openForm(id, rowId){
     };
     frm.addEventListener('input', upd); frm.addEventListener('change', upd); upd();
   }
+  frm.querySelectorAll('select').forEach(sel => sel.addEventListener('change', () => {
+    const box = frm.querySelector('[data-for="new_category"]'); if (!box) return;
+    box.hidden = sel.value !== '__new'; if (!box.hidden) box.querySelector('input').focus();
+  }));
   frm.querySelector('input:not([type=radio]),select')?.focus();
   frm.onsubmit = async e => {
     e.preventDefault();
@@ -651,15 +668,16 @@ async function openView(id, rowId){
     if (f.type === 'number') return f.count ? num(v).toLocaleString('en-PK') : money(v);
     if (f.type === 'booking') { const b = bookings.find(x => x.id === String(v)); return b ? `${esc(b.title)} · ${fmtDate(b.date)}` : 'Booking deleted'; }
     return esc(v); };
-  const fields = m.fields.filter(f => !f.html && f.type !== 'check');
+  const fields = m.fields.filter(f => !f.html && f.type !== 'check' && !f.hidden);
   $('#modal').innerHTML = `<div>
     <header><h3>${esc(row.title || row.name || row.staff_name || row.description || m.single)}</h3><button type="button" class="close" aria-label="Close" onclick="closeForm()">&times;</button></header>
     <div class="body view">${fields.map(f => f.section ? `<div class="sect">${f.section}</div>` : `<div class="field ${f.full||f.type==='textarea'?'full':''}"><label>${f.label}</label><div>${show(f)}</div></div>`).join('')}
     ${m.viewExtra ? await m.viewExtra(row) : ''}</div>
     <footer>${m.viewActions ? m.viewActions(row) : ''}<button type="button" class="btn light" onclick="closeForm()">Close</button><button type="button" class="btn" onclick="openForm('${id}','${row.id}')">Edit</button></footer></div>`;
-  $('#overlay').classList.add('open');
+  showModal();
 }
-function closeForm(){ $('#overlay').classList.remove('open'); }
+function showModal(){ $('#overlay').classList.add('open'); document.body.classList.add('locked'); $('#overlay').scrollTop = 0; }
+function closeForm(){ $('#overlay').classList.remove('open'); if (!$('#confirmBox').classList.contains('open')) document.body.classList.remove('locked'); }
 $('#overlay').addEventListener('click', e => { if (e.target.id === 'overlay') closeForm(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeForm(); toggleMenu(false); } });
 /* Reusable confirm dialog: await confirmBox({title, text, ok, danger}) -> true/false */
@@ -667,9 +685,9 @@ function confirmBox({title='Are you sure?', text='', ok='Delete', danger=true} =
   const box = $('#confirmBox'), yes = $('#cYes'), no = $('#cNo');
   $('#cTitle').textContent = title; $('#cText').textContent = text;
   yes.textContent = ok; yes.className = 'btn' + (danger ? ' danger' : '');
-  box.classList.add('open'); yes.focus();
+  box.classList.add('open'); document.body.classList.add('locked'); yes.focus();
   return new Promise(resolve => {
-    const done = v => { box.classList.remove('open'); yes.onclick = no.onclick = box.onclick = document.onkeydown = null; resolve(v); };
+    const done = v => { box.classList.remove('open'); if (!$('#overlay').classList.contains('open')) document.body.classList.remove('locked'); yes.onclick = no.onclick = box.onclick = document.onkeydown = null; resolve(v); };
     yes.onclick = () => done(true);
     no.onclick = () => done(false);
     box.onclick = e => { if (e.target === box) done(false); };
@@ -717,7 +735,7 @@ async function openPayment(bid){
       <div class="ledger"><table><tbody id="ledger"></tbody></table></div>
     </div>
     <footer><span class="ferr" id="ferr"></span><button type="button" class="btn light" onclick="closeForm()">Cancel</button><button class="btn" id="saveBtn">Save</button></footer></form>`;
-  $('#overlay').classList.add('open');
+  showModal();
   const frm = $('#frm'), F = n => frm.elements[n];
   let amountTouched = false, out = {};
   const cur = () => ({extra_guests:F('extra_guests').value, ac_units:F('ac_units').value, ac_rate:F('ac_rate').value, other_charges:F('other_charges').value, per_head:rate});
@@ -785,10 +803,6 @@ async function renderDashboard(){
   const upcoming = d.bookings.filter(b => b.date >= today()).sort((a,b) => a.date.localeCompare(b.date)).slice(0,6);
   const pm = paidMap(d.payments);
   const pending = sum(d.bookings, b => Math.max(0, acct(b, pm).bal));
-  const assetsVal = sum(d.assets, a => num(a.qty)*num(a.unit_value));
-  const repairs = d.assets.map(a => ({a, n: repairCount(a)})).filter(x => x.n > 0)
-    .map(x => ({...x, v: x.n * num(x.a.unit_value)})).sort((x,y) => y.v - x.v);
-  const repairUnits = sum(repairs, x => x.n), repairVal = sum(repairs, x => x.v);
   const months = [...Array(6)].map((_,i) => { const x = new Date(); x.setDate(1); x.setMonth(x.getMonth()-5+i); return isoDate(x).slice(0,7); });
   const series = months.map(mm => ({m:mm, ...monthTotals(d, mm)}));
   const max = Math.max(1, ...series.map(s => Math.max(s.income, s.salaries+s.expenses)));
@@ -815,16 +829,7 @@ async function renderDashboard(){
       <div style="height:10px"></div>
     </div>
   </div>
-  <div class="cards">
-    <div class="card"><div class="lbl">Active staff</div><div class="val">${d.staff.filter(s => s.active!=='Left').length}</div></div>
-    <div class="card"><div class="lbl">Assets value</div><div class="val">${money(assetsVal)}</div></div>
-    <div class="card ${repairUnits?'bad click':'ok'}" ${repairUnits?'onclick="showRepairs()"':''}><div class="lbl">Items needing repair</div>
-      <div class="val">${repairUnits ? money(repairVal) : 'None'}</div>
-      <small>${repairUnits ? `${repairUnits} item${repairUnits>1?'s':''} in ${repairs.length} asset${repairs.length>1?'s':''} · tap to see them` : 'Everything is in good condition'}</small></div>
-  </div>
-  ${repairs.length ? `<div class="panel"><h2>Needs repair</h2><div class="tablewrap"><table><tbody>${repairs.slice(0,5).map(x =>
-    `<tr><td><b>${esc(x.a.name)}</b>${x.a.repair_note ? `<br><small>${esc(x.a.repair_note)}</small>` : ''}</td><td>${x.n} of ${num(x.a.qty)}</td><td class="num">${money(x.v)}</td></tr>`).join('')}</tbody></table></div>
-    ${repairs.length > 5 ? `<div class="bar"><button class="btn light sm" onclick="showRepairs()">See all ${repairs.length}</button></div>` : ''}</div>` : ''}`;
+  `;
 }
 
 /* ---------- Reports: daily, monthly, quarterly, 6 months, yearly or any range ---------- */
@@ -934,6 +939,10 @@ function renderSettings(){
     <div class="field"><label>Hall / Marquee name</label><input name="hall" value="${esc(s.hall)}"></div>
     <div class="field"><label>Currency</label><input name="currency" value="${esc(s.currency)}"></div>
     <div class="field"><label>Cost per AC / chiller (default)</label><input name="ac_rate" type="number" min="0" inputmode="numeric" value="${esc(s.ac_rate)}" placeholder="e.g. 5000"><span class="hint">Pre-filled in the Payment window. You can change it per event.</span></div>
+  </div><h2>Asset categories</h2><div class="body">
+    <div class="hint">Built-in categories are always there. Add your own here or from the asset form; they appear in the category dropdown and filter.</div>
+    <div id="catList" class="btnrow"></div>
+    <div class="row"><input id="newCat" placeholder="New category, e.g. Spoons" style="height:36px;padding:0 10px;border:1px solid var(--line);border-radius:6px;flex:1;min-width:160px"><button type="button" class="btn light" onclick="newCategory()">Add category</button></div>
   </div><h2>Where is data saved?</h2><div class="body">
     ${SERVER
       ? '<div class="status"><span class="dot"></span> Saved online in your database. Every device that signs in sees the same data.</div>'
@@ -948,6 +957,18 @@ function renderSettings(){
     e.preventDefault(); const f = Object.fromEntries(new FormData(e.target));
     Settings.set(f); toast('Settings saved'); render();
   };
+  renderCategories();
+}
+async function renderCategories(){
+  const own = (await DB.list('categories')).filter(c => c.kind === 'asset');
+  $('#catList').innerHTML = ASSET_CATS.map(c => `<span class="tag brand" style="padding:6px 10px">${esc(c)}</span>`).join('') +
+    own.map(c => `<span class="tag ok" style="padding:4px 4px 4px 10px">${esc(c.name)} <button type="button" class="close" style="font-size:16px" title="Remove" onclick="removeCategory('${c.id}','${esc(c.name)}')">&times;</button></span>`).join('');
+}
+async function newCategory(){ const n = await addCategory('asset', $('#newCat').value); if (!n) return; $('#newCat').value = ''; toast('Category added'); renderCategories(); }
+async function removeCategory(id, name){
+  const used = (await DB.list('assets')).filter(a => a.category === name).length;
+  if (!await confirmBox({title:`Remove "${name}"?`, text: used ? `${used} asset(s) use it. They keep the name, but it leaves the dropdown.` : 'It leaves the dropdown.', ok:'Remove'})) return;
+  await DB.remove('categories', id); renderCategories();
 }
 async function backup(){
   const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(await loadAll(), null, 2)],{type:'application/json'}));
