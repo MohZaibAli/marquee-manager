@@ -152,9 +152,23 @@ select{appearance:none;-webkit-appearance:none;height:38px;padding:0 32px 0 10px
 .combo-none{padding:10px;color:var(--muted);font-size:13px}
 .checkline{display:flex;align-items:center;gap:8px;height:38px;cursor:pointer}
 .checkline input{width:18px;height:18px;margin:0}
-.view .field div{font-size:14px;min-height:20px;white-space:pre-wrap}
-.view .field label{color:var(--muted);font-weight:400;font-size:12px}
-.view .empty{padding:8px 0;text-align:left}
+.modal .body.view{display:block;padding:0}
+.vhead{padding:18px 20px;background:var(--bg);border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap}
+.vhead h2{margin:0;font-size:18px;font-weight:600}
+.vhead .meta{color:var(--muted);font-size:13px;margin-top:4px}
+.vhead .big{text-align:right}
+.vhead .big small{display:block;color:var(--muted);font-size:12px}
+.vhead .big b{font-size:20px}
+.vsec{padding:14px 20px 4px;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.03em;color:var(--muted)}
+.kv{display:grid;grid-template-columns:1fr 1fr;gap:0 24px;padding:0 20px 10px}
+.kv>div{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line);min-width:0}
+.kv>div.full{grid-column:1/-1}
+.kv span:first-child{color:var(--muted);flex:none}
+.kv span:last-child{text-align:right;font-weight:500;white-space:pre-wrap;overflow-wrap:anywhere}
+.kv .dash{color:var(--muted);font-weight:400}
+.view .ledger{margin:6px 20px 16px}
+.view .sect{margin:10px 20px 0}
+@media (max-width:860px){.kv{grid-template-columns:1fr}}
 .ledger table{width:100%}
 .panel .foot{padding:10px 16px;border-top:1px solid var(--line);font-weight:600;display:flex;justify-content:space-between}
 .printhead{display:none}
@@ -311,7 +325,8 @@ async function addCategory(kind, name){ name = (name || '').trim(); if (!name) r
   const all = await DB.list('categories'); if (!all.some(c => c.kind === kind && c.name.toLowerCase() === name.toLowerCase()) && !ASSET_CATS.some(c => c.toLowerCase() === name.toLowerCase())) await DB.create('categories', {kind, name});
   return name; }
 /* Extra charges on a booking: extra guests × rate, AC / chillers × rate, anything else. */
-function extras(b){ const guests = num(b.extra_guests) * num(b.per_head), ac = num(b.ac_units) * num(b.ac_rate), other = num(b.other_charges);
+const guestRate = b => num(b.extra_rate) || num(b.per_head); // rate for extra guests: its own, else the booking's rate
+function extras(b){ const guests = num(b.extra_guests) * guestRate(b), ac = num(b.ac_units) * num(b.ac_rate), other = num(b.other_charges);
   return {guests, ac, other, total: guests + ac + other}; }
 
 /* Booking money. Bill = package total + extra charges. Received = advance + later payments. */
@@ -414,7 +429,7 @@ const MODULES = {
       const line = (l, v, cls='') => `<tr class="${cls}"><td>${l}</td><td class="num">${num(v) < 0 ? '− ' + money(-num(v)) : money(v)}</td></tr>`;
       return `<div class="sect">Bill &amp; payments</div><div class="ledger"><table><tbody>
         ${line('Package', b.total)}
-        ${num(b.extra_guests) ? line(`Extra guests · ${num(b.extra_guests)} × ${money(b.per_head)}`, x.guests) : ''}
+        ${num(b.extra_guests) ? line(`Extra guests · ${num(b.extra_guests)} × ${money(guestRate(b))}`, x.guests) : ''}
         ${num(b.ac_units) ? line(`AC / chillers · ${num(b.ac_units)} × ${money(b.ac_rate)}`, x.ac) : ''}
         ${x.other ? line('Other extras', x.other) : ''}
         ${num(b.extra_charges) && !x.total ? line('Extra charges', b.extra_charges) : ''}
@@ -424,6 +439,10 @@ const MODULES = {
         ${line(a.bal <= 0 ? 'Fully paid' : 'Balance to collect', a.bal, 'sum')}</tbody></table></div>`;
     },
     viewActions: r => `<button type="button" class="btn light" onclick="openPayment('${r.id}')">Payment</button>`,
+    viewHead: r => ({ skip:['title'], title: r.title,
+      meta: `${fmtDate(r.date)} · ${esc(r.hall || 'No hall')} · ${esc(r.type || '')}${r.shift ? ' · ' + esc(r.shift) : ''}`,
+      big: { label: r._bal > 0 ? 'Balance to collect' : 'Bill', value: money(r._bal > 0 ? r._bal : r._bill),
+             tag: r._bal > 0 ? `<br><span class="tag warn">Pending · received ${money(r._recv)}</span>` : '<br><span class="tag ok">Fully paid</span>' } }),
     sort:(a,b) => (b.date||'').localeCompare(a.date||'')
   },
   payments: {
@@ -557,6 +576,8 @@ const MODULES = {
     },
     async afterDelete(id){ for (const e of (await DB.list('expenses')).filter(e => e.asset_id === id)) await DB.remove('expenses', e.id); },
     deleteNote: 'Its linked purchase expense, if any, is removed too. ',
+    viewHead: r => ({ skip:['name'], title: r.name, meta: `${esc(r.category || '')}${r.purchased ? ' · bought ' + fmtDate(r.purchased) : ''}`,
+      big: { label: 'Total value', value: money(num(r.qty) * num(r.unit_value)), tag: r._rep ? `<br><span class="tag warn">${r._rep} of ${num(r.qty)} need repair</span>` : '<br><span class="tag ok">Good condition</span>' } }),
     async viewExtra(a){
       const e = (await DB.list('expenses')).find(x => x.asset_id === a.id);
       return `<div class="sect">Value</div><div class="ledger"><table><tbody>
@@ -608,11 +629,12 @@ async function renderModule(id){
   const st = state[id] ||= {q:'', f:{}, from:'', to:''};
   let rows = await DB.list(id);
   if (m.enrich) await m.enrich(rows);
-  rows.sort(m.sort);
+  const dk = m.dateKey || 'date';
+  if (m.dateFilter) rows.sort((a, b) => ((a[dk]||'').localeCompare(b[dk]||'') || String(a.id).localeCompare(String(b.id), undefined, {numeric:true})) * (st.oldest ? 1 : -1));
+  else rows.sort(m.sort);
   const all = rows;
   if (st.q) rows = rows.filter(r => Object.values(r).join(' ').toLowerCase().includes(st.q.toLowerCase()));
   for (const [k,v] of Object.entries(st.f)) if (v) rows = rows.filter(r => r[k] === v);
-  const dk = m.dateKey || 'date';
   if (st.from) rows = rows.filter(r => r[dk] && r[dk] >= st.from);
   if (st.to) rows = rows.filter(r => r[dk] && r[dk] <= st.to);
 
@@ -627,7 +649,8 @@ async function renderModule(id){
       ${m.dateFilter ? `<span class="dates">${m.dateFilter}
         <input type="date" aria-label="From date" value="${st.from}" onchange="setDates('${id}','from',this.value)"> to
         <input type="date" aria-label="To date" value="${st.to}" onchange="setDates('${id}','to',this.value)">
-        ${st.from||st.to ? `<button type="button" class="btn light sm" onclick="setDates('${id}')">Clear dates</button>` : ''}</span>` : ''}
+        ${st.from||st.to ? `<button type="button" class="btn light sm" onclick="setDates('${id}')">Clear dates</button>` : ''}
+        <select aria-label="Sort" onchange="state['${id}'].oldest=this.value==='old';render()" style="min-width:0"><option value="new" ${st.oldest?'':'selected'}>Newest first</option><option value="old" ${st.oldest?'selected':''}>Oldest first</option></select></span>` : ''}
       <span style="margin-left:auto;align-self:center;color:var(--muted)">${rows.length} of ${all.length}${m.summary && rows.length ? ' · ' + m.summary(rows) : ''}</span>
     </div>
     ${rows.length ? `<div class="tablewrap"><table><thead><tr>${m.cols.map(c => `<th class="${c.num?'num':''}">${c.label}</th>`).join('')}<th></th></tr></thead>
@@ -723,11 +746,21 @@ async function openView(id, rowId){
     if (f.type === 'number') return f.count ? num(v).toLocaleString('en-PK') : money(v);
     if (f.type === 'booking') { const b = bookings.find(x => x.id === String(v)); return b ? `${esc(b.title)} · ${fmtDate(b.date)}` : 'Booking deleted'; }
     return esc(v); };
-  const fields = m.fields.filter(f => !f.html && f.type !== 'check' && !f.hidden);
+  const fields = m.fields.filter(f => !f.html && f.type !== 'check' && !f.hidden && !(m.viewHead && m.viewHead.skip?.includes(f.k)));
+  const head = m.viewHead ? m.viewHead(row) : {title: row.title || row.name || row.staff_name || row.description || m.single};
+  let body = '', open = false;
+  for (const f of fields) {
+    if (f.section) { body += (open ? '</div>' : '') + `<div class="vsec">${f.section}</div><div class="kv">`; open = true; continue; }
+    if (!open) { body += '<div class="kv">'; open = true; }
+    const v = show(f), empty = v.startsWith('<span style="color:var(--muted)">');
+    body += `<div class="${f.full || f.type === 'textarea' ? 'full' : ''}"><span>${f.label}</span><span class="${empty ? 'dash' : ''}">${empty ? '—' : v}</span></div>`;
+  }
+  if (open) body += '</div>';
   $('#modal').innerHTML = `<div>
-    <header><h3>${esc(row.title || row.name || row.staff_name || row.description || m.single)}</h3><button type="button" class="close" aria-label="Close" onclick="closeForm()">&times;</button></header>
-    <div class="body view">${fields.map(f => f.section ? `<div class="sect">${f.section}</div>` : `<div class="field ${f.full||f.type==='textarea'?'full':''}"><label>${f.label}</label><div>${show(f)}</div></div>`).join('')}
-    ${m.viewExtra ? await m.viewExtra(row) : ''}</div>
+    <header><h3>${m.single} details</h3><button type="button" class="close" aria-label="Close" onclick="closeForm()">&times;</button></header>
+    <div class="body view">
+      <div class="vhead"><div><h2>${esc(head.title)}</h2>${head.meta ? `<div class="meta">${head.meta}</div>` : ''}</div>${head.big ? `<div class="big"><small>${head.big.label}</small><b>${head.big.value}</b>${head.big.tag || ''}</div>` : ''}</div>
+      ${body}${m.viewExtra ? await m.viewExtra(row) : ''}</div>
     <footer>${m.viewActions ? m.viewActions(row) : ''}<button type="button" class="btn light" onclick="closeForm()">Close</button><button type="button" class="btn" onclick="openForm('${id}','${row.id}')">Edit</button></footer></div>`;
   showModal();
 }
@@ -777,8 +810,8 @@ async function openPayment(bid){
     <div class="body">
       <div class="field full"><span class="hint">${fmtDate(b.date)} · ${esc(b.hall||'No hall')} · ${esc(b.shift||'')} · ${num(b.guests)} guests booked${rate ? ' at ' + money(rate) + ' each' : ''}</span></div>
       <div class="sect">Extra on the event day</div>
-      ${f('extra_guests', 'Extra guests', `<input name="extra_guests" type="number" min="0" inputmode="numeric" value="${esc(b.extra_guests)}" placeholder="e.g. 10">`,
-        rate ? `Charged at ${money(rate)} per guest` : 'This booking has no rate per guest. Enter the charge yourself.')}
+      ${f('extra_guests', 'Extra guests', `<input name="extra_guests" type="number" min="0" inputmode="numeric" value="${esc(b.extra_guests)}" placeholder="e.g. 10">`, 'People above the booked number')}
+      ${f('extra_rate', 'Rate per extra guest', `<input name="extra_rate" type="number" min="0" inputmode="numeric" value="${guestRate(b) || ''}" placeholder="0">`, rate ? `Booking rate is ${money(rate)}. Change it if extras cost differently.` : 'This booking has no rate per guest.')}
       ${f('ac_units', 'AC / chillers used', `<input name="ac_units" type="number" min="0" inputmode="numeric" value="${num(b.ac_units) || ''}" placeholder="e.g. 4">`, 'How many were run for this event')}
       ${f('ac_rate', 'Cost per AC / chiller', `<input name="ac_rate" type="number" min="0" inputmode="numeric" value="${acRate0}" placeholder="0">`, 'Set a default in Settings')}
       ${f('other_charges', 'Other extra charges', `<input name="other_charges" type="number" min="0" inputmode="numeric" value="${Math.max(0, other0) || ''}" placeholder="0">`, 'Decoration, extra time, anything else', true)}
@@ -793,7 +826,7 @@ async function openPayment(bid){
   showModal();
   const frm = $('#frm'), F = n => frm.elements[n];
   let amountTouched = false, out = {};
-  const cur = () => ({extra_guests:F('extra_guests').value, ac_units:F('ac_units').value, ac_rate:F('ac_rate').value, other_charges:F('other_charges').value, per_head:rate});
+  const cur = () => ({extra_guests:F('extra_guests').value, extra_rate:F('extra_rate').value, ac_units:F('ac_units').value, ac_rate:F('ac_rate').value, other_charges:F('other_charges').value, per_head:rate});
   const upd = e => {
     if (e?.target.name === 'amount') amountTouched = true;
     const x = extras(cur());
@@ -803,7 +836,7 @@ async function openPayment(bid){
     out = {before, now};
     const line = (l, v, cls='') => `<tr class="${cls}"><td>${l}</td><td class="num">${num(v) < 0 ? '− ' + money(-num(v)) : money(v)}</td></tr>`;
     $('#ledger').innerHTML = line('Package', b.total) +
-      (num(F('extra_guests').value) ? line(`Extra guests · ${num(F('extra_guests').value)} × ${money(rate)}`, x.guests) : '') +
+      (num(F('extra_guests').value) ? line(`Extra guests · ${num(F('extra_guests').value)} × ${money(F('extra_rate').value)}`, x.guests) : '') +
       (num(F('ac_units').value) ? line(`AC / chillers · ${num(F('ac_units').value)} × ${money(F('ac_rate').value)}`, x.ac) : '') +
       (x.other ? line('Other extras', x.other) : '') + line('Total bill', bill, 'sum') +
       line(`Advance${b.booked_on ? ' · ' + fmtDate(b.booked_on) : ''}`, -num(b.advance)) +
@@ -817,12 +850,12 @@ async function openPayment(bid){
     e.preventDefault();
     const btn = $('#saveBtn'); if (btn.disabled) return;
     const c = cur(), ec = extras(c).total;
-    const extrasChanged = ['extra_guests','ac_units','ac_rate','other_charges'].some(k => num(c[k]) !== num(b[k])) || ec !== num(b.extra_charges);
+    const extrasChanged = ['extra_guests','extra_rate','ac_units','ac_rate','other_charges'].some(k => num(c[k]) !== num(b[k])) || ec !== num(b.extra_charges);
     if (out.now > Math.max(0, out.before)) { $('#ferr').textContent = `That is more than the balance of ${money(Math.max(0, out.before))}. Add extra charges first if they paid for extras.`; return; }
     if (!extrasChanged && !out.now) { $('#ferr').textContent = 'Enter extra guests or an amount received.'; return; }
     btn.disabled = true;
     try {
-      if (extrasChanged) await DB.update('bookings', bid, {extra_guests:c.extra_guests, ac_units:c.ac_units, ac_rate:c.ac_rate, other_charges:c.other_charges, extra_charges:String(ec)});
+      if (extrasChanged) await DB.update('bookings', bid, {extra_guests:c.extra_guests, extra_rate:c.extra_rate, ac_units:c.ac_units, ac_rate:c.ac_rate, other_charges:c.other_charges, extra_charges:String(ec)});
       if (out.now) await DB.create('payments', {booking_id: bid, date: F('date').value, amount: String(out.now), method: F('method').value, notes: F('notes').value});
       closeForm(); toast(out.now ? 'Payment saved' : 'Extra charges saved'); render();
     } catch(err){ $('#ferr').textContent = 'Could not save: ' + err.message; }

@@ -45,3 +45,6 @@ ALTER TABLE expenses ADD COLUMN IF NOT EXISTS asset_id TEXT;
 -- Categories the user adds (kind = 'asset' for now).
 CREATE TABLE IF NOT EXISTS categories (
   id SERIAL PRIMARY KEY, kind TEXT NOT NULL, name TEXT NOT NULL, created_at TIMESTAMPTZ DEFAULT now());
+
+-- Rate charged per extra guest on the event day (defaults to the booking's per_head when empty).
+ALTER TABLE bookings ADD COLUMN IF NOT EXISTS extra_rate NUMERIC(12,2);
