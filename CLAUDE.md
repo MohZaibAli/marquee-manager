@@ -51,7 +51,7 @@ Optional env: `PORT` (default 3000), `SESSION_SECRET` (defaults to a hash of `AP
 
 ## Deployment
 
-The app is hosted on Render and auto-deploys from `main` on GitHub (`origin`, HUR-ALI-110/marquee-manager). Pushing to `main` ships straight to the live client app, so treat every push as a production release. There is no `render.yaml`; build/start commands (`npm install` / `npm start`) and the `DATABASE_URL` / `APP_PASSWORD` env vars are configured in the Render dashboard. `schema.sql` runs on every start, so idempotent upgrades in it (`ADD COLUMN IF NOT EXISTS`) apply automatically on deploy; a statement that fails there stops the server from starting.
+The app is hosted on Render and auto-deploys from `main` on GitHub (`origin`, MohZaibAli/marquee-manager; the older HUR-ALI-110/marquee-manager copy is no longer connected). Pushing to `main` ships straight to the live client app, so treat every push as a production release. There is no `render.yaml`; build/start commands (`npm install` / `npm start`) and the `DATABASE_URL` / `APP_PASSWORD` env vars are configured in the Render dashboard. `schema.sql` runs on every start, so idempotent upgrades in it (`ADD COLUMN IF NOT EXISTS`) apply automatically on deploy; a statement that fails there stops the server from starting.
 
 ## Gotchas
 
