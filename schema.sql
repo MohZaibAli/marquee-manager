@@ -34,3 +34,10 @@ CREATE TABLE IF NOT EXISTS payments (
   id SERIAL PRIMARY KEY, booking_id INTEGER NOT NULL REFERENCES bookings(id) ON DELETE CASCADE,
   date DATE NOT NULL, amount NUMERIC(14,2) NOT NULL, method TEXT, notes TEXT,
   created_at TIMESTAMPTZ DEFAULT now());
+
+-- AC / chiller and other extras on the event day; expenses written automatically for asset purchases.
+ALTER TABLE bookings
+  ADD COLUMN IF NOT EXISTS ac_units INTEGER,
+  ADD COLUMN IF NOT EXISTS ac_rate NUMERIC(12,2),
+  ADD COLUMN IF NOT EXISTS other_charges NUMERIC(14,2);
+ALTER TABLE expenses ADD COLUMN IF NOT EXISTS asset_id TEXT;
