@@ -48,3 +48,8 @@ CREATE TABLE IF NOT EXISTS categories (
 
 -- Rate charged per extra guest on the event day (defaults to the booking's per_head when empty).
 ALTER TABLE bookings ADD COLUMN IF NOT EXISTS extra_rate NUMERIC(12,2);
+
+-- Paid to waiters on the event day (out of the bill) and the donation share of the bill.
+ALTER TABLE bookings
+  ADD COLUMN IF NOT EXISTS waiter_cost NUMERIC(12,2),
+  ADD COLUMN IF NOT EXISTS donation_pct NUMERIC(5,2);

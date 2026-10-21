@@ -258,7 +258,7 @@ const ApiAdapter = () => {
 };
 
 const Settings = {
-  get(){ return {hall:'My Marquee', currency:'Rs', ac_rate:'', ...JSON.parse(localStorage.getItem('mm_settings') || '{}')}; },
+  get(){ return {hall:'My Marquee', currency:'Rs', ac_rate:'', donation_pct:'2', ...JSON.parse(localStorage.getItem('mm_settings') || '{}')}; },
   set(s){ localStorage.setItem('mm_settings', JSON.stringify(s)); }
 };
 let SERVER = false;   // true when the page is served by server.js (data in PostgreSQL)
@@ -331,9 +331,12 @@ function extras(b){ const guests = num(b.extra_guests) * guestRate(b), ac = num(
 
 /* Booking money. Bill = package total + extra charges. Received = advance + later payments. */
 function paidMap(pays){ const m = {}; (pays||[]).forEach(p => m[p.booking_id] = (m[p.booking_id]||0) + num(p.amount)); return m; }
+/* Donation is a percentage of the event's bill, fixed per booking (donation_pct) so old events keep their rate. */
+const donationPct = b => b.donation_pct === undefined || b.donation_pct === null || b.donation_pct === '' ? num(Settings.get().donation_pct) : num(b.donation_pct);
 function acct(b, pm = {}){
   const bill = num(b.total) + num(b.extra_charges), paid = pm[b.id] || 0, recv = num(b.advance) + paid;
-  return {bill, paid, recv, bal: bill - recv};
+  const waiters = num(b.waiter_cost), donation = Math.round(bill * donationPct(b)) / 100;
+  return {bill, paid, recv, bal: bill - recv, waiters, donation, keep: bill - waiters - donation};
 }
 /* One hall holds one event per date and time. Returns the clashing booking, if any. */
 function slotClash(list, b, id){
@@ -406,8 +409,19 @@ const MODULES = {
       {k:'per_head', label:'Rate per guest', type:'number', hint:'Leave empty if fixed price'},
       {k:'total', label:'Total amount', type:'number', req:true, hint:'Auto-filled from guests × rate'},
       {k:'advance', label:'Advance paid', type:'number', hint:'Paid at booking. Later money goes through the Payment button.'},
+      {section:'Extras on the event day'},
+      {k:'extra_guests', label:'Extra guests', type:'number', count:true},
+      {k:'extra_rate', label:'Rate per extra guest', type:'number', hint:'Empty = same as rate per guest'},
+      {k:'ac_units', label:'AC / chillers used', type:'number', count:true},
+      {k:'ac_rate', label:'Cost per AC / chiller', type:'number', def:() => Settings.get().ac_rate},
+      {k:'other_charges', label:'Other extra charges', type:'number', full:true, hint:'Decoration, extra time, anything else'},
+      {section:'Event costs'},
+      {k:'waiter_cost', label:'Paid to waiters', type:'number', hint:'Paid on the event day out of the bill'},
+      {k:'donation_pct', label:'Donation %', type:'number', count:true, def:() => Settings.get().donation_pct, hint:'Share of the bill set aside as donation'},
       {k:'notes', label:'Notes', type:'textarea', full:true, ph:'Menu, decoration, special requests…'}
     ],
+    beforeSave(data){ data.extra_charges = String(extras({...data}).total); },
+    prep(row){ if (row.id) { if (row.donation_pct === '' || row.donation_pct == null) row.donation_pct = String(donationPct(row)); if (row.ac_rate === '' || row.ac_rate == null) row.ac_rate = Settings.get().ac_rate; } },
     cols:[
       {k:'date', label:'Date', f:r => fmtDate(r.date) + (r.booked_on ? `<br><small>Booked ${fmtDate(r.booked_on)}</small>` : '')},
       {k:'hall', label:'Hall / Type', f:r => (r.hall ? `<span class="tag brand">${esc(r.hall)}</span>` : '<small>No hall</small>') + `<br><small>${esc(r.type||'')}${r.shift ? ' · ' + esc(r.shift) : ''}</small>`},
@@ -436,7 +450,9 @@ const MODULES = {
         ${line('Total bill', a.bill, 'sum')}
         ${line(`Advance${b.booked_on ? ' · ' + fmtDate(b.booked_on) : ''}`, -num(b.advance))}
         ${pays.map(p => line(`Paid ${fmtDate(p.date)} · ${esc(p.method||'')}${p.notes ? ' · ' + esc(p.notes) : ''}`, -num(p.amount))).join('')}
-        ${line(a.bal <= 0 ? 'Fully paid' : 'Balance to collect', a.bal, 'sum')}</tbody></table></div>`;
+        ${line(a.bal <= 0 ? 'Fully paid' : 'Balance to collect', a.bal, 'sum')}</tbody></table></div>
+        <div class="sect">Event earning</div><div class="ledger"><table><tbody>
+        ${line('Total bill', a.bill)}${line('Paid to waiters', -a.waiters)}${line(`Donation · ${donationPct(b)}%`, -a.donation)}${line('Hall keeps', a.keep, 'sum')}</tbody></table></div>`;
     },
     viewActions: r => `<button type="button" class="btn light" onclick="openPayment('${r.id}')">Payment</button>`,
     viewHead: r => ({ skip:['title'], title: r.title,
@@ -697,11 +713,11 @@ async function openForm(id, rowId){
   showModal();
   const frm = $('#frm'), F = n => frm.elements[n];
   if (id === 'bookings'){
-    const extra = num(row.extra_charges);
     const upd = e => {
       if (e && ['guests','per_head'].includes(e.target.name) && num(F('per_head').value)) F('total').value = num(F('guests').value) * num(F('per_head').value);
+      const extra = extras({extra_guests:F('extra_guests').value, extra_rate:F('extra_rate').value, per_head:F('per_head').value, ac_units:F('ac_units').value, ac_rate:F('ac_rate').value, other_charges:F('other_charges').value}).total;
       $('#bal').textContent = money(num(F('total').value) + extra - num(F('advance').value) - paid);
-      $('#balx').textContent = extra || paid ? `Includes extra charges ${money(extra)} and later payments ${money(paid)}` : '';
+      $('#balx').textContent = extra || paid ? `Bill ${money(num(F('total').value) + extra)} incl. extras ${money(extra)}${paid ? ' · later payments ' + money(paid) : ''}` : '';
       const b = {hall:F('hall').value, date:F('date').value, shift:F('shift').value}, box = $('#clash');
       if (!b.hall || !b.date) { box.hidden = true; return; }
       const c = slotClash(bookings, b, rowId);
@@ -815,6 +831,8 @@ async function openPayment(bid){
       ${f('ac_units', 'AC / chillers used', `<input name="ac_units" type="number" min="0" inputmode="numeric" value="${num(b.ac_units) || ''}" placeholder="e.g. 4">`, 'How many were run for this event')}
       ${f('ac_rate', 'Cost per AC / chiller', `<input name="ac_rate" type="number" min="0" inputmode="numeric" value="${acRate0}" placeholder="0">`, 'Set a default in Settings')}
       ${f('other_charges', 'Other extra charges', `<input name="other_charges" type="number" min="0" inputmode="numeric" value="${Math.max(0, other0) || ''}" placeholder="0">`, 'Decoration, extra time, anything else', true)}
+      ${f('waiter_cost', 'Paid to waiters', `<input name="waiter_cost" type="number" min="0" inputmode="numeric" value="${num(b.waiter_cost) || ''}" placeholder="0">`, 'Paid on the day out of the bill. Not charged to the customer.')}
+      ${f('donation_pct', 'Donation %', `<input name="donation_pct" type="number" min="0" step="0.5" inputmode="decimal" value="${donationPct(b)}">`, 'Share of the bill set aside as donation')}
       <div class="sect">Receive payment</div>
       ${f('amount', 'Amount received now', `<input name="amount" type="number" min="0" inputmode="numeric" value="${Math.max(0, startBal) || ''}" placeholder="0">`)}
       ${f('date', 'Date received', `<input name="date" type="date" value="${today()}" required>`)}
@@ -826,7 +844,7 @@ async function openPayment(bid){
   showModal();
   const frm = $('#frm'), F = n => frm.elements[n];
   let amountTouched = false, out = {};
-  const cur = () => ({extra_guests:F('extra_guests').value, extra_rate:F('extra_rate').value, ac_units:F('ac_units').value, ac_rate:F('ac_rate').value, other_charges:F('other_charges').value, per_head:rate});
+  const cur = () => ({extra_guests:F('extra_guests').value, extra_rate:F('extra_rate').value, ac_units:F('ac_units').value, ac_rate:F('ac_rate').value, other_charges:F('other_charges').value, waiter_cost:F('waiter_cost').value, donation_pct:F('donation_pct').value, per_head:rate});
   const upd = e => {
     if (e?.target.name === 'amount') amountTouched = true;
     const x = extras(cur());
@@ -841,7 +859,9 @@ async function openPayment(bid){
       (x.other ? line('Other extras', x.other) : '') + line('Total bill', bill, 'sum') +
       line(`Advance${b.booked_on ? ' · ' + fmtDate(b.booked_on) : ''}`, -num(b.advance)) +
       pays.map(p => line(`Paid ${fmtDate(p.date)} · ${esc(p.method||'')}`, -num(p.amount))).join('') +
-      (now ? line('Receiving now', -now) : '') + line(before - now <= 0 ? 'Fully paid' : 'Balance left', before - now, 'sum');
+      (now ? line('Receiving now', -now) : '') + line(before - now <= 0 ? 'Fully paid' : 'Balance left', before - now, 'sum') +
+      line('Paid to waiters', -num(F('waiter_cost').value)) + line(`Donation · ${num(F('donation_pct').value)}%`, -Math.round(bill * num(F('donation_pct').value)) / 100) +
+      line('Hall keeps from this event', bill - num(F('waiter_cost').value) - Math.round(bill * num(F('donation_pct').value)) / 100, 'sum');
     $('#ferr').textContent = '';
   };
   frm.addEventListener('input', upd); frm.addEventListener('change', upd); upd();
@@ -850,12 +870,12 @@ async function openPayment(bid){
     e.preventDefault();
     const btn = $('#saveBtn'); if (btn.disabled) return;
     const c = cur(), ec = extras(c).total;
-    const extrasChanged = ['extra_guests','extra_rate','ac_units','ac_rate','other_charges'].some(k => num(c[k]) !== num(b[k])) || ec !== num(b.extra_charges);
+    const extrasChanged = ['extra_guests','extra_rate','ac_units','ac_rate','other_charges','waiter_cost'].some(k => num(c[k]) !== num(b[k])) || num(c.donation_pct) !== donationPct(b) || ec !== num(b.extra_charges);
     if (out.now > Math.max(0, out.before)) { $('#ferr').textContent = `That is more than the balance of ${money(Math.max(0, out.before))}. Add extra charges first if they paid for extras.`; return; }
     if (!extrasChanged && !out.now) { $('#ferr').textContent = 'Enter extra guests or an amount received.'; return; }
     btn.disabled = true;
     try {
-      if (extrasChanged) await DB.update('bookings', bid, {extra_guests:c.extra_guests, extra_rate:c.extra_rate, ac_units:c.ac_units, ac_rate:c.ac_rate, other_charges:c.other_charges, extra_charges:String(ec)});
+      if (extrasChanged) await DB.update('bookings', bid, {extra_guests:c.extra_guests, extra_rate:c.extra_rate, waiter_cost:c.waiter_cost, donation_pct:c.donation_pct, ac_units:c.ac_units, ac_rate:c.ac_rate, other_charges:c.other_charges, extra_charges:String(ec)});
       if (out.now) await DB.create('payments', {booking_id: bid, date: F('date').value, amount: String(out.now), method: F('method').value, notes: F('notes').value});
       closeForm(); toast(out.now ? 'Payment saved' : 'Extra charges saved'); render();
     } catch(err){ $('#ferr').textContent = 'Could not save: ' + err.message; }
@@ -870,7 +890,7 @@ function rangeTotals(d, from, to){
   const inR = v => !!v && v >= from && v <= to, byDate = k => r => inR(r[k]);
   const pm = paidMap(d.payments);
   const b = d.bookings.filter(byDate('date')).sort((x,y) => (x.date||'').localeCompare(y.date||''));
-  const income = sum(b, r => acct(r, pm).bill), received = sum(b, r => acct(r, pm).recv);
+  const income = sum(b, r => acct(r, pm).bill), received = sum(b, r => acct(r, pm).recv), waiters = sum(b, r => acct(r, pm).waiters), donations = sum(b, r => acct(r, pm).donation);
   const booked = d.bookings.filter(byDate('booked_on')).sort((x,y) => (x.booked_on||'').localeCompare(y.booked_on||''));
   const payments = d.payments.filter(byDate('date')).sort((x,y) => (x.date||'').localeCompare(y.date||''));
   const cashIn = sum(payments, p => p.amount) + sum(booked, r => r.advance);
@@ -880,7 +900,7 @@ function rangeTotals(d, from, to){
   const expenses = sum(expRows, r => r.amount), assetBuys = byCat[ASSET_EXP] || 0;
   const assets = d.assets.filter(byDate('purchased')).sort((x,y) => (x.purchased||'').localeCompare(y.purchased||''));
   return {from, to, bookings:b, events:b.length, guests:sum(b, r => num(r.guests) + num(r.extra_guests)), income, received, pending: income-received,
-    booked, payments, cashIn, salaryRows, salaries, expRows, byCat, expenses, assetBuys, assets, net: income - salaries - expenses};
+    booked, payments, cashIn, salaryRows, salaries, expRows, byCat, expenses, assetBuys, assets, waiters, donations, spent: waiters + donations + salaries + expenses, net: income - waiters - donations - salaries - expenses};
 }
 const monthEnd = m => { const [y, mo] = m.split('-').map(Number); return isoDate(new Date(y, mo, 0)); };
 const monthTotals = (d, m) => rangeTotals(d, m + '-01', monthEnd(m));
@@ -901,7 +921,7 @@ async function renderDashboard(){
     <div class="card brand"><div class="lbl">Events this month</div><div class="val">${t.events}</div></div>
     <div class="card"><div class="lbl">Guests this month</div><div class="val">${t.guests.toLocaleString()}</div></div>
     <div class="card"><div class="lbl">Income this month</div><div class="val">${money(t.income)}</div></div>
-    <div class="card bad"><div class="lbl">Spent this month</div><div class="val">${money(t.salaries+t.expenses)}</div></div>
+    <div class="card bad"><div class="lbl">Spent this month <small>· waiters, donation, salaries, expenses</small></div><div class="val">${money(t.spent)}</div></div>
     <div class="card ${t.net>=0?'ok':'bad'}"><div class="lbl">Net profit this month</div><div class="val">${money(t.net)}</div></div>
     <div class="card click" onclick="state.bookings={q:'',f:{status:'Pending'},from:'',to:''};go('bookings')"><div class="lbl">Payments to collect</div><div class="val">${money(pending)}</div></div>
   </div>
@@ -967,8 +987,9 @@ async function renderReports(){
      <button class="btn light" onclick="window.print()">Print</button> <button class="btn light" onclick="exportCSV()">Excel</button>`) +
   `<div class="cards">
     <div class="card"><div class="lbl">Income <small>· bills of ${t.events} event${t.events===1?'':'s'}</small></div><div class="val">${money(t.income)}</div></div>
-    <div class="card bad"><div class="lbl">Spent <small>· salaries + expenses</small></div><div class="val">${money(t.salaries + t.expenses)}</div></div>
+    <div class="card bad"><div class="lbl">Spent <small>· waiters, donation, salaries, expenses</small></div><div class="val">${money(t.spent)}</div></div>
     <div class="card ${t.net>=0?'ok':'bad'}"><div class="lbl">Net profit</div><div class="val">${money(t.net)}</div></div>
+    <div class="card brand"><div class="lbl">Donation <small>· ${num(Settings.get().donation_pct)}% of each event's bill</small></div><div class="val">${money(t.donations)}</div></div>
     <div class="card"><div class="lbl">Money received <small>· advances + payments in this period</small></div><div class="val">${money(t.cashIn)}</div></div>
   </div>
   <div class="grid2">
@@ -976,16 +997,18 @@ async function renderReports(){
       ${row(`Bookings income (${t.events} events, ${t.guests.toLocaleString('en-PK')} guests)`, t.income)}
       ${row('&nbsp;&nbsp;Received for these events', t.received)}
       ${row('&nbsp;&nbsp;Still to collect', t.pending)}
+      ${row('Paid to waiters', -t.waiters)}
+      ${row('Donation', -t.donations)}
       ${row('Staff salaries', -t.salaries, 'bad')}
       ${Object.entries(t.byCat).filter(([k]) => k !== ASSET_EXP).map(([k,v]) => row(esc(k), -v)).join('')}
       ${t.assetBuys ? row('Asset purchases', -t.assetBuys) : ''}
       <tr><td><b>Net income / Net profit</b></td><td class="num"><b style="color:${t.net>=0?'var(--ok)':'var(--bad)'}">${money(t.net)}</b></td></tr></tbody></table>`)}
-    ${panel(`Events ${report.kind === 'day' ? 'today' : 'in this period'}`, table(['Date','Event','Hall / Time','Guests#','Bill#','Balance#'],
-      t.bookings.map(b => { const a = acct(b, pm); return `<tr>${cell(fmtDate(b.date))}${cell(`<b>${esc(b.title)}</b><br><small>${esc(b.customer||'')} ${esc(b.phone||'')}</small>`)}${cell(`${esc(b.hall||'')}<br><small>${esc(b.type||'')} · ${esc(b.shift||'')}</small>`)}${cell(num(b.guests) + (num(b.extra_guests) ? ' +' + num(b.extra_guests) : ''), 1)}${cell(money(a.bill), 1)}${cell(a.bal <= 0 ? '<span class="tag ok">Paid</span>' : `<span class="tag warn">${money(a.bal)}</span>`, 1)}</tr>`; }),
-      `<span>${plural(t.events, 'event')}</span><span>${money(t.income)}</span>`), 'No events.')}
+    ${panel(`Events ${report.kind === 'day' ? 'today' : 'in this period'}`, table(['Date','Event','Hall / Time','Guests#','Bill#','Waiters#','Donation#','Balance#'],
+      t.bookings.map(b => { const a = acct(b, pm); return `<tr>${cell(fmtDate(b.date))}${cell(`<b>${esc(b.title)}</b><br><small>${esc(b.customer||'')} ${esc(b.phone||'')}</small>`)}${cell(`${esc(b.hall||'')}<br><small>${esc(b.type||'')} · ${esc(b.shift||'')}</small>`)}${cell(num(b.guests) + (num(b.extra_guests) ? ' +' + num(b.extra_guests) : ''), 1)}${cell(money(a.bill), 1)}${cell(money(a.waiters), 1)}${cell(money(a.donation), 1)}${cell(a.bal <= 0 ? '<span class="tag ok">Paid</span>' : `<span class="tag warn">${money(a.bal)}</span>`, 1)}</tr>`; }),
+      `<span>${plural(t.events, 'event')} · waiters ${money(t.waiters)} · donation ${money(t.donations)}</span><span>${money(t.income)}</span>`), 'No events.')}
   </div>
-  ${monthly.length ? panel('Month by month', table(['Month','Events#','Income#','Spent#','Net profit#'],
-      monthly.map(x => `<tr>${cell(monthName(x.m))}${cell(x.events, 1)}${cell(money(x.income), 1)}${cell(money(x.salaries + x.expenses), 1)}${cell(`<b style="color:${x.net>=0?'var(--ok)':'var(--bad)'}">${money(x.net)}</b>`, 1)}</tr>`))) : ''}
+  ${monthly.length ? panel('Month by month', table(['Month','Events#','Income#','Donation#','Spent#','Net profit#'],
+      monthly.map(x => `<tr>${cell(monthName(x.m))}${cell(x.events, 1)}${cell(money(x.income), 1)}${cell(money(x.donations), 1)}${cell(money(x.spent), 1)}${cell(`<b style="color:${x.net>=0?'var(--ok)':'var(--bad)'}">${money(x.net)}</b>`, 1)}</tr>`))) : ''}
   <div class="grid2">
     ${panel('New bookings made', table(['Booked on','Event','Event date','Advance#'],
       t.booked.map(b => `<tr>${cell(fmtDate(b.booked_on))}${cell(`<b>${esc(b.title)}</b><br><small>${esc(b.customer||'')} ${esc(b.phone||'')}</small>`)}${cell(`${fmtDate(b.date)}<br><small>${esc(b.hall||'')} · ${esc(b.shift||'')}</small>`)}${cell(money(b.advance), 1)}</tr>`),
@@ -1007,13 +1030,13 @@ async function renderReports(){
 async function exportCSV(){
   const d = await loadAll(), [from, to] = periodRange(report), t = rangeTotals(d, from, to), pm = paidMap(d.payments);
   const lines = [[`${KINDS[report.kind]} report`, periodLabel(report, from, to)], [],
-    ['EVENTS'], ['Event date','Booking date','Hall','Event','Customer','Phone','Address','Type','Time','Guests','Extra guests','AC / chillers','Package','Extra charges','Bill','Advance','Later payments','Balance'],
-    ...t.bookings.map(b => { const a = acct(b, pm); return [b.date,b.booked_on,b.hall,b.title,b.customer,b.phone,b.address,b.type,b.shift,b.guests,b.extra_guests,b.ac_units,b.total,num(b.extra_charges),a.bill,b.advance,a.paid,a.bal]; }),
+    ['EVENTS'], ['Event date','Booking date','Hall','Event','Customer','Phone','Address','Type','Time','Guests','Extra guests','AC / chillers','Package','Extra charges','Bill','Advance','Later payments','Balance','Paid to waiters','Donation %','Donation','Hall keeps'],
+    ...t.bookings.map(b => { const a = acct(b, pm); return [b.date,b.booked_on,b.hall,b.title,b.customer,b.phone,b.address,b.type,b.shift,b.guests,b.extra_guests,b.ac_units,b.total,num(b.extra_charges),a.bill,b.advance,a.paid,a.bal,a.waiters,donationPct(b),a.donation,a.keep]; }),
     [], ['PAYMENTS RECEIVED'], ['Date','Booking','Paid by','Amount'], ...t.payments.map(p => [p.date, (d.bookings.find(x => x.id === p.booking_id)||{}).title, p.method, p.amount]),
     [], ['EXPENSES'], ['Date','Category','Description','Amount'], ...t.expRows.map(e => [e.date, e.category, e.description, e.amount]),
     [], ['SALARIES'], ['Date','Staff','For month','Amount'], ...t.salaryRows.map(x => [x.date, x.staff_name, x.for_month, x.amount]),
     [], ['ASSETS PURCHASED'], ['Date','Item','Category','Qty','Price per item','Value'], ...t.assets.map(a => [a.purchased, a.name, a.category, a.qty, a.unit_value, num(a.qty)*num(a.unit_value)]),
-    [], ['SUMMARY'], ['Income',t.income], ['Received for these events',t.received], ['Money received in period',t.cashIn], ['Salaries',t.salaries], ...Object.entries(t.byCat), ['Net profit',t.net]];
+    [], ['SUMMARY'], ['Income',t.income], ['Received for these events',t.received], ['Money received in period',t.cashIn], ['Paid to waiters',t.waiters], ['Donation',t.donations], ['Salaries',t.salaries], ...Object.entries(t.byCat), ['Net profit',t.net]];
   const csv = lines.map(r => r.map(c => `"${String(c??'').replace(/"/g,'""')}"`).join(',')).join('\n');
   const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv],{type:'text/csv'}));
   a.download = `report-${from}-to-${to}.csv`; a.click();
@@ -1026,6 +1049,7 @@ function renderSettings(){
   `<form class="panel settings" id="sf"><h2>General</h2><div class="body">
     <div class="field"><label>Hall / Marquee name</label><input name="hall" value="${esc(s.hall)}"></div>
     <div class="field"><label>Currency</label><input name="currency" value="${esc(s.currency)}"></div>
+    <div class="field"><label>Donation % of each event's bill</label><input name="donation_pct" type="number" min="0" step="0.5" inputmode="decimal" value="${esc(s.donation_pct)}"><span class="hint">Used for new bookings. Each booking keeps its own % and can be changed in Edit or Payment.</span></div>
     <div class="field"><label>Cost per AC / chiller (default)</label><input name="ac_rate" type="number" min="0" inputmode="numeric" value="${esc(s.ac_rate)}" placeholder="e.g. 5000"><span class="hint">Pre-filled in the Payment window. You can change it per event.</span></div>
   </div><h2>Asset categories</h2><div class="body">
     <div class="hint">Built-in categories are always there. Add your own here or from the asset form; they appear in the category dropdown and filter.</div>
