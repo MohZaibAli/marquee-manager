@@ -64,14 +64,18 @@ const table = (req, res, next) => TABLES.includes(req.params.t) ? cols(req.param
 const wrap = fn => (req, res, next) => fn(req, res).catch(next);
 
 // One hall can hold one event per date and time (Day / Night). Returns the clashing booking, if any.
+// `hall` may list several halls ("Hall 1, Hall 2"); any overlap on the same date and time is a clash.
+const halls = h => String(h || '').split(',').map(x => x.trim()).filter(Boolean);
 async function clash(b, id) {
   if (!b.hall || !b.date) return null;
   const r = await pool.query(
-    'SELECT title FROM bookings WHERE hall=$1 AND date=$2 AND shift IS NOT DISTINCT FROM $3 AND id<>$4 LIMIT 1',
-    [b.hall, b.date, b.shift || null, id || 0]);
-  return r.rows[0] || null;
+    'SELECT title, hall FROM bookings WHERE date=$1 AND shift IS NOT DISTINCT FROM $2 AND id<>$3 AND hall IS NOT NULL',
+    [b.date, b.shift || null, id || 0]);
+  const mine = halls(b.hall);
+  for (const row of r.rows) { const hit = halls(row.hall).find(h => mine.includes(h)); if (hit) return { title: row.title, hall: hit }; }
+  return null;
 }
-const clashError = (b, c) => `${b.hall} is already booked on ${b.date}${b.shift ? ' (' + b.shift + ')' : ''} for "${c.title}".`;
+const clashError = (b, c) => `${c.hall} is already booked on ${b.date}${b.shift ? ' (' + b.shift + ')' : ''} for "${c.title}".`;
 
 app.get('/api/:t', table, wrap(async (req, res) => {
   res.json((await pool.query(`SELECT * FROM ${req.params.t} ORDER BY id`)).rows.map(out));

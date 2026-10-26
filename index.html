@@ -83,6 +83,8 @@ td small{color:var(--muted)}
 .choice label{display:inline-flex;align-items:center;height:34px;padding:0 12px;border:1px solid var(--line);border-radius:6px;cursor:pointer;font-weight:400;font-size:13px}
 .choice input{display:none}
 .choice label:has(input:checked){border-color:var(--brand);background:var(--brand-soft);color:var(--brand);font-weight:500}
+.choice label.taken{opacity:.45;cursor:not-allowed;text-decoration:line-through;background:var(--bg)}
+.choice label.taken input{pointer-events:none}
 .calc{grid-column:1/-1;background:var(--bg);border-radius:6px;padding:10px 14px;display:flex;justify-content:space-between;font-weight:500}
 .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:6px;opacity:0;transition:.2s;pointer-events:none;z-index:60}
 .toast.show{opacity:1}
@@ -340,14 +342,19 @@ function acct(b, pm = {}){
   const waiters = num(b.waiter_cost), donation = Math.round(bill * donationPct(b)) / 100;
   return {bill, paid, recv, bal: bill - recv, waiters, donation, keep: bill - waiters - donation};
 }
-/* One hall holds one event per date and time. Returns the clashing booking, if any. */
+/* A booking can use several halls; `hall` holds them as "Hall 1, Hall 2". Each hall holds one event per date and time. */
+const halls = b => String(b.hall || '').split(',').map(h => h.trim()).filter(Boolean);
+/* Which booking has each hall on that date and time (excluding booking `id`). */
+function takenHalls(list, date, shift, id){
+  const t = {}; list.forEach(x => { if (x.id !== id && x.date === date && (x.shift||'') === (shift||'')) halls(x).forEach(h => t[h] = x); }); return t; }
+/* The first booking that already holds one of this booking's halls, if any. */
 function slotClash(list, b, id){
   if (!b.hall || !b.date) return null;
-  return list.find(x => x.id !== id && x.hall === b.hall && x.date === b.date && (x.shift||'') === (b.shift||'')) || null;
+  const t = takenHalls(list, b.date, b.shift, id); const h = halls(b).find(h => t[h]); return h ? t[h] : null;
 }
-const freeHalls = (list, date, shift, id) => HALLS.filter(h => !slotClash(list, {hall:h, date, shift}, id));
-const clashMsg = (b, c, list, id) => { const free = freeHalls(list, b.date, b.shift, id);
-  return `${b.hall} is already booked on ${fmtDate(b.date)}${b.shift?' ('+b.shift+')':''} for "${c.title}". ` + (free.length ? `Free that ${b.shift ? b.shift.toLowerCase() : 'time'}: ${free.join(', ')}.` : 'All halls are booked then.'); };
+const freeHalls = (list, date, shift, id) => { const t = takenHalls(list, date, shift, id); return HALLS.filter(h => !t[h]); };
+const clashMsg = (b, c, list, id) => { const t = takenHalls(list, b.date, b.shift, id), bad = halls(b).filter(h => t[h]), free = freeHalls(list, b.date, b.shift, id);
+  return `${bad.join(' and ')} ${bad.length > 1 ? 'are' : 'is'} already booked on ${fmtDate(b.date)}${b.shift?' ('+b.shift+')':''} (${[...new Set(bad.map(h => '"' + t[h].title + '"'))].join(', ')}). ` + (free.length ? `Free that ${b.shift ? b.shift.toLowerCase() : 'time'}: ${free.join(', ')}.` : 'All halls are booked then.'); };
 /* Units needing repair. Older records only had a condition, so treat those as the whole quantity. */
 const repairCount = a => (a.repair_qty !== undefined && a.repair_qty !== null && a.repair_qty !== '') ? num(a.repair_qty) : (a.condition && a.condition !== 'Good' ? num(a.qty) : 0);
 
@@ -396,7 +403,7 @@ const MODULES = {
     fields:[
       {section:'Event'},
       {k:'title', label:'Event title', full:true, req:true, ph:'e.g. Ahmed & Sara Wedding'},
-      {k:'hall', label:'Hall', type:'choice', opts:HALLS, req:true, full:true},
+      {k:'hall', label:'Halls', type:'multi', opts:HALLS, req:true, full:true, hint:'Tick every hall this event uses. Halls already booked for that date and time are greyed out.'},
       {k:'type', label:'Event type', type:'choice', opts:['Barat','Walima','Mehndi','Engagement','Birthday','Other'], def:'Barat', full:true},
       {k:'date', label:'Event date', type:'date', req:true, def:today},
       {k:'shift', label:'Time', type:'choice', opts:['Day','Night'], def:'Night'},
@@ -423,10 +430,11 @@ const MODULES = {
       {k:'notes', label:'Notes', type:'textarea', full:true, ph:'Menu, decoration, special requests…'}
     ],
     beforeSave(data){ data.extra_charges = String(extras({...data}).total); },
+    validateEarly: data => !data.hall ? 'Tick at least one hall.' : '',
     prep(row){ if (row.id) { if (row.donation_pct === '' || row.donation_pct == null) row.donation_pct = String(donationPct(row)); if (row.ac_rate === '' || row.ac_rate == null) row.ac_rate = Settings.get().ac_rate; } },
     cols:[
       {k:'date', label:'Date', f:r => fmtDate(r.date) + (r.booked_on ? `<br><small>Booked ${fmtDate(r.booked_on)}</small>` : '')},
-      {k:'hall', label:'Hall / Type', f:r => (r.hall ? `<span class="tag brand">${esc(r.hall)}</span>` : '<small>No hall</small>') + `<br><small>${esc(r.type||'')}${r.shift ? ' · ' + esc(r.shift) : ''}</small>`},
+      {k:'hall', label:'Hall / Type', f:r => (r.hall ? halls(r).map(h => `<span class="tag brand">${esc(h)}</span>`).join(' ') : '<small>No hall</small>') + `<br><small>${esc(r.type||'')}${r.shift ? ' · ' + esc(r.shift) : ''}</small>`},
       {k:'title', label:'Event', f:r => `<b>${esc(r.title)}</b><br><small>${esc(r.customer||'')} ${esc(r.phone||'')}</small>`},
       {k:'guests', label:'Guests', num:true, f:r => esc(r.guests) + (num(r.extra_guests) ? `<br><small>+${num(r.extra_guests)} extra</small>` : '')},
       {k:'_bill', label:'Bill', num:true, f:r => money(r._bill) + (num(r.extra_charges) ? `<br><small>incl. extra ${money(r.extra_charges)}${num(r.ac_units) ? ' · ' + num(r.ac_units) + ' AC' : ''}</small>` : '')},
@@ -652,7 +660,7 @@ async function renderModule(id){
   else rows.sort(m.sort);
   const all = rows;
   if (st.q) rows = rows.filter(r => Object.values(r).join(' ').toLowerCase().includes(st.q.toLowerCase()));
-  for (const [k,v] of Object.entries(st.f)) if (v) rows = rows.filter(r => r[k] === v);
+  for (const [k,v] of Object.entries(st.f)) if (v) rows = rows.filter(r => k === 'hall' ? halls(r).includes(v) : r[k] === v);
   if (st.from) rows = rows.filter(r => r[dk] && r[dk] >= st.from);
   if (st.to) rows = rows.filter(r => r[dk] && r[dk] <= st.to);
 
@@ -698,6 +706,7 @@ async function openForm(id, rowId){
   const optsOf = {}; for (const f of m.fields) if (typeof f.opts === 'function') optsOf[f.k] = await f.opts();
   const input = f => {
     const v = esc(val(f)), req = f.req ? 'required' : '';
+    if (f.type === 'multi') { const cur = halls({hall: val(f)}); return `<div class="choice" data-multi="${f.k}">${f.opts.map(o => `<label><input type="checkbox" name="${f.k}" value="${o}" ${cur.includes(o)?'checked':''}><span>${o}</span></label>`).join('')}</div>`; }
     if (f.type === 'choice') return `<div class="choice${f.opts.length <= 3 ? ' seg' : ''}">${f.opts.map(o => `<label><input type="radio" name="${f.k}" value="${o}" ${val(f)===o?'checked':''} ${req}><span>${o}</span></label>`).join('')}</div>`;
     if (f.type === 'textarea') return `<textarea name="${f.k}" rows="3" placeholder="${f.ph||''}">${v}</textarea>`;
     if (f.type === 'select') return combo({name:f.k, value:val(f), opts:optsOf[f.k] || f.opts, allowNew:!!f.addNew, required:!!f.req, placeholder:f.addNew ? 'Choose or type a new one' : 'Choose…'});
@@ -720,11 +729,15 @@ async function openForm(id, rowId){
       const extra = extras({extra_guests:F('extra_guests').value, extra_rate:F('extra_rate').value, per_head:F('per_head').value, ac_units:F('ac_units').value, ac_rate:F('ac_rate').value, other_charges:F('other_charges').value}).total;
       $('#bal').textContent = money(num(F('total').value) + extra - num(F('advance').value) - paid);
       $('#balx').textContent = extra || paid ? `Bill ${money(num(F('total').value) + extra)} incl. extras ${money(extra)}${paid ? ' · later payments ' + money(paid) : ''}` : '';
-      const b = {hall:F('hall').value, date:F('date').value, shift:F('shift').value}, box = $('#clash');
-      if (!b.hall || !b.date) { box.hidden = true; return; }
+      const picked = [...frm.querySelectorAll('input[name=hall]:checked')].map(i => i.value);
+      const b = {hall:picked.join(', '), date:F('date').value, shift:F('shift').value}, box = $('#clash');
+      const taken = b.date ? takenHalls(bookings, b.date, b.shift, rowId) : {};
+      frm.querySelectorAll('input[name=hall]').forEach(i => { const t = taken[i.value]; const lab = i.closest('label');
+        lab.classList.toggle('taken', !!t); lab.title = t ? `Booked for "${t.title}"` : ''; if (t && i.checked) { i.checked = false; b.hall = picked.filter(h => h !== i.value).join(', '); } });
+      if (!b.date || !b.hall) { box.hidden = !b.date; if (b.date) { box.className = 'calc note'; box.textContent = Object.keys(taken).length ? `Booked that ${b.shift ? b.shift.toLowerCase() : 'time'}: ${Object.keys(taken).join(', ')}. Tick the halls this event uses.` : 'All halls are free. Tick the halls this event uses.'; } return; }
       const c = slotClash(bookings, b, rowId);
       box.hidden = false; box.className = 'calc note ' + (c ? 'bad' : 'ok');
-      box.textContent = c ? clashMsg(b, c, bookings, rowId) : `${b.hall} is free on ${fmtDate(b.date)}${b.shift?' ('+b.shift+')':''}.`;
+      box.textContent = c ? clashMsg(b, c, bookings, rowId) : `${halls(b).join(' + ')} ${halls(b).length > 1 ? 'are' : 'is'} free on ${fmtDate(b.date)}${b.shift?' ('+b.shift+')':''}.`;
       $('#ferr').textContent = '';
     };
     frm.addEventListener('input', upd); frm.addEventListener('change', upd); upd();
@@ -738,8 +751,11 @@ async function openForm(id, rowId){
     const miss = [...frm.querySelectorAll('.combo input[type=hidden][required]')].find(h => !h.value);
     if (miss) { const lbl = (miss.closest('.field')?.querySelector('label')?.textContent || 'a value').replace('*','').trim();
       $('#ferr').textContent = `Please choose ${lbl}.`; btn.disabled = false; comboOpen(miss.closest('.combo').querySelector('.combo-btn')); return; }
+    if (m.validateEarly) { const fd0 = new FormData(frm), d0 = Object.fromEntries(fd0); for (const f of m.fields) if (f.type === 'multi') d0[f.k] = fd0.getAll(f.k).join(', ');
+      const e0 = m.validateEarly(d0); if (e0) { $('#ferr').textContent = e0; btn.disabled = false; return; } }
     try {
-      const data = Object.fromEntries(new FormData(frm)), raw = {...data};
+      const fd = new FormData(frm), data = Object.fromEntries(fd), raw = {...data};
+      for (const f of m.fields) if (f.type === 'multi') data[f.k] = fd.getAll(f.k).join(', ');
       if (m.beforeSave) m.beforeSave(data);
       const err = m.validate ? await m.validate(data, rowId) : '';
       if (err) { $('#ferr').textContent = err; return; }
