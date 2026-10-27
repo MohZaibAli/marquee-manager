@@ -176,7 +176,33 @@ select{appearance:none;-webkit-appearance:none;height:38px;padding:0 32px 0 10px
 .ledger table{width:100%}
 .panel .foot{padding:10px 16px;border-top:1px solid var(--line);font-weight:600;display:flex;justify-content:space-between}
 .printhead{display:none}
-@media print{.printhead{display:block;margin-bottom:12px}.printhead h1{font-size:20px}.top,.card.click{cursor:auto}.panel{break-inside:avoid}}
+@media print{
+  @page{margin:12mm 10mm}
+  body{background:#fff;font-size:11px;color:#000}
+  .top,.toast,.backdrop,.login{display:none!important}
+  .printhead{display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-bottom:2px solid #000;padding-bottom:6px;margin-bottom:12px}
+  .printhead h1{font-size:18px;margin:0}
+  .printhead .sub{font-size:12px;color:#444}
+  .printhead .stamp{font-size:10px;color:#666}
+  .cards{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:12px}
+  .card{padding:8px 10px;box-shadow:none;border:1px solid #ccc;border-radius:4px}
+  .card .lbl{font-size:10px;white-space:normal}
+  .card .val{font-size:14px;margin-top:2px}
+  .card .sub2{display:none}
+  .grid2{display:block}
+  .panel{break-inside:auto;box-shadow:none;border:1px solid #ccc;border-radius:4px;margin-bottom:12px}
+  .panel h2{font-size:12px;padding:8px 10px;break-after:avoid;background:#f3f3f3}
+  .panel .foot{padding:6px 10px;font-size:11px}
+  .tablewrap{overflow:visible}
+  table{font-size:10.5px}
+  thead{display:table-header-group}
+  tr,.foot{break-inside:avoid}
+  th,td{padding:5px 8px;white-space:normal}
+  th{font-size:9px;background:#fafafa}
+  td small{font-size:9px}
+  .tag{border:1px solid #ccc;background:none!important;color:#000!important;padding:0 5px;font-size:9px}
+  .empty{padding:10px;font-size:11px}
+}
 @media (max-width:860px){
   .app{grid-template-columns:1fr}
   aside{position:fixed;left:-260px;width:240px;z-index:40;transition:.2s}
@@ -497,7 +523,7 @@ const MODULES = {
     title:'Staff & Labor', icon:'users', single:'Staff member', sub:'Waiters, cooks, cleaners, guards and managers',
     fields:[
       {k:'name', label:'Full name', req:true, full:true},
-      {k:'role', label:'Role', type:'choice', opts:['Waiter','Labor','Cook','Cleaner','Guard','Manager','Other'], def:'Waiter', full:true},
+      {k:'role', label:'Role', type:'choice', opts:['Waiter','Labor','Cook','Cleaner','Guard','Electrician','Manager','Other'], def:'Waiter', full:true},
       {k:'phone', label:'Phone', type:'tel'},
       {k:'pay_type', label:'Paid', type:'choice', opts:['Monthly','Per event'], def:'Monthly'},
       {k:'salary', label:'Salary / rate', type:'number', req:true},
@@ -512,7 +538,7 @@ const MODULES = {
       {k:'salary', label:'Salary / rate', num:true, f:r => money(r.salary)},
       {k:'active', label:'Status', f:r => `<span class="tag ${r.active==='Left'?'bad':'ok'}">${esc(r.active)}</span>`}
     ],
-    filters:[{k:'role', label:'roles', opts:['Waiter','Labor','Cook','Cleaner','Guard','Manager','Other']},{k:'active', label:'statuses', opts:['Active','Left']}],
+    filters:[{k:'role', label:'roles', opts:['Waiter','Labor','Cook','Cleaner','Guard','Electrician','Manager','Other']},{k:'active', label:'statuses', opts:['Active','Left']}],
     sort:(a,b) => (a.name||'').localeCompare(b.name||'')
   },
   salaries: {
@@ -996,7 +1022,7 @@ async function renderReports(){
   // Month-by-month breakdown when the period is longer than one month
   const months = []; for (let m = from.slice(0,7); m <= to.slice(0,7); ) { months.push(m); const [y, mo] = m.split('-').map(Number); m = isoDate(new Date(y, mo, 1)).slice(0,7); }
   const monthly = months.length > 1 ? months.map(m => ({m, ...rangeTotals(d, m + '-01' < from ? from : m + '-01', monthEnd(m) > to ? to : monthEnd(m))})) : [];
-  $('#main').innerHTML = `<div class="printhead"><h1>${esc(Settings.get().hall)} · ${title}</h1><div class="sub">${label}</div></div>` +
+  $('#main').innerHTML = `<div class="printhead"><div><h1>${esc(Settings.get().hall)} · ${title}</h1><div class="sub">${label}</div></div><div class="stamp">Printed ${new Date().toLocaleString('en-GB', {day:'numeric', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit'})}</div></div>` +
     header(title, label,
     `<select onchange="setReport('kind', this.value)">${Object.entries(KINDS).map(([k, v]) => `<option value="${k}" ${report.kind===k?'selected':''}>${v}</option>`).join('')}</select>
      ${report.kind === 'custom'
