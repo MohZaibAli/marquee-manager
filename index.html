@@ -1031,7 +1031,7 @@ async function renderReports(){
      ${report.kind === 'custom'
        ? `<span class="dates"><input type="date" value="${report.from}" onchange="setReport('from', this.value)"> to <input type="date" value="${report.to}" onchange="setReport('to', this.value)"></span>`
        : `<button class="btn light" onclick="shiftPeriod(-1)" title="Previous">&lsaquo;</button><input type="${report.kind === 'month' ? 'month' : 'date'}" value="${report.kind === 'month' ? report.date.slice(0,7) : report.date}" onchange="setReport('date', this.value.length === 7 ? this.value + '-01' : this.value)" title="Any day inside the period"><button class="btn light" onclick="shiftPeriod(1)" title="Next">&rsaquo;</button>`}
-     <button class="btn" onclick="exportPDF(this)">PDF</button> <button class="btn light" onclick="window.print()">Print</button> <button class="btn light" onclick="exportCSV()">Excel</button>`) +
+     <button class="btn" onclick="exportPDF(this, 'print')">Print</button> <button class="btn light" onclick="exportPDF(this)">Download PDF</button> <button class="btn light" onclick="exportCSV()">Excel</button>`) +
   `<div class="cards">
     <div class="card"><div class="lbl">Income</div><div class="val">${money(t.income)}</div><div class="sub2">Bills of ${plural(t.events, 'event')}</div></div>
     <div class="card bad"><div class="lbl">Spent</div><div class="val">${money(t.spent)}</div><div class="sub2">Waiters, donation, salaries, expenses</div></div>
@@ -1091,8 +1091,11 @@ async function exportCSV(){
 
 /* ---------- PDF report (jsPDF + AutoTable, loaded on first use) ---------- */
 function loadScript(src){ return new Promise((ok, fail) => { if (document.querySelector(`script[src="${src}"]`)) return ok(); const t = document.createElement('script'); t.src = src; t.onload = ok; t.onerror = () => fail(new Error('Could not load ' + src)); document.head.appendChild(t); }); }
-async function exportPDF(btn){
+async function exportPDF(btn, mode){
   const old = btn.textContent; btn.disabled = true; btn.textContent = 'Preparing…';
+  // Open the tab now, while still inside the click, so pop-up blockers allow it; the PDF is put into it when ready.
+  const win = mode === 'print' ? window.open('', '_blank') : null;
+  if (win) { win.document.title = 'Preparing report…'; win.document.body.innerHTML = '<p style="font:14px system-ui;padding:20px">Preparing the report…</p>'; }
   try {
     await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
     await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.4/jspdf.plugin.autotable.min.js');
@@ -1154,8 +1157,9 @@ async function exportPDF(btn){
     const pages = doc.getNumberOfPages();
     for (let i = 1; i <= pages; i++) { doc.setPage(i); doc.setFontSize(8); doc.setTextColor(...muted); doc.setFont('helvetica','normal');
       doc.text(`${hall} - ${title} - ${label}`, L, 290); doc.text(`Page ${i} of ${pages}`, R, 290, {align:'right'}); }
-    doc.save(`report-${from}-to-${to}.pdf`);
-  } catch(err){ toast('Could not make the PDF: ' + err.message); }
+    if (win) { win.location.href = doc.output('bloburl'); }
+    else doc.save(`report-${from}-to-${to}.pdf`);
+  } catch(err){ if (win) win.close(); toast('Could not make the PDF: ' + err.message); }
   finally { btn.disabled = false; btn.textContent = old; }
 }
 
