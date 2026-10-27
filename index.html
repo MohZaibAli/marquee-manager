@@ -221,7 +221,7 @@ tr.foot td{font-weight:600;background:#fafafa;border-top:2px solid var(--line)}
   .btnrow .btn{flex:1 1 calc(50% - 8px)}
   .grid2,.modal .body{grid-template-columns:1fr}
 }
-@media print{aside,.btn,.toolbar,.actions,.mobilebar,.top input,.top select,.top .dates,.overlay{display:none!important}.app{display:block}main{padding:0}}
+@media print{aside,.btn,.toolbar,.actions,.mobilebar,.top input,.top select,.top .dates,.overlay{display:none!important}.app{display:block}}
 </style>
 <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
 </head>
@@ -1031,7 +1031,7 @@ async function renderReports(){
      ${report.kind === 'custom'
        ? `<span class="dates"><input type="date" value="${report.from}" onchange="setReport('from', this.value)"> to <input type="date" value="${report.to}" onchange="setReport('to', this.value)"></span>`
        : `<button class="btn light" onclick="shiftPeriod(-1)" title="Previous">&lsaquo;</button><input type="${report.kind === 'month' ? 'month' : 'date'}" value="${report.kind === 'month' ? report.date.slice(0,7) : report.date}" onchange="setReport('date', this.value.length === 7 ? this.value + '-01' : this.value)" title="Any day inside the period"><button class="btn light" onclick="shiftPeriod(1)" title="Next">&rsaquo;</button>`}
-     <button class="btn light" onclick="window.print()">Print</button> <button class="btn light" onclick="exportCSV()">Excel</button>`) +
+     <button class="btn" onclick="exportPDF(this)">PDF</button> <button class="btn light" onclick="window.print()">Print</button> <button class="btn light" onclick="exportCSV()">Excel</button>`) +
   `<div class="cards">
     <div class="card"><div class="lbl">Income</div><div class="val">${money(t.income)}</div><div class="sub2">Bills of ${plural(t.events, 'event')}</div></div>
     <div class="card bad"><div class="lbl">Spent</div><div class="val">${money(t.spent)}</div><div class="sub2">Waiters, donation, salaries, expenses</div></div>
@@ -1087,6 +1087,76 @@ async function exportCSV(){
   const csv = lines.map(r => r.map(c => `"${String(c??'').replace(/"/g,'""')}"`).join(',')).join('\n');
   const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv],{type:'text/csv'}));
   a.download = `report-${from}-to-${to}.csv`; a.click();
+}
+
+/* ---------- PDF report (jsPDF + AutoTable, loaded on first use) ---------- */
+function loadScript(src){ return new Promise((ok, fail) => { if (document.querySelector(`script[src="${src}"]`)) return ok(); const t = document.createElement('script'); t.src = src; t.onload = ok; t.onerror = () => fail(new Error('Could not load ' + src)); document.head.appendChild(t); }); }
+async function exportPDF(btn){
+  const old = btn.textContent; btn.disabled = true; btn.textContent = 'Preparing…';
+  try {
+    await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
+    await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.4/jspdf.plugin.autotable.min.js');
+    const d = await loadAll(), [from, to] = periodRange(report), t = rangeTotals(d, from, to), pm = paidMap(d.payments);
+    const hall = Settings.get().hall, cur = Settings.get().currency;
+    const M = v => cur + ' ' + num(v).toLocaleString('en-PK'), neg = v => num(v) ? '- ' + M(v) : M(0);
+    const title = `${KINDS[report.kind] === 'Custom range' ? '' : KINDS[report.kind] + ' '}Report`, label = periodLabel(report, from, to);
+    const doc = new jspdf.jsPDF({unit:'mm', format:'a4'}), W = 210, L = 14, R = W - 14, brand = [122,46,58], ink = [28,25,23], muted = [107,114,128], line = [229,231,235];
+    let y = 0;
+    // Header band
+    doc.setFillColor(...brand); doc.rect(0, 0, W, 26, 'F');
+    doc.setTextColor(255,255,255); doc.setFont('helvetica','bold'); doc.setFontSize(16); doc.text(hall, L, 11);
+    doc.setFont('helvetica','normal'); doc.setFontSize(11); doc.text(`${title}  |  ${label}`, L, 18.5);
+    doc.setFontSize(8.5); doc.text('Printed ' + new Date().toLocaleString('en-GB', {day:'numeric', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit'}), R, 18.5, {align:'right'});
+    y = 34;
+    // Summary boxes
+    const boxes = [['Income', M(t.income), ink], ['Spent', M(t.spent), [185,28,28]], ['Net profit', M(t.net), t.net >= 0 ? [21,128,61] : [185,28,28]], ['Donation', M(t.donations), brand], ['Money received', M(t.cashIn), ink]];
+    const bw = (R - L - 4 * 3) / 5;
+    boxes.forEach(([lbl, val, col], i) => { const x = L + i * (bw + 3);
+      doc.setDrawColor(...line); doc.setFillColor(250,250,249); doc.roundedRect(x, y, bw, 18, 1.5, 1.5, 'FD');
+      doc.setTextColor(...muted); doc.setFontSize(8); doc.setFont('helvetica','normal'); doc.text(lbl, x + 3, y + 6);
+      doc.setTextColor(...col); doc.setFontSize(11.5); doc.setFont('helvetica','bold'); doc.text(val, x + 3, y + 13.5); });
+    y += 26;
+    const section = (name) => { if (y > 262) { doc.addPage(); y = 18; }
+      doc.setTextColor(...ink); doc.setFont('helvetica','bold'); doc.setFontSize(12); doc.text(name, L, y); doc.setDrawColor(...ink); doc.setLineWidth(0.5); doc.line(L, y + 2, R, y + 2); y += 6; };
+    const tbl = (head, body, opts = {}) => { doc.autoTable({ startY: y, margin: {left: L, right: 14, top: 18, bottom: 18}, head: [head], body, theme: 'plain',
+        styles: {font:'helvetica', fontSize: 9.5, cellPadding: {top:2.4, bottom:2.4, left:2, right:2}, textColor: ink, lineColor: line, lineWidth: 0, overflow:'linebreak'},
+        headStyles: {fontSize: 8, textColor: muted, fontStyle:'bold', fillColor: [250,250,249]},
+        bodyStyles: {}, alternateRowStyles: {}, rowPageBreak: 'avoid', pageBreak: 'auto',
+        didParseCell: data => { const cs = (opts.columnStyles || {})[data.column.index]; if (cs && cs.halign) data.cell.styles.halign = cs.halign;
+          if (data.section === 'body') data.cell.styles.lineWidth = {bottom: 0.2}; if (data.row.raw && data.row.raw._foot) { data.cell.styles.fontStyle = 'bold'; data.cell.styles.lineWidth = {top: 0.5}; data.cell.styles.lineColor = ink; } },
+        ...opts }); y = doc.lastAutoTable.finalY + 10; };
+    const foot = (cells) => Object.assign(cells, {_foot:true});
+    const num_ = {halign:'right'}, w = (n, extra = {}) => ({cellWidth: n, ...extra}), dateW = w(22);
+    section('Profit & loss');
+    const pl = [[`Bookings income (${t.events} events, ${t.guests.toLocaleString('en-PK')} guests)`, M(t.income)], ['    Received for these events', M(t.received)], ['    Still to collect', M(t.pending)],
+      ...(t.waiters ? [['Paid to waiters', neg(t.waiters)]] : []), [`Donation (${num(Settings.get().donation_pct)}% of bills)`, neg(t.donations)], ['Staff salaries', neg(t.salaries)],
+      ...Object.entries(t.byCat).filter(([k]) => k !== ASSET_EXP).map(([k, v]) => [k, neg(v)]), ...(t.assetBuys ? [['Asset purchases', neg(t.assetBuys)]] : []), foot(['Net income / Net profit', M(t.net)])];
+    tbl(['Item', 'Amount'], pl, {columnStyles: {1: num_}, showHead: false});
+    section(`Events ${report.kind === 'day' ? 'today' : 'in this period'} (${t.events})`);
+    if (t.events) tbl(['Date', 'Event', 'Hall / Time', 'Guests', 'Bill', 'Waiters', 'Donation', 'Balance'],
+      [...t.bookings.map(b => { const a = acct(b, pm); return [fmtDate(b.date), `${b.title}\n${b.customer || ''} ${b.phone || ''}`.trim(), `${b.hall || ''}\n${b.type || ''} ${b.shift ? '- ' + b.shift : ''}`.trim(), num(b.guests) + (num(b.extra_guests) ? ' +' + num(b.extra_guests) : ''), M(a.bill), M(a.waiters), M(a.donation), a.bal <= 0 ? 'Paid' : M(a.bal)]; }),
+       foot(['', plural(t.events, 'event'), '', '', M(t.income), M(t.waiters), M(t.donations), M(sum(t.bookings, b => Math.max(0, acct(b, pm).bal)))])],
+      {styles: {fontSize: 8.5, cellPadding: {top:2, bottom:2, left:1.5, right:1.5}}, columnStyles: {0: w(20), 1: w(40), 2: w(28), 3: w(14, num_), 4: w(22, num_), 5: w(18, num_), 6: w(18, num_), 7: w(22, num_)}});
+    else { doc.setFontSize(9.5); doc.setTextColor(...muted); doc.text('No events.', L, y); y += 10; }
+    const simple = (name, rows, head, cols, footRow) => { section(`${name} (${rows.length})`); if (!rows.length) { doc.setFontSize(9.5); doc.setTextColor(...muted); doc.text('None.', L, y); y += 10; return; } tbl(head, [...rows, foot(footRow)], {columnStyles: cols}); };
+    const months = []; for (let m = from.slice(0,7); m <= to.slice(0,7); ) { months.push(m); const [yy, mo] = m.split('-').map(Number); m = isoDate(new Date(yy, mo, 1)).slice(0,7); }
+    if (months.length > 1) { section('Month by month');
+      const mt = months.map(m => ({m, ...rangeTotals(d, m + '-01' < from ? from : m + '-01', monthEnd(m) > to ? to : monthEnd(m))}));
+      tbl(['Month', 'Events', 'Income', 'Donation', 'Spent', 'Net profit'], [...mt.map(x => [monthName(x.m), String(x.events), M(x.income), M(x.donations), M(x.spent), M(x.net)]), foot(['Total', String(t.events), M(t.income), M(t.donations), M(t.spent), M(t.net)])],
+        {columnStyles: {0: w(40), 1: w(18, num_), 2: num_, 3: num_, 4: num_, 5: num_}}); }
+    const amt = w(30, num_);
+    simple('New bookings made', t.booked.map(b => [fmtDate(b.booked_on), `${b.title}\n${b.customer || ''} ${b.phone || ''}`.trim(), `${fmtDate(b.date)}\n${b.hall || ''} ${b.shift ? '- ' + b.shift : ''}`.trim(), M(b.advance)]), ['Booked on', 'Event', 'Event date', 'Advance'], {0: dateW, 3: amt}, ['', plural(t.booked.length, 'booking'), '', M(sum(t.booked, b => b.advance))]);
+    simple('Payments received', t.payments.map(p => { const b = d.bookings.find(x => x.id === p.booking_id); return [fmtDate(p.date), b ? `${b.title}\n${fmtDate(b.date)}` : 'Booking deleted', p.method || '', M(p.amount)]; }), ['Date', 'Booking', 'Paid by', 'Amount'], {0: dateW, 3: amt}, ['', plural(t.payments.length, 'payment'), '', M(sum(t.payments, p => p.amount))]);
+    simple('Expenses', t.expRows.map(e => [fmtDate(e.date), e.category || '', e.description || '', M(e.amount)]), ['Date', 'Category', 'Description', 'Amount'], {0: dateW, 1: w(34), 3: amt}, ['', plural(t.expRows.length, 'expense'), '', M(t.expenses)]);
+    simple('Salaries paid', t.salaryRows.map(x => [fmtDate(x.date), x.staff_name || '', x.for_month ? monthName(x.for_month) : '', M(x.amount)]), ['Date', 'Staff', 'For month', 'Amount'], {0: dateW, 3: amt}, ['', plural(t.salaryRows.length, 'payment'), '', M(t.salaries)]);
+    simple('Assets purchased', t.assets.map(a => [fmtDate(a.purchased), a.name || '', a.category || '', String(num(a.qty)), M(num(a.qty) * num(a.unit_value))]), ['Date', 'Item', 'Category', 'Qty', 'Value'], {0: dateW, 3: w(16, num_), 4: amt}, ['', plural(t.assets.length, 'item'), '', '', M(sum(t.assets, a => num(a.qty) * num(a.unit_value)))]);
+    // Footer on every page
+    const pages = doc.getNumberOfPages();
+    for (let i = 1; i <= pages; i++) { doc.setPage(i); doc.setFontSize(8); doc.setTextColor(...muted); doc.setFont('helvetica','normal');
+      doc.text(`${hall} - ${title} - ${label}`, L, 290); doc.text(`Page ${i} of ${pages}`, R, 290, {align:'right'}); }
+    doc.save(`report-${from}-to-${to}.pdf`);
+  } catch(err){ toast('Could not make the PDF: ' + err.message); }
+  finally { btn.disabled = false; btn.textContent = old; }
 }
 
 /* ---------- Settings ---------- */
