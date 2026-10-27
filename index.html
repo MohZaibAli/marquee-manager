@@ -174,34 +174,37 @@ select{appearance:none;-webkit-appearance:none;height:38px;padding:0 32px 0 10px
 .view .sect{margin:10px 20px 0}
 @media (max-width:860px){.kv{grid-template-columns:1fr}}
 .ledger table{width:100%}
-.panel .foot{padding:10px 16px;border-top:1px solid var(--line);font-weight:600;display:flex;justify-content:space-between}
+tr.foot td{font-weight:600;background:#fafafa;border-top:2px solid var(--line)}
 .printhead{display:none}
 @media print{
-  @page{margin:12mm 10mm}
-  body{background:#fff;font-size:11px;color:#000}
+  @page{margin:0}
+  html,body{background:#fff}
+  body{font-size:13px;color:#000;line-height:1.45}
+  main{padding:14mm 12mm 16mm}
   .top,.toast,.backdrop,.login{display:none!important}
   .printhead{display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-bottom:2px solid #000;padding-bottom:6px;margin-bottom:12px}
-  .printhead h1{font-size:18px;margin:0}
-  .printhead .sub{font-size:12px;color:#444}
-  .printhead .stamp{font-size:10px;color:#666}
-  .cards{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:12px}
-  .card{padding:8px 10px;box-shadow:none;border:1px solid #ccc;border-radius:4px}
-  .card .lbl{font-size:10px;white-space:normal}
-  .card .val{font-size:14px;margin-top:2px}
+  .printhead h1{font-size:22px;margin:0}
+  .printhead .sub{font-size:14px;color:#444}
+  .printhead .stamp{font-size:11px;color:#666}
+  .cards{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:16px}
+  .card{padding:10px 12px;box-shadow:none;border:1px solid #bbb;border-radius:4px}
+  .card .lbl{font-size:11px;white-space:normal;color:#444}
+  .card .val{font-size:17px;margin-top:2px}
   .card .sub2{display:none}
   .grid2{display:block}
-  .panel{break-inside:auto;box-shadow:none;border:1px solid #ccc;border-radius:4px;margin-bottom:12px}
-  .panel h2{font-size:12px;padding:8px 10px;break-after:avoid;background:#f3f3f3}
-  .panel .foot{padding:6px 10px;font-size:11px}
+  .panel{break-inside:auto;box-shadow:none;border:0;border-radius:0;margin-bottom:18px}
+  .panel h2{font-size:15px;padding:0 0 6px;border-bottom:2px solid #000;break-after:avoid;background:none}
   .tablewrap{overflow:visible}
-  table{font-size:10.5px}
+  table{font-size:12.5px}
   thead{display:table-header-group}
-  tr,.foot{break-inside:avoid}
-  th,td{padding:5px 8px;white-space:normal}
-  th{font-size:9px;background:#fafafa}
-  td small{font-size:9px}
-  .tag{border:1px solid #ccc;background:none!important;color:#000!important;padding:0 5px;font-size:9px}
-  .empty{padding:10px;font-size:11px}
+  tr{break-inside:avoid}
+  th,td{padding:7px 8px;white-space:normal;border-bottom:1px solid #ddd}
+  td.num,th.num,td:first-child{white-space:nowrap}
+  th{font-size:10px;background:none;color:#444}
+  td small{font-size:11px;color:#555}
+  tr.foot td{background:none;border-top:2px solid #000;border-bottom:0}
+  .tag{border:1px solid #999;background:none!important;color:#000!important;padding:0 6px;font-size:11px}
+  .empty{padding:8px 0;font-size:12px;text-align:left;color:#555}
 }
 @media (max-width:860px){
   .app{grid-template-columns:1fr}
@@ -1016,7 +1019,7 @@ async function renderReports(){
   const d = await loadAll(), [from, to] = periodRange(report), t = rangeTotals(d, from, to), pm = paidMap(d.payments);
   const title = `${KINDS[report.kind] === 'Custom range' ? '' : KINDS[report.kind] + ' '}Report`, label = periodLabel(report, from, to);
   const row = (l, v, cls='') => `<tr><td>${l}</td><td class="num" style="${num(v) < 0 ? 'color:var(--bad)' : ''}">${num(v) < 0 ? '− ' + money(-num(v)) : money(v)}</td></tr>`;
-  const table = (head, rows, foot) => rows.length ? `<div class="tablewrap"><table><thead><tr>${head.map(h => `<th class="${h.endsWith('#')?'num':''}">${h.replace(/#$/,'')}</th>`).join('')}</tr></thead><tbody>${rows.join('')}</tbody></table></div>${foot ? `<div class="foot">${foot}</div>` : ''}` : '';
+  const table = (head, rows, foot) => rows.length ? `<div class="tablewrap"><table><thead><tr>${head.map(h => `<th class="${h.endsWith('#')?'num':''}">${h.replace(/#$/,'')}</th>`).join('')}</tr></thead><tbody>${rows.join('')}${foot ? `<tr class="foot">${foot.replace(/^<span>(.*?)<\/span><span>(.*?)<\/span>$/, (m, a, b) => `<td colspan="${head.length - 1}">${a}</td><td class="num">${b}</td>`)}</tr>` : ''}</tbody></table></div>` : '';
   const panel = (h2, body, empty) => `<div class="panel"><h2>${h2}</h2>${body || `<div class="empty">${empty}</div>`}</div>`;
   const cell = (v, num) => `<td class="${num?'num':''}">${v}</td>`;
   // Month-by-month breakdown when the period is longer than one month
