@@ -351,12 +351,19 @@ const ASSET_CATS = ['Furniture','Sofas','Chairs','Tables','Stage & Decor','Light
   'Crockery','Cutlery & Spoons','Glassware','Linen & Cloth','Carpets','Tents & Canopy','Electronics','Vehicles','Building','Tools','Other'];
 const EXP_CATS = ['Maintenance','Printing','Building','Electricity','Gas & Water','Food & Supplies','Decoration','Asset purchase','Other'];
 const ASSET_EXP = 'Asset purchase'; // expense category written automatically when an asset is bought
-/* Asset categories = the built-in list plus the ones the user adds (categories table, kind 'asset'). */
-async function assetCats(){ const own = (await DB.list('categories')).filter(c => c.kind === 'asset').map(c => c.name);
-  return [...ASSET_CATS.filter(c => c !== 'Other'), ...own.filter(c => !ASSET_CATS.includes(c)).sort(), 'Other']; }
+const ROLES = ['Waiter','Labor','Cook','Cleaner','Guard','Electrician','Manager','Other'];
+/* Each list = built-in names plus the ones the user adds (categories table, by kind). */
+const KINDS_CAT = {asset:{label:'Asset categories', builtin:ASSET_CATS, table:'assets', field:'category', hint:'from the asset form'},
+                   expense:{label:'Expense categories', builtin:EXP_CATS, table:'expenses', field:'category', hint:'from the expense form'},
+                   role:{label:'Staff roles', builtin:ROLES, table:'staff', field:'role', hint:'from the staff form'}};
+async function catsOf(kind){ const k = KINDS_CAT[kind], own = (await DB.list('categories')).filter(c => c.kind === kind).map(c => c.name);
+  return [...k.builtin.filter(c => c !== 'Other'), ...own.filter(c => !k.builtin.includes(c)).sort(), 'Other']; }
+const assetCats = () => catsOf('asset'), expenseCats = () => catsOf('expense'), roleList = () => catsOf('role');
 async function addCategory(kind, name){ name = (name || '').trim(); if (!name) return '';
-  const all = await DB.list('categories'); if (!all.some(c => c.kind === kind && c.name.toLowerCase() === name.toLowerCase()) && !ASSET_CATS.some(c => c.toLowerCase() === name.toLowerCase())) await DB.create('categories', {kind, name});
+  const all = await DB.list('categories'), lc = name.toLowerCase();
+  if (!all.some(c => c.kind === kind && c.name.toLowerCase() === lc) && !KINDS_CAT[kind].builtin.some(c => c.toLowerCase() === lc)) await DB.create('categories', {kind, name});
   return name; }
+const needCat = (kind, label) => async data => { const k = KINDS_CAT[kind]; data[k.field] = (data[k.field] || '').trim(); if (!data[k.field]) return `Choose or type a ${label}.`; await addCategory(kind, data[k.field]); return ''; };
 /* Extra charges on a booking: extra guests × rate, AC / chillers × rate, anything else. */
 const guestRate = b => num(b.extra_rate) || num(b.per_head); // rate for extra guests: its own, else the booking's rate
 function extras(b){ const guests = num(b.extra_guests) * guestRate(b), ac = num(b.ac_units) * num(b.ac_rate), other = num(b.other_charges);
@@ -526,7 +533,7 @@ const MODULES = {
     title:'Staff & Labor', icon:'users', single:'Staff member', sub:'Waiters, cooks, cleaners, guards and managers',
     fields:[
       {k:'name', label:'Full name', req:true, full:true},
-      {k:'role', label:'Role', type:'choice', opts:['Waiter','Labor','Cook','Cleaner','Guard','Electrician','Manager','Other'], def:'Waiter', full:true},
+      {k:'role', label:'Role / designation', type:'select', opts:roleList, def:'Waiter', addNew:true, req:true, full:true, hint:'Pick one or type a new designation'},
       {k:'phone', label:'Phone', type:'tel'},
       {k:'pay_type', label:'Paid', type:'choice', opts:['Monthly','Per event'], def:'Monthly'},
       {k:'salary', label:'Salary / rate', type:'number', req:true},
@@ -541,7 +548,8 @@ const MODULES = {
       {k:'salary', label:'Salary / rate', num:true, f:r => money(r.salary)},
       {k:'active', label:'Status', f:r => `<span class="tag ${r.active==='Left'?'bad':'ok'}">${esc(r.active)}</span>`}
     ],
-    filters:[{k:'role', label:'roles', opts:['Waiter','Labor','Cook','Cleaner','Guard','Electrician','Manager','Other']},{k:'active', label:'statuses', opts:['Active','Left']}],
+    filters:[{k:'role', label:'roles', opts:roleList},{k:'active', label:'statuses', opts:['Active','Left']}],
+    validate: needCat('role', 'role'),
     sort:(a,b) => (a.name||'').localeCompare(b.name||'')
   },
   salaries: {
@@ -569,7 +577,7 @@ const MODULES = {
   expenses: {
     title:'Expenses', icon:'receipt', single:'Expense', sub:'Maintenance, printing, building, bills and more',
     fields:[
-      {k:'category', label:'Category', type:'choice', opts:EXP_CATS, def:'Maintenance', full:true},
+      {k:'category', label:'Category', type:'select', opts:expenseCats, def:'Maintenance', addNew:true, req:true, full:true, hint:'Pick one or type a new category'},
       {k:'description', label:'What was it for?', req:true, full:true, ph:'e.g. AC repair, wedding cards'},
       {k:'date', label:'Date', type:'date', def:today, req:true},
       {k:'amount', label:'Amount', type:'number', req:true},
@@ -581,7 +589,8 @@ const MODULES = {
       {k:'description', label:'Description', f:r => esc(r.description) + (r.asset_id ? '<br><small>Linked to an asset. Edit the asset to change it.</small>' : '')},
       {k:'amount', label:'Amount', num:true, f:r => money(r.amount)}
     ],
-    filters:[{k:'category', label:'categories', opts:EXP_CATS}],
+    filters:[{k:'category', label:'categories', opts:expenseCats}],
+    validate: needCat('expense', 'category'),
     dateFilter:'Date',
     summary: rows => `Total ${money(sum(rows, r => r.amount))}`,
     sort:(a,b) => (b.date||'').localeCompare(a.date||'')
@@ -619,9 +628,7 @@ const MODULES = {
     },
     beforeSave(data){ data.condition = num(data.repair_qty) > 0 ? 'Needs repair' : 'Good'; delete data.add_expense;
       data.category = (data.category || '').trim(); },
-    async validate(data){ if (!data.category) return 'Choose or type a category.';
-      if (num(data.repair_qty) > num(data.qty)) return `Only ${num(data.qty)} in total, so no more than ${num(data.qty)} can need repair.`;
-      await addCategory('asset', data.category); return ''; },
+    async validate(data){ if (num(data.repair_qty) > num(data.qty)) return `Only ${num(data.qty)} in total, so no more than ${num(data.qty)} can need repair.`; return needCat('asset', 'category')(data); },
     /* Keep one "Asset purchase" expense in step with the asset, or remove it when the box is unticked. */
     async afterSave(raw, saved){
       const amount = num(saved.qty) * num(saved.unit_value), linked = (await DB.list('expenses')).find(e => e.asset_id === saved.id);
@@ -1173,11 +1180,11 @@ function renderSettings(){
     <div class="field"><label>Currency</label><input name="currency" value="${esc(s.currency)}"></div>
     <div class="field"><label>Donation % of each event's bill</label><input name="donation_pct" type="number" min="0" step="0.5" inputmode="decimal" value="${esc(s.donation_pct)}"><span class="hint">Used for new bookings. Each booking keeps its own % and can be changed in Edit or Payment.</span></div>
     <div class="field"><label>Cost per AC / chiller (default)</label><input name="ac_rate" type="number" min="0" inputmode="numeric" value="${esc(s.ac_rate)}" placeholder="e.g. 5000"><span class="hint">Pre-filled in the Payment window. You can change it per event.</span></div>
-  </div><h2>Asset categories</h2><div class="body">
-    <div class="hint">Built-in categories are always there. Add your own here or from the asset form; they appear in the category dropdown and filter.</div>
-    <div id="catList" class="btnrow"></div>
-    <div class="row"><input id="newCat" placeholder="New category, e.g. Spoons" style="height:36px;padding:0 10px;border:1px solid var(--line);border-radius:6px;flex:1;min-width:160px"><button type="button" class="btn light" onclick="newCategory()">Add category</button></div>
-  </div><h2>Where is data saved?</h2><div class="body">
+  </div>${Object.entries(KINDS_CAT).map(([kind, k]) => `<h2>${k.label}</h2><div class="body">
+    <div class="hint">Built-in ones are always there. Add your own here or ${k.hint}; they appear in the dropdown and the filter.</div>
+    <div id="catList-${kind}" class="btnrow"></div>
+    <div class="row"><input id="newCat-${kind}" placeholder="New ${kind === 'role' ? 'role, e.g. Driver' : 'category'}" style="height:36px;padding:0 10px;border:1px solid var(--line);border-radius:6px;flex:1;min-width:160px"><button type="button" class="btn light" onclick="newCategory('${kind}')">Add</button></div>
+  </div>`).join('')}<h2>Where is data saved?</h2><div class="body">
     ${SERVER
       ? '<div class="status"><span class="dot"></span> Saved online in your database. Every device that signs in sees the same data.</div>'
       : '<div class="status"><span class="dot" style="background:var(--warn)"></span> Saved in this browser only. Download a backup often.</div>'}
@@ -1194,14 +1201,15 @@ function renderSettings(){
   renderCategories();
 }
 async function renderCategories(){
-  const own = (await DB.list('categories')).filter(c => c.kind === 'asset');
-  $('#catList').innerHTML = ASSET_CATS.map(c => `<span class="tag brand" style="padding:6px 10px">${esc(c)}</span>`).join('') +
-    own.map(c => `<span class="tag ok" style="padding:4px 4px 4px 10px">${esc(c.name)} <button type="button" class="close" style="font-size:16px" title="Remove" onclick="removeCategory('${c.id}','${esc(c.name)}')">&times;</button></span>`).join('');
+  const all = await DB.list('categories');
+  for (const [kind, k] of Object.entries(KINDS_CAT)) { const own = all.filter(c => c.kind === kind), el = $('#catList-' + kind); if (!el) continue;
+    el.innerHTML = k.builtin.map(c => `<span class="tag brand" style="padding:6px 10px">${esc(c)}</span>`).join('') +
+      own.map(c => `<span class="tag ok" style="padding:4px 4px 4px 10px">${esc(c.name)} <button type="button" class="close" style="font-size:16px" title="Remove" onclick="removeCategory('${kind}','${c.id}','${esc(c.name)}')">&times;</button></span>`).join(''); }
 }
-async function newCategory(){ const n = await addCategory('asset', $('#newCat').value); if (!n) return; $('#newCat').value = ''; toast('Category added'); renderCategories(); }
-async function removeCategory(id, name){
-  const used = (await DB.list('assets')).filter(a => a.category === name).length;
-  if (!await confirmBox({title:`Remove "${name}"?`, text: used ? `${used} asset(s) use it. They keep the name, but it leaves the dropdown.` : 'It leaves the dropdown.', ok:'Remove'})) return;
+async function newCategory(kind){ const inp = $('#newCat-' + kind), n = await addCategory(kind, inp.value); if (!n) return; inp.value = ''; toast('Added'); renderCategories(); }
+async function removeCategory(kind, id, name){
+  const k = KINDS_CAT[kind], used = (await DB.list(k.table)).filter(r => r[k.field] === name).length;
+  if (!await confirmBox({title:`Remove "${name}"?`, text: used ? `${used} record(s) use it. They keep the name, but it leaves the dropdown.` : 'It leaves the dropdown.', ok:'Remove'})) return;
   await DB.remove('categories', id); renderCategories();
 }
 async function backup(){
